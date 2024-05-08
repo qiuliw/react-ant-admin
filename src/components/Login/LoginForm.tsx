@@ -1,7 +1,12 @@
-import { Button, Form, Input, Divider } from 'antd';
+import { login } from '@/services/y2/api';
+import { getFakeCaptcha } from '@/services/y2/login';
+import { Alert, message, Tabs, Button, Form, Input, Divider } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { FormattedMessage, useIntl } from '@umijs/max';
+import { FormattedMessage, history, useIntl, useModel } from '@umijs/max';
+import React, { useState } from 'react';
+import { flushSync } from 'react-dom';
 import './Login.scss';
+
 
 // 子组件定义传参类型
 export interface ChildComponentProps{
@@ -13,10 +18,57 @@ export default  function LoginForm(props:ChildComponentProps) {
     //国际化
     const intl = useIntl();
 
+    const [userLoginState, setUserLoginState] = useState<API.LoginResult>({});
+    const [type, setType] = useState<string>('account');
+    const { initialState, setInitialState } = useModel('@@initialState');
+    
     // 登录按钮事件   values:所有表单数据 {"username": "admin","password": "ant.design"}
-    const onFinish = (values: any) => {
-        console.log('Received values of form: ', values);
+    // const onFinish = (values: any) => {
+    //     console.log('Received values of form: ', values);
+    // };
+
+    const fetchUserInfo = async () => {
+      const userInfo = await initialState?.fetchUserInfo?.();
+      if (userInfo) {
+        flushSync(() => {
+          setInitialState((s) => ({
+            ...s,
+            currentUser: userInfo,
+          }));
+        });
+      }
     };
+
+
+    const onFinish = async (values: API.LoginParams) => {
+      try {
+        // 登录
+        const msg = await login({ ...values, type });
+        if (msg.code === 0) {
+          const token = msg.token;
+          localStorage.setItem('token', token);
+          const defaultLoginSuccessMessage = intl.formatMessage({
+            id: 'pages.login.success',
+            defaultMessage: '登录成功！',
+          });
+          message.success(defaultLoginSuccessMessage);
+          await fetchUserInfo();
+          const urlParams = new URL(window.location.href).searchParams;
+          history.push(urlParams.get('redirect') || '/');
+          return;
+        }
+        console.log(msg);
+        // 如果失败去设置用户错误信息
+        setUserLoginState(msg);
+      } catch (error) {
+        const defaultLoginFailureMessage = intl.formatMessage({
+          id: 'pages.login.failure',
+          defaultMessage: '登录失败，请重试！',
+        });
+        console.log(error);
+        message.error(defaultLoginFailureMessage);
+      }
+    };    
     
     // 去注册
     const goToRegister=()=>{
@@ -27,6 +79,7 @@ export default  function LoginForm(props:ChildComponentProps) {
     const goToForget=()=>{
       props.changeForm(2)
     }
+
 
 
 

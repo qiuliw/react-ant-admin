@@ -1,6 +1,6 @@
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { createStyles } from 'antd-style';
-import { FormattedMessage, useIntl, SelectLang } from '@umijs/max';
+import { FormattedMessage, history, useIntl, useModel, SelectLang } from '@umijs/max';
 import './index.scss';
 import langShow from '@/locales/langShow';
 import API from '@/services/user';
@@ -116,6 +116,8 @@ const Login: React.FC = () => {
   // 0: 登录、1: 注册、2: 忘记密码
   const [formIndex,setFormIndex] = useState(0) ;
   const changeForm = (value:number) => setFormIndex(value)
+
+
 
 
   return (
