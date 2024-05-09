@@ -1,8 +1,10 @@
+import Callapse from '@/components/Card/OpenStoreGuidance';
 import { Card, Space } from 'antd';
-
+import styles from './index.scss';
 export default () => {
   return (
-    <div style={{
+    <div 
+    style={{
       width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center'
     }}>
       <div className="content" style={{
@@ -26,12 +28,8 @@ export default () => {
             <p>Card content</p>
             <p>Card content</p>
           </Card>
-          <Card title="Default size card" extra={<a href="#">More</a>} style={{width: '100%'}} >
-            <p>Card content</p>
-            <p>Card content</p>
-            <p>Card content</p>
-          </Card>
-
+          <Callapse/>
+          
         </Space>
       </div>
     </div>
