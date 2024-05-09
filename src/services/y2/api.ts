@@ -6,15 +6,15 @@ import { request } from '@umijs/max';
 export async function currentUser(options?: { [key: string]: any }) {
   return request<{
     data: API.CurrentUser;
-  }>('/api/currentUser', {
+  }>('/api/ApiAppstore/currentUser', {
     method: 'GET',
     ...(options || {}),
   });
 }
 
-/** 退出登录接口 POST /api/login/outLogin */
-export async function outLogin(options?: { [key: string]: any }) {
-  return request<Record<string, any>>('/api/login/outLogin', {
+/** 退出登录接口 POST /api/ApiAppstore/logout */
+export async function logout(options?: { [key: string]: any }) {
+  return request<Record<string, any>>('/api/ApiAppstore/logout', {
     method: 'POST',
     ...(options || {}),
   });
