@@ -45,7 +45,7 @@ const getAccess = () => {
 // 代码中会兼容本地 service mock 以及部署站点的静态数据
 export default {
   // 支持值为 Object 和 Array
-  'GET /api/currentUser': (req: Request, res: Response) => {
+  'GET /api/ApiAppstore/currentUser': (req: Request, res: Response) => {
     if (!getAccess()) {
       res.status(401).send({
         data: {
@@ -172,7 +172,7 @@ export default {
     });
     access = 'guest';
   },
-  'POST /api/login/outLogin': (req: Request, res: Response) => {
+  'POST /api/ApiAppstore/logout': (req: Request, res: Response) => {
     access = '';
     res.send({ data: {}, success: true });
   },
