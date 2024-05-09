@@ -24,31 +24,31 @@ const tabs: Tab[] = [
     {
         svg: <ShopTwoTone />,
         name: "添加商品1",
-        title: "您已添加了新产品",
+        title: "您已添加了新产品11111111",
         desc: "您还可以继续添加更多新产品",
         buttonText: "去添加",
         img: <img src="https://gw.alipayobjects.com/zos/antfincdn/FLrTNDvlna/antv.png" alt="antv" />
     },
     {
         svg: <ShopTwoTone />,
-        name: "添加商品1",
-        title: "您已添加了新产品",
+        name: "添加商品2",
+        title: "您已添加了新产品2222222222",
         desc: "您还可以继续添加更多新产品",
         buttonText: "去添加",
         img: <img src="https://gw.alipayobjects.com/zos/antfincdn/FLrTNDvlna/antv.png" alt="antv" />
     },
     {
         svg: <ShopTwoTone />,
-        name: "添加商品1",
-        title: "您已添加了新产品",
+        name: "添加商品3",
+        title: "您已添加了新产品333333333",
         desc: "您还可以继续添加更多新产品",
         buttonText: "去添加",
         img: <img src="https://gw.alipayobjects.com/zos/antfincdn/FLrTNDvlna/antv.png" alt="antv" />
     },
     {
         svg: <ShopTwoTone />,
-        name: "添加商品1",
-        title: "您已添加了新产品",
+        name: "添加商品4",
+        title: "您已添加了新产品4444444",
         desc: "您还可以继续添加更多新产品",
         buttonText: "去添加",
         img: <img src="https://gw.alipayobjects.com/zos/antfincdn/FLrTNDvlna/antv.png" alt="antv" />
