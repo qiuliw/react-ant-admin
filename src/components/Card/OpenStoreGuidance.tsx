@@ -2,7 +2,7 @@ import React from 'react';
 import type { CollapseProps, ProgressProps } from 'antd';
 import { Button, Collapse, ConfigProvider, Progress, Space } from 'antd';
 import styles from './OpenStoreGuidance..module.scss'
-import { ShopTwoTone } from '@ant-design/icons';
+import { ShopOutlined,CheckCircleFilled ,ShopTwoTone} from '@ant-design/icons';
 import { useState } from 'react';
 import classNames from 'classnames';
 // 渐变
@@ -17,49 +17,75 @@ type Tab = {
     title: string,
     desc: string,
     buttonText: string
-    img: React.ReactNode
+    img: string
+    done: boolean
+    doneTitle: string,
+    doneDesc: string,
+    doneButtonText: string
+    doneImg: string
 }
 // 标签数据
 const tabs: Tab[] = [
     {
-        svg: <ShopTwoTone />,
-        name: "添加商品1",
-        title: "您已添加了新产品11111111",
+        svg: <ShopOutlined />,
+        name: "添加商品",
+        title: "添加商品",
         desc: "您还可以继续添加更多新产品",
         buttonText: "去添加",
-        img: <img src="https://gw.alipayobjects.com/zos/antfincdn/FLrTNDvlna/antv.png" alt="antv" />
-    },
-    {
-        svg: <ShopTwoTone />,
-        name: "添加商品2",
-        title: "您已添加了新产品2222222222",
+        img: 'icons/addProductDone.svg',
+        done: true,
+        doneTitle: "您已添加了新产品",
+        doneDesc: "您还可以继续添加更多新产品",
+        doneButtonText: "去添加",
+        doneImg: 'icons/addProductDone.svg'
+    },{
+        svg: <ShopOutlined />,
+        name: "配置物流",
+        title: "配置物流",
         desc: "您还可以继续添加更多新产品",
         buttonText: "去添加",
-        img: <img src="https://gw.alipayobjects.com/zos/antfincdn/FLrTNDvlna/antv.png" alt="antv" />
-    },
-    {
-        svg: <ShopTwoTone />,
-        name: "添加商品3",
-        title: "您已添加了新产品333333333",
+        img: 'icons/addProductDone.svg',
+        done: true,
+        doneTitle: "您已配置了物流",
+        doneDesc: "SHOPLINE支持按重量等多个维度设置不同国家/地区的物流模版，也可同时支持多个方案。在后台也可以添加物流商",
+        doneButtonText: "设置物流方式",
+        doneImg: 'icons/setupLogisticsDone.svg'
+    },{
+        svg: <ShopOutlined />,
+        name: "设定收款",
+        title: "设定收款",
         desc: "您还可以继续添加更多新产品",
         buttonText: "去添加",
-        img: <img src="https://gw.alipayobjects.com/zos/antfincdn/FLrTNDvlna/antv.png" alt="antv" />
-    },
-    {
-        svg: <ShopTwoTone />,
-        name: "添加商品4",
-        title: "您已添加了新产品4444444",
+        img: 'icons/addProductDone.svg',
+        done: true,
+        doneTitle: "您已配置了收款方式",
+        doneDesc: "可根据您售卖的地区设置合适的付款方式",
+        doneButtonText: "设置收款方式",
+        doneImg: 'icons/setCollectionDone.svg'
+    },{
+        svg: <ShopOutlined />,
+        name: "创建自定义页面",
+        title: "创建自定义页面",
         desc: "您还可以继续添加更多新产品",
         buttonText: "去添加",
-        img: <img src="https://gw.alipayobjects.com/zos/antfincdn/FLrTNDvlna/antv.png" alt="antv" />
-    },
-    {
-        svg: <ShopTwoTone />,
-        name: "添加商品1",
-        title: "您已添加了新产品",
-        desc: "您还可以继续添加更多新产品",
+        img: 'icons/addProductDone.svg',
+        done: true,
+        doneTitle: "创建自定义页面",
+        doneDesc: "您已成功添加页面，您可以继续添加更多页面或者完善已有页面信息。",
+        doneButtonText: "去设置",
+        doneImg: 'icons/createPageDone.svg'
+    },{
+        svg: <ShopOutlined />,
+        name: "整理导航",
+        title: "整理导航",
+        desc: "",
         buttonText: "去添加",
-        img: <img src="https://gw.alipayobjects.com/zos/antfincdn/FLrTNDvlna/antv.png" alt="antv" />
+        img: 'icons/organizeNavigation.svg',
+        done: false,
+        doneTitle: "整理导航",
+        doneDesc: "",
+        doneButtonText: "",
+        doneImg: ''
     },
 ]
 
@@ -111,7 +137,7 @@ const App: React.FC = () => {
 
         </>
     )
-    // 丰容
+    // 内容
     const content = (
         <>
             <div className={styles.wrapper}
@@ -135,9 +161,12 @@ const App: React.FC = () => {
                                 }}
                                 className={classNames(styles.tab, activeTab == tabs[index] ? styles.active : '')}
                             >
-                                {tab.svg}
+                                <div className={styles.icon}>
+                                {tab.done ? <CheckCircleFilled style={{color: '#356dff'}} /> : tab.svg}
+                                </div>
+                                <div>
                                 {tab.name}
-
+                                </div>
                             </div>
                         ))
                     }
@@ -146,14 +175,25 @@ const App: React.FC = () => {
                 <div className={styles.pane}>
                   <div className={styles.content}>
                     <div className={styles.title}>
-                        {activeTab.title}
+                        {activeTab.done ? activeTab.doneTitle : activeTab.title}
                     </div>
                     <div className={styles.desc}>
-                        {activeTab.desc}
+                        {activeTab.done ? activeTab.doneDesc : activeTab.desc}
                     </div>
                     <div className={styles.buttonContainer}>
-                        <Button>{activeTab.buttonText}</Button>
+                        <Button type='primary'>{activeTab.done ? activeTab.doneButtonText : activeTab.buttonText}</Button>
+                        <div className={styles.link}>{activeTab.done? '':'跳过'}</div>
                     </div>
+                  </div>
+                  <div style={{
+                    height: '100%',
+                    width: '300px',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                  }}>
+                  <img className={styles.icon} src={activeTab.done ? activeTab.doneImg : activeTab.img} />
+
                   </div>
                 </div>
             </div>
