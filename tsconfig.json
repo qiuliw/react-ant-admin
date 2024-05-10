@@ -17,12 +17,13 @@
       "@/*": ["./src/*"],
       "@@/*": ["./src/.umi/*"],
       "@@test/*": ["./src/.umi-test/*"]
-    }
+    },
+    "plugins": [
+      {
+        "name": "typescript-plugins-css-modules"
+      }
+    ]
   },
   "include": ["./**/*.d.ts", "./**/*.ts", "./**/*.tsx"],
-  "plugins": [
-    {
-      "name": "typescript-plugins-css-modules"
-    }
-  ]
+
 }

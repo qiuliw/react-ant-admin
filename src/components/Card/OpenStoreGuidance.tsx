@@ -1,7 +1,7 @@
 import React from 'react';
 import type { CollapseProps, ProgressProps } from 'antd';
 import { Button, Collapse, ConfigProvider, Progress, Space } from 'antd';
-import styles from './OpenStoreGuidance..module.scss'
+import styles from './OpenStoreGuidance.module.scss'
 import { ShopOutlined,CheckCircleFilled ,ShopTwoTone} from '@ant-design/icons';
 import { useState } from 'react';
 import classNames from 'classnames';

@@ -6,7 +6,7 @@ import langShow from '@/locales/langShow';
 import API from '@/services/user';
 import { useState } from 'react';
 import LoginForm from '@/components/Login/LoginForm';
-import LoginFormProps from '@/components/Login/LoginForm';
+import EmailPhone from '@/components/CommonInput/EmailPhone';
 import RegisterForm from '@/components/Login/Register';
 import ForgetForm from '@/components/Login/Forget';
 
@@ -114,7 +114,7 @@ const Login: React.FC = () => {
   const lang = langShow[intl.locale as keyof typeof langShow];
   // 动态组件
   // 0: 登录、1: 注册、2: 忘记密码
-  const [formIndex,setFormIndex] = useState(0) ;
+  const [formIndex,setFormIndex] = useState(3) ;
   const changeForm = (value:number) => setFormIndex(value)
 
 
@@ -203,6 +203,7 @@ const Login: React.FC = () => {
               { formIndex == 0 ? <LoginForm changeForm={changeForm} /> : null }
               { formIndex == 1 ? <RegisterForm changeForm={changeForm}/> : null }
               { formIndex == 2 ? <ForgetForm changeForm={changeForm}/> : null }
+              { formIndex == 3 ? <EmailPhone/> : null }
             </>
           </div>
         </div>
