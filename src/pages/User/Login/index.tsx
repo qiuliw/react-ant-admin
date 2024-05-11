@@ -1,15 +1,15 @@
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { createStyles } from 'antd-style';
-import { FormattedMessage, history, useIntl, useModel, SelectLang } from '@umijs/max';
+import { FormattedMessage, history, useIntl, useModel, SelectLang, Outlet } from '@umijs/max';
 import './index.scss';
 import langShow from '@/locales/langShow';
 import API from '@/services/user';
 import { useState } from 'react';
-import LoginForm from '@/components/Login/LoginForm';
+// import LoginForm from '@/components/Login/LoginForm';
 import EmailPhone from '@/components/CommonInput/EmailPhone';
 import RegisterForm from '@/components/Login/Register';
 import ForgetForm from '@/components/Login/Forget';
-
+import ILang from '@/components/Lang/lang';
 const useStyles = createStyles(({ token }) => {
   return {
     lang: {
@@ -114,7 +114,7 @@ const Login: React.FC = () => {
   const lang = langShow[intl.locale as keyof typeof langShow];
   // 动态组件
   // 0: 登录、1: 注册、2: 忘记密码
-  const [formIndex,setFormIndex] = useState(3) ;
+  const [formIndex,setFormIndex] = useState(0) ;
   const changeForm = (value:number) => setFormIndex(value)
 
 
@@ -170,28 +170,7 @@ const Login: React.FC = () => {
             backgroundColor: '#fff',
           }}
         >
-          {/* 国际化 */}
-          <div
-            className="login-header-wrap"
-            style={{
-              display: 'flex',
-              justifyContent: 'flex-end',
-              width: '100%',
-              padding: '10px 40px 20px',
-            }}
-          >
-            <div className="login-header-container">
-              <div
-                style={{
-                  marginTop: '4px',
-                }}
-              >
-                {lang.label}
-              </div>
-              {/* 国际化组件 */}
-              <Lang />
-            </div>
-          </div>
+              <ILang />
           <div
             className="login-form-wrap"
             style={{
@@ -200,7 +179,8 @@ const Login: React.FC = () => {
           >
             <>
               {/* 动态组件 */}
-              { formIndex == 0 ? <LoginForm changeForm={changeForm} /> : null }
+              {/* { formIndex == 0 ? <LoginForm changeForm={changeForm} /> : null } */}
+              <Outlet/>
               { formIndex == 1 ? <RegisterForm changeForm={changeForm}/> : null }
               { formIndex == 2 ? <ForgetForm changeForm={changeForm}/> : null }
               { formIndex == 3 ? <EmailPhone/> : null }

@@ -16,11 +16,12 @@ export default [
   {
     path: '/user',
     layout: false,
+    component: './User/Login/index',
     routes: [
       {
-        name: 'login',
-        path: '/user/login',
-        component: './User/Login',
+        index:true,
+        name: 'singIn',
+        component: '@/components/Login/Login',
       },
     ],
   },

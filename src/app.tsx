@@ -10,7 +10,7 @@ import { currentUser as queryCurrentUser } from '@/services/y2/api';
 import React from 'react';
 ;
 const isDev = process.env.NODE_ENV === 'development';
-const loginPath = '/user/login';
+const loginPath = '/user';
 import { message, notification } from 'antd';
 
 // 流程参考 https://www.bilibili.com/video/BV1yH4y1T7NW
