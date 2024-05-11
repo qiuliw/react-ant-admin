@@ -6,10 +6,9 @@ import langShow from '@/locales/langShow';
 import API from '@/services/user';
 import { useState } from 'react';
 // import LoginForm from '@/components/Login/LoginForm';
-import EmailPhone from '@/components/CommonInput/EmailPhone';
-import RegisterForm from '@/components/Login/Register';
-import ForgetForm from '@/components/Login/Forget';
-import ILang from '@/components/Lang/lang';
+import RegisterForm from '@/pages/User/components/Register';
+import ForgetForm from '@/pages/User/components/Forget';
+import ILang from '@/components/Lang/Lang';
 const useStyles = createStyles(({ token }) => {
   return {
     lang: {
@@ -178,12 +177,7 @@ const Login: React.FC = () => {
             }}
           >
             <>
-              {/* 动态组件 */}
-              {/* { formIndex == 0 ? <LoginForm changeForm={changeForm} /> : null } */}
               <Outlet/>
-              { formIndex == 1 ? <RegisterForm changeForm={changeForm}/> : null }
-              { formIndex == 2 ? <ForgetForm changeForm={changeForm}/> : null }
-              { formIndex == 3 ? <EmailPhone/> : null }
             </>
           </div>
         </div>

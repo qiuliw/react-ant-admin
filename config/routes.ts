@@ -14,75 +14,62 @@
  */
 export default [
   {
+    path: '/',
+    redirect: '/admin'
+  },
+  // 用户
+  {
     path: '/user',
     layout: false,
-    component: './User/Login/index',
+    component: './User/index',
     routes: [
       {
-        index:true,
+        // index:true,
+        path:'signIn',
         name: 'singIn',
-        component: '@/components/Login/Login',
+        component: './User/components/Login.tsx',
+      },{
+        path:'signUp',
+        name: 'singUp',
+        component: './User/components/Register.tsx',
+      },{
+        path:'forget',
+        name: 'forget',
+        component: './User/components/Forget.tsx',
       },
     ],
   },
-  {
-    path: '/welcome',
-    name: 'welcome',
-    icon: 'smile',
-    component: './Welcome',
-  },
+  // menu
   {
     path: '/admin',
     name: '首页',
     icon: 'crown',
     // access: 'canAdmin',//权限
     component: './Admin/index',
-  },{
-    path: '/admin/products',
-    name: '商品',
-    icon: 'smile',
-    component: './Products/index',
+    routes: [
+
+    ]
   },
-  // {
-  //   path: '/admin',
-  //   name: '首页',
-  //   icon: 'crown',
-  //   access: 'canAdmin',
-  //   routes: [
-  //     {
-  //       path: '/admin',
-  //       redirect: '/admin/sub-page',
-  //     },
-  //     {
-  //       path: '/admin/sub-page',
-  //       name: 'sub-page',
-  //       component: './Admin',
-  //     },
-  //   ],
-  // },
-  // {
-  //   name: 'list.table-list',
-  //   icon: 'table',
-  //   path: '/list',
-  //   component: './TableList',
-  // },
+  {  
+      path: '/products',
+      name: '商品',
+      icon: 'smile',
+      component: './Products/index',
+  },
+  // stores
   {
     name: '店铺',
+    path: '/stores',
     icon: 'crown',
     routes:[
       {
-        path: '/stores/create',
+        path: 'create',
         name: '创建店铺',
         component: './Stores/Create',
-        menuRender: false,
-        footerRender: false
       }
     ]
   },
-  {
-    path: '/',
-    redirect: '/welcome',
-  },
+  // 404
   {
     path: '*',
     layout: false,

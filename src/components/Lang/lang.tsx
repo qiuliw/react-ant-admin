@@ -6,8 +6,8 @@ import API from '@/services/user';
 import { useState } from 'react';
 import LoginForm from '@/components/Login/LoginForm';
 import EmailPhone from '@/components/CommonInput/EmailPhone';
-import RegisterForm from '@/components/Login/Register';
-import ForgetForm from '@/components/Login/Forget';
+import RegisterForm from '@/pages/User/components/Register';
+import ForgetForm from '@/pages/User/components/Forget';
 
 
 const useStyles = createStyles(({ token }) => {

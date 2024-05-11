@@ -2,30 +2,22 @@ import { login } from '@/services/y2/api';
 import { getFakeCaptcha } from '@/services/y2/login';
 import { Alert, message, Tabs, Button, Form, Input, Divider } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { FormattedMessage, history, useIntl, useModel } from '@umijs/max';
+import { FormattedMessage, Link, history, useIntl, useModel } from '@umijs/max';
 import React, { useState } from 'react';
 import { flushSync } from 'react-dom';
 import './Login.scss';
 
 
-// 子组件定义传参类型
-export interface ChildComponentProps{
-  changeForm : (value:number) => void
-}
 
 
-export default  function LoginForm(props:ChildComponentProps) {
+
+export default  function Login() {
     //国际化
     const intl = useIntl();
 
     const [userLoginState, setUserLoginState] = useState<API.LoginResult>({});
     const [type, setType] = useState<string>('account');
     const { initialState, setInitialState } = useModel('@@initialState');
-    
-    // 登录按钮事件   values:所有表单数据 {"username": "admin","password": "ant.design"}
-    // const onFinish = (values: any) => {
-    //     console.log('Received values of form: ', values);
-    // };
 
     const fetchUserInfo = async () => {
       const userInfo = await initialState?.fetchUserInfo?.();
@@ -70,19 +62,6 @@ export default  function LoginForm(props:ChildComponentProps) {
       }
     };    
     
-    // 去注册
-    const goToRegister=()=>{
-      props.changeForm(1)
-    }
-
-    // 忘记密码
-    const goToForget=()=>{
-      props.changeForm(2)
-    }
-
-
-
-
     return (
         <>
             {/* 表头 */}
@@ -154,12 +133,12 @@ export default  function LoginForm(props:ChildComponentProps) {
             </div>
             {/* 忘记密码 */}
             <div className="link-button-container">
-              <a href="#" onClick={goToRegister}>
+              <Link to='/user/signUp'>
                 <FormattedMessage id="menu.register" defaultMessage="开始免费试用"  />
-              </a>
-              <a className="login-form-forgot" href="#" onClick={goToForget}>
+              </Link>
+              <Link to='/user/forget' >
                 <FormattedMessage id="pages.login.forgotPassword" defaultMessage="忘记密码" />
-              </a>
+              </Link>
             </div>
             {/* 分割线 */}
             <Divider
