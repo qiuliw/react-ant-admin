@@ -1,6 +1,6 @@
 import { Button, Form, Input, Divider,Checkbox } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { FormattedMessage, useIntl } from '@umijs/max';
+import { FormattedMessage, useIntl,Link} from '@umijs/max';
 import type { FormProps } from 'antd';
 import './Register.scss'
 type FieldType = {
@@ -169,7 +169,9 @@ export default function Register(props:Props) {
                     {intl.formatMessage({ id: 'pages.register.link.linkie' })}
                 </Button>
 
-                <div>已有账号，<a href='#' onClick={()=>props.changeForm(0)}>直接登录</a></div>
+                <div>已有账号，
+                    <Link to="/user/signIn">去登录</Link>
+                </div>
             </div>
         </>
     )

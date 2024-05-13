@@ -76,4 +76,7 @@ export default {
   'pages.searchTable.tenThousand': '万',
   'pages.searchTable.batchDeletion': '批量删除',
   'pages.searchTable.batchApproval': '批量审批',
+  'pages.user.center':'个人中心',
+  'pages.user.settings': '个人设置',
+  'pages.user.logout': '退出'
 };

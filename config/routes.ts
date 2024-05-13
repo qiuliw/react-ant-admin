@@ -27,15 +27,15 @@ export default [
         // index:true,
         path:'signIn',
         name: 'singIn',
-        component: './User/components/Login.tsx',
+        component: '@/components/Pages/User/Login.tsx',
       },{
         path:'signUp',
         name: 'singUp',
-        component: './User/components/Register.tsx',
+        component: '@/components/Pages/User/Register.tsx',
       },{
         path:'forget',
         name: 'forget',
-        component: './User/components/Forget.tsx',
+        component: '@/components/Pages/User/Forget.tsx',
       },
     ],
   },

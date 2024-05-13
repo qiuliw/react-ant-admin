@@ -1,6 +1,6 @@
 import { Button, Form, Input, Divider } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { FormattedMessage, useIntl } from '@umijs/max';
+import { FormattedMessage, useIntl,Link } from '@umijs/max';
 import './Login.scss';
 
 // 子组件定义传参类型
@@ -18,18 +18,6 @@ export default function LoginForm(props: Props) {
         console.log('Received values of form: ', values);
     };
 
-    // 去注册
-    const goToRegister = () => {
-        props.changeForm(1)
-    }
-
-    // 忘记密码
-    const goToForget = () => {
-        props.changeForm(2)
-    }
-
-
-
     return (
         <>
             {/* 表头 */}
@@ -42,7 +30,6 @@ export default function LoginForm(props: Props) {
                 <Form
                     name="normal_login"
                     className="login-form"
-                    // initialValues={{ remember: true }}
                     layout="horizontal"
                     onFinish={onFinish}
                     size="large"
@@ -103,6 +90,23 @@ export default function LoginForm(props: Props) {
                         </div>
 
                     </Form.Item>
+                    <Form.Item
+                        name="password"
+                        rules={[
+                            {
+                                required: true,
+                                message: intl.formatMessage({ id: 'pages.login.username.required' }),
+                            },
+                        ]}
+                    >
+                        <Input.Password 
+                            style={{
+                                height: '52px',
+                            }}
+                            prefix={<UserOutlined className="site-form-item-icon" />}
+                            placeholder={intl.formatMessage({ id: 'pages.login.username.label' })}
+                        />
+                    </Form.Item>
                     <Button
                         style={{
                             height: '46px',
@@ -119,7 +123,8 @@ export default function LoginForm(props: Props) {
             </Form.Item> */}
                 </Form>
                 <div style={{display:'flex',justifyContent:'center',alignItems:'center',height:'50px'}}>
-                    <a href='#' onClick={()=>props.changeForm(0)}>去登录</a>
+                    <Link to='/user/signIn'>去登录</Link>
+
                 </div>
             </div>
         </>

@@ -1,6 +1,6 @@
 import { login } from '@/services/y2/api';
 import { getFakeCaptcha } from '@/services/y2/login';
-import { Alert, message, Tabs, Button, Form, Input, Divider } from 'antd';
+import { Alert, message, Tabs, Button, Form, Input, Divider,Checkbox } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { FormattedMessage, Link, history, useIntl, useModel } from '@umijs/max';
 import React, { useState } from 'react';
@@ -125,10 +125,7 @@ export default  function Login() {
                 >
                   <FormattedMessage id="menu.login" defaultMessage="登录" />
                 </Button>
-
-                {/* <Form.Item name="remember" valuePropName="checked" noStyle>
-              <Checkbox>Remember me</Checkbox>
-            </Form.Item> */}
+                
               </Form>
             </div>
             {/* 忘记密码 */}
