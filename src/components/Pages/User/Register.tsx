@@ -1,26 +1,40 @@
-import { Button, Form, Input, Divider,Checkbox } from 'antd';
+import { Button, Form, Input, Divider, Checkbox,message} from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { FormattedMessage, useIntl,Link} from '@umijs/max';
+import { FormattedMessage, useIntl, Link } from '@umijs/max';
 import type { FormProps } from 'antd';
-import './Register.scss'
+import './Register.scss';
+import axios from 'axios';
+
 type FieldType = {
     username?: string;
     password?: string;
     agreement?: string;
 };
-interface Props{
-    changeForm:(value:number)=>void
-}
-export default function Register(props:Props) {
-    const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
-        console.log('Success:', values);
-      };
-    const intl = useIntl();
 
+
+
+
+
+
+
+
+
+
+export default function Register() {
+
+    const intl = useIntl();
+    const [form] = Form.useForm();
+    
     // 假设的手机号码正则表达式（仅用于示例，可能需要根据实际情况调整）  
-    const phoneRegex = /^1[3-9]\d{9}$/;  
+    const phoneRegex = /^1[3-9]\d{9}$/;
     // 电子邮件地址的正则表达式  
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;  
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+
+
+    
+
 
     return (
         <>
@@ -35,23 +49,23 @@ export default function Register(props:Props) {
                     name="normal_register"
                     className="register-form"
                     layout="horizontal"
-                    onFinish={onFinish}
+                    
                     size="large"
                 >
                     <Form.Item
-                        name="username"
+                        name="phone"
                         rules={[
                             {
                                 required: true,
                                 message: intl.formatMessage({ id: 'pages.login.username.required' }),
-                            },{
-                                validator(_, value) {  
-                                  if (!value || (phoneRegex.test(value) || emailRegex.test(value))) {  
-                                    return Promise.resolve();  
-                                  }  
-                                  return Promise.reject(new Error(intl.formatMessage({ id: 'pages.login.username.invalid' })));  
-                                },  
-                              }
+                            }, {
+                                validator(_, value) {
+                                    if (!value || (phoneRegex.test(value) || emailRegex.test(value))) {
+                                        return Promise.resolve();
+                                    }
+                                    return Promise.reject(new Error(intl.formatMessage({ id: 'pages.login.username.invalid' })));
+                                },
+                            }
                         ]}
                     >
                         <Input

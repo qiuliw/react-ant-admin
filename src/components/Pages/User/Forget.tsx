@@ -1,27 +1,71 @@
-import { Button, Form, Input, Divider } from 'antd';
+import { Button, Form, Input, Divider, message } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { FormattedMessage, useIntl, Link } from '@umijs/max';
 import './Login.scss';
-
-// 子组件定义传参类型
-export interface Props {
-    changeForm: (value: number) => void
-}
+import axios from 'axios';
 
 
-export default function LoginForm(props: Props) {
+/**
+ * 手机验证码请求
+ */
+export function getVerificationCode(
+    base_name: string,
+    queue_type: string = 'reg',
+    area_code: string = '86',
+    service: string = 'xht',
+    from: string = 'matacart'
+) {
+    return axios.get('https://api.handingyun.cn/y1/h-module-sendSmsCode.html')
+};
+
+
+
+export default function LoginForm() {
+
     //国际化
     const intl = useIntl();
+    const [form] = Form.useForm();
 
     // 登录按钮事件   values:所有表单数据 {"username": "admin","password": "ant.design"}
     const onFinish = (values: any) => {
         console.log('Received values of form: ', values);
     };
 
+
+    /**
+ * 注册请求
+ */
+    const signUp = (values: any) => {
+        return axios.post(
+            '/api/h-module-URegister.html',
+            values
+        );
+    }
+
+
+
     // 假设的手机号码正则表达式（仅用于示例，可能需要根据实际情况调整）  
     const phoneRegex = /^1[3-9]\d{9}$/;
     // 电子邮件地址的正则表达式  
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+    /**
+     * 发送验证码
+     */
+    function sendVerificationCode() {
+        getVerificationCode(form.getFieldValue('phone'))
+            .then((request: any) => {
+                if (request.data.status)
+                    message.success('成功发送验证码！');
+                else message.warning('用户存在');
+            })
+            .catch((error: any) => {
+                message.error('发送失败!');
+            });
+
+    }
+
 
     return (
         <>
@@ -33,6 +77,7 @@ export default function LoginForm(props: Props) {
             <div className="login-form-content">
                 {/* 登录组件 */}
                 <Form
+                    form={form}
                     name="normal_login"
                     className="login-form"
                     layout="horizontal"
@@ -95,7 +140,7 @@ export default function LoginForm(props: Props) {
                                 height: '51px',
                                 flex: 1
                             }}
-                                disabled={true}
+                                onClick={sendVerificationCode}
 
 
                             >获取验证码</Button>
@@ -107,7 +152,7 @@ export default function LoginForm(props: Props) {
                         rules={[
                             {
                                 required: true,
-                                message: intl.formatMessage({ id: 'pages.login.username.required' }),
+                                message: intl.formatMessage({ id: 'pages.login.password.required' }),
                             },
                         ]}
                     >
@@ -116,7 +161,7 @@ export default function LoginForm(props: Props) {
                                 height: '52px',
                             }}
                             prefix={<UserOutlined className="site-form-item-icon" />}
-                            placeholder={intl.formatMessage({ id: 'pages.login.username.label' })}
+                            placeholder={intl.formatMessage({ id: 'pages.login.password.label' })}
                         />
                     </Form.Item>
                     <Button
