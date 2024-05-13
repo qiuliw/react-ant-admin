@@ -1,6 +1,6 @@
 import { Button, Form, Input, Divider } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { FormattedMessage, useIntl,Link } from '@umijs/max';
+import { FormattedMessage, useIntl, Link } from '@umijs/max';
 import './Login.scss';
 
 // 子组件定义传参类型
@@ -17,6 +17,11 @@ export default function LoginForm(props: Props) {
     const onFinish = (values: any) => {
         console.log('Received values of form: ', values);
     };
+
+    // 假设的手机号码正则表达式（仅用于示例，可能需要根据实际情况调整）  
+    const phoneRegex = /^1[3-9]\d{9}$/;
+    // 电子邮件地址的正则表达式  
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     return (
         <>
@@ -40,7 +45,14 @@ export default function LoginForm(props: Props) {
                             {
                                 required: true,
                                 message: intl.formatMessage({ id: 'pages.login.username.required' }),
-                            },
+                            }, {
+                                validator(_, value) {
+                                    if (!value || (phoneRegex.test(value) || emailRegex.test(value))) {
+                                        return Promise.resolve();
+                                    }
+                                    return Promise.reject(new Error(intl.formatMessage({ id: 'pages.login.username.invalid' })));
+                                },
+                            }
                         ]}
                     >
                         <Input
@@ -56,7 +68,7 @@ export default function LoginForm(props: Props) {
                         rules={[
                             {
                                 required: true,
-                                message: intl.formatMessage({ id: 'pages.captcha.required', defaultMessage:'请输入验证码' }),
+                                message: intl.formatMessage({ id: 'pages.captcha.required', defaultMessage: '请输入验证码' }),
                             },
                         ]}
 
@@ -77,15 +89,15 @@ export default function LoginForm(props: Props) {
                                 }}
                                 prefix={<LockOutlined className="site-form-item-icon" />}
                                 type="password"
-                                placeholder={intl.formatMessage({ id: 'pages.captcha.label', defaultMessage:'验证码' })}
+                                placeholder={intl.formatMessage({ id: 'pages.captcha.label', defaultMessage: '验证码' })}
                             />
                             <Button style={{
                                 height: '51px',
                                 flex: 1
                             }}
-                            disabled={true}
-                            
-                            
+                                disabled={true}
+
+
                             >获取验证码</Button>
                         </div>
 
@@ -99,7 +111,7 @@ export default function LoginForm(props: Props) {
                             },
                         ]}
                     >
-                        <Input.Password 
+                        <Input.Password
                             style={{
                                 height: '52px',
                             }}
@@ -122,7 +134,7 @@ export default function LoginForm(props: Props) {
               <Checkbox>Remember me</Checkbox>
             </Form.Item> */}
                 </Form>
-                <div style={{display:'flex',justifyContent:'center',alignItems:'center',height:'50px'}}>
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50px' }}>
                     <Link to='/user/signIn'>去登录</Link>
 
                 </div>

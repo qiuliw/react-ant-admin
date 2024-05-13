@@ -14,7 +14,11 @@ import './Login.scss';
 export default  function Login() {
     //国际化
     const intl = useIntl();
-
+    // 假设的手机号码正则表达式（仅用于示例，可能需要根据实际情况调整）  
+    const phoneRegex = /^1[3-9]\d{9}$/;  
+    // 电子邮件地址的正则表达式  
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;  
+  
     const [userLoginState, setUserLoginState] = useState<API.LoginResult>({});
     const [type, setType] = useState<string>('account');
     const { initialState, setInitialState } = useModel('@@initialState');
@@ -86,6 +90,15 @@ export default  function Login() {
                       required: true,
                       message: intl.formatMessage({ id: 'pages.login.username.required' }),
                     },
+                    // dev
+                    // {
+                    //   validator(_, value) {  
+                    //     if (!value || (phoneRegex.test(value) || emailRegex.test(value))) {  
+                    //       return Promise.resolve();  
+                    //     }  
+                    //     return Promise.reject(new Error(intl.formatMessage({ id: 'pages.login.username.invalid' })));  
+                    //   },  
+                    // }
                   ]}
                 >
                   <Input

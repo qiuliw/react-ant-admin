@@ -16,6 +16,12 @@ export default function Register(props:Props) {
         console.log('Success:', values);
       };
     const intl = useIntl();
+
+    // 假设的手机号码正则表达式（仅用于示例，可能需要根据实际情况调整）  
+    const phoneRegex = /^1[3-9]\d{9}$/;  
+    // 电子邮件地址的正则表达式  
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;  
+
     return (
         <>
             {/* 表头 */}
@@ -38,7 +44,14 @@ export default function Register(props:Props) {
                             {
                                 required: true,
                                 message: intl.formatMessage({ id: 'pages.login.username.required' }),
-                            },
+                            },{
+                                validator(_, value) {  
+                                  if (!value || (phoneRegex.test(value) || emailRegex.test(value))) {  
+                                    return Promise.resolve();  
+                                  }  
+                                  return Promise.reject(new Error(intl.formatMessage({ id: 'pages.login.username.invalid' })));  
+                                },  
+                              }
                         ]}
                     >
                         <Input
