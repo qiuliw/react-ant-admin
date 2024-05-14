@@ -7,6 +7,7 @@ import { getFakeCaptcha } from '@/services/ant-design-pro/login';
 import { flushSync } from 'react-dom';
 import { request } from '@umijs/max';
 import { reset } from '@/services/y2/api';
+import locale from 'antd/es/date-picker/locale/en_US';
 
 
 
@@ -45,19 +46,19 @@ export default function LoginForm() {
                     // 重设密码
                     onFinish={async (values: API.LoginParams) => {
                                 try {
-                                  // 登录
                                   const msg = await reset({ ...values });
                                   if (msg.code === 0) {
                                     const token = msg.token;
-                                    localStorage.setItem('token', token);
+                                    // localStorage.setItem('token', token);
                                     const defaultLoginSuccessMessage = intl.formatMessage({
                                       id: 'pages.login.success',
                                       defaultMessage: '重设密码成功！',
                                     });
                                     message.success(defaultLoginSuccessMessage);
-                                    await fetchUserInfo();
-                                    const urlParams = new URL(window.location.href).searchParams;
-                                    history.push(urlParams.get('redirect') || '/');
+                                    // await fetchUserInfo();
+                                    // const urlParams = new URL(window.location.href).searchParams;
+                                    // history.push(urlParams.get('redirect') || '/');
+                                    history.push('/user/signIn');
                                     return;
                                   }
                                   console.log(msg);
