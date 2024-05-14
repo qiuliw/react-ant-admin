@@ -109,7 +109,6 @@ export default  function Login() {
                     style={{
                       height: '52px',
                     }}
-                    // visibilityToggle={true}
                     prefix={<LockOutlined className="site-form-item-icon" />}
                     type="password"
                     placeholder={intl.formatMessage({ id: 'pages.login.password.label' })}

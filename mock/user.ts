@@ -217,4 +217,34 @@ export default {
   },
 
   'GET  /api/login/captcha': getFakeCaptcha,
+
+  'POST /api/ApiAppstore/reset': async (req: Request, res: Response) => {
+    const { phone, username,captcha } = req.body;
+    await waitTime(1000);
+    if (phone === 'admin' && username === 'admin' && captcha === '123456') {
+      res.send({
+        code: 0,
+        token: 'sdfsadfasdfasf3rwetwetgeww',
+        currentAuthority: 'admin',
+      });
+      access = 'admin';
+      return;
+    }
+
+    res.send({
+      code: 1,
+    });
+  },
+
+  'POST /api/ApiAppstore/register': async (req: Request, res: Response) => {
+    const { password, username } = req.body;
+    await waitTime(1000);
+      res.send({
+        code: 0,
+        token: 'sdfsadfasdfasf3rwetwetgeww',
+        currentAuthority: 'admin',
+      });
+      access = 'admin';
+      return;
+  },
 };

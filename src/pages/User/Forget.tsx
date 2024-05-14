@@ -1,37 +1,79 @@
-import { Button, Form, Input, Divider } from 'antd';
+import { Button, Form, Input, Divider, message, Space,Checkbox,FormProps } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { FormattedMessage, useIntl,Link } from '@umijs/max';
+import { FormattedMessage, useIntl, Link ,history,useModel} from '@umijs/max';
 import './Login.scss';
+import React,{ useState } from 'react';
+import { getFakeCaptcha } from '@/services/ant-design-pro/login';
+import { flushSync } from 'react-dom';
+import { request } from '@umijs/max';
+import { reset } from '@/services/y2/api';
 
-// 子组件定义传参类型
-export interface Props {
-    changeForm: (value: number) => void
-}
 
 
-export default function LoginForm(props: Props) {
-    //国际化
+export default function LoginForm() {
+
     const intl = useIntl();
+    const [phone, setPhone] = useState('');
+    const [captchaIsLoding, setCaptchaIsLoading] = useState(false);
+    const [formIsLoading, setFormIsLoading] = useState(false);
 
-    // 登录按钮事件   values:所有表单数据 {"username": "admin","password": "ant.design"}
-    const onFinish = (values: any) => {
-        console.log('Received values of form: ', values);
-    };
+    const [userLoginState, setUserLoginState] = useState<API.LoginResult>({});
+    const [type, setType] = useState<string>('account');
+    const { initialState, setInitialState } = useModel('@@initialState');
 
+    const fetchUserInfo = async () => {
+        const userInfo = await initialState?.fetchUserInfo?.();
+        if (userInfo) {
+          flushSync(() => {
+            setInitialState((s) => ({
+              ...s,
+              currentUser: userInfo,
+            }));
+          });
+        }
+      };
     return (
         <>
-            {/* 表头 */}
             <h3>
                 <FormattedMessage id="forget.title" defaultMessage="忘记密码" />
             </h3>
-            {/* 输入项 */}
             <div className="login-form-content">
-                {/* 登录组件 */}
                 <Form
                     name="normal_login"
                     className="login-form"
                     layout="horizontal"
-                    onFinish={onFinish}
+                    // 重设密码
+                    onFinish={async (values: API.LoginParams) => {
+                                try {
+                                  // 登录
+                                  const msg = await reset({ ...values });
+                                  if (msg.code === 0) {
+                                    const token = msg.token;
+                                    localStorage.setItem('token', token);
+                                    const defaultLoginSuccessMessage = intl.formatMessage({
+                                      id: 'pages.login.success',
+                                      defaultMessage: '重设密码成功！',
+                                    });
+                                    message.success(defaultLoginSuccessMessage);
+                                    await fetchUserInfo();
+                                    const urlParams = new URL(window.location.href).searchParams;
+                                    history.push(urlParams.get('redirect') || '/');
+                                    return;
+                                  }
+                                  console.log(msg);
+                                  // 如果失败去设置用户错误信息
+                                  setUserLoginState(msg);
+                                } catch (error) {
+                                  const defaultLoginFailureMessage = intl.formatMessage({
+                                    id: 'pages.login.failure',
+                                    defaultMessage: '重设密码失败，请重试！',
+                                  });
+                                  console.log(error);
+                                  message.error(defaultLoginFailureMessage);
+                                }
+                            }
+                        }
+
                     size="large"
                 >
                     <Form.Item
@@ -39,24 +81,37 @@ export default function LoginForm(props: Props) {
                         rules={[
                             {
                                 required: true,
-                                message: intl.formatMessage({ id: 'pages.login.username.required' }),
+                                message: intl.formatMessage({ id: 'pages.login.phone.required', defaultMessage:'手机号是必填项' }),
                             },
+                            // {
+                            //     pattern: /^1\d{10}$/,
+                            //     message: (
+                            //         <FormattedMessage
+                            //             id="pages.login.phoneNumber.invalid"
+                            //             defaultMessage="手机号格式错误！"
+                            //         />
+                            //     ),
+                            // },
                         ]}
                     >
                         <Input
                             style={{
                                 height: '52px',
                             }}
+                            onChange={(e) => {
+                                setPhone(e.target.value);
+                            }}
                             prefix={<UserOutlined className="site-form-item-icon" />}
                             placeholder={intl.formatMessage({ id: 'pages.login.username.label' })}
                         />
                     </Form.Item>
+
                     <Form.Item
-                        name="password"
+                        name="captcha"
                         rules={[
                             {
                                 required: true,
-                                message: intl.formatMessage({ id: 'pages.captcha.required', defaultMessage:'请输入验证码' }),
+                                message: intl.formatMessage({ id: 'pages.captcha.required', defaultMessage: '请输入验证码' }),
                             },
                         ]}
 
@@ -75,17 +130,32 @@ export default function LoginForm(props: Props) {
                                     flex: 2,
                                     marginRight: '10px',
                                 }}
-                                prefix={<LockOutlined className="site-form-item-icon" />}
-                                type="password"
-                                placeholder={intl.formatMessage({ id: 'pages.captcha.label', defaultMessage:'验证码' })}
+                                type="text"
+                                placeholder={intl.formatMessage({ id: 'pages.captcha.label', defaultMessage: '验证码' })}
+                                onChange={(e) => {
+                                    setPhone(e.target.value);
+                                }}
                             />
-                            <Button style={{
+                            <Button 
+                            loading={captchaIsLoding}
+                            style={{
                                 height: '51px',
                                 flex: 1
                             }}
-                            disabled={true}
-                            
-                            
+                            onClick={async () => {
+                                setCaptchaIsLoading(true);
+                                const result = await getFakeCaptcha({
+                                   phone,
+                                });
+                                if (!result) {
+                                    message.error('验证码获取失败！');return;
+                                }else{
+                                    message.success('获取验证码成功！验证码为：123456');
+                                }
+                                setCaptchaIsLoading(false);
+                              }}
+
+
                             >获取验证码</Button>
                         </div>
 
@@ -95,16 +165,17 @@ export default function LoginForm(props: Props) {
                         rules={[
                             {
                                 required: true,
-                                message: intl.formatMessage({ id: 'pages.login.username.required' }),
+                                message: intl.formatMessage({ id: 'pages.login.password.required' }),
                             },
                         ]}
                     >
-                        <Input.Password 
+                        <Input.Password
                             style={{
                                 height: '52px',
                             }}
-                            prefix={<UserOutlined className="site-form-item-icon" />}
-                            placeholder={intl.formatMessage({ id: 'pages.login.username.label' })}
+                            name='password'
+                            prefix={<LockOutlined className="site-form-item-icon" />}
+                            placeholder={intl.formatMessage({ id: 'pages.login.password.label' })}
                         />
                     </Form.Item>
                     <Button
@@ -114,15 +185,13 @@ export default function LoginForm(props: Props) {
                         type="primary"
                         htmlType="submit"
                         className="login-form-button"
-                        disabled={true}
+                        loading={formIsLoading}
                     >
                         <FormattedMessage id="menu.captcha" defaultMessage="验证" />
                     </Button>
-                    {/* <Form.Item name="remember" valuePropName="checked" noStyle>
-              <Checkbox>Remember me</Checkbox>
-            </Form.Item> */}
+
                 </Form>
-                <div style={{display:'flex',justifyContent:'center',alignItems:'center',height:'50px'}}>
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50px' }}>
                     <Link to='/user/signIn'>去登录</Link>
 
                 </div>

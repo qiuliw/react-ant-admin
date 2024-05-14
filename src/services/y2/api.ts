@@ -92,3 +92,27 @@ export async function removeRule(options?: { [key: string]: any }) {
     }
   });
 }
+
+/** 重设密码 */
+export async function reset(body: API.LoginParams, options?: { [key: string]: any }) {
+  return request<API.LoginResult>('/api/ApiAppstore/reset', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** 注册 */
+export async function register(body: API.LoginParams, options?: { [key: string]: any }) {
+  return request<API.LoginResult>('/api/ApiAppstore/register', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}

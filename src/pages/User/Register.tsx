@@ -1,8 +1,13 @@
-import { Button, Form, Input, Divider,Checkbox } from 'antd';
+import { Button, Form, Input, Divider,Checkbox ,message} from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { FormattedMessage, useIntl,Link} from '@umijs/max';
+import { FormattedMessage, useIntl,Link,history,useModel} from '@umijs/max';
 import type { FormProps } from 'antd';
 import './Register.scss'
+import React, { useState } from 'react';
+import { request } from '@umijs/max';
+import { flushSync } from 'react-dom';
+import { register } from '@/services/y2/api';
+
 type FieldType = {
     username?: string;
     password?: string;
@@ -11,10 +16,28 @@ type FieldType = {
 interface Props{
     changeForm:(value:number)=>void
 }
+
+
+
+
 export default function Register(props:Props) {
-    const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
-        console.log('Success:', values);
-      };
+
+    const [userLoginState, setUserLoginState] = useState<API.LoginResult>({});
+    const [type, setType] = useState<string>('account');
+    const { initialState, setInitialState } = useModel('@@initialState');
+
+    const fetchUserInfo = async () => {
+      const userInfo = await initialState?.fetchUserInfo?.();
+      if (userInfo) {
+        flushSync(() => {
+          setInitialState((s) => ({
+            ...s,
+            currentUser: userInfo,
+          }));
+        });
+      }
+    };
+
     const intl = useIntl();
     return (
         <>
@@ -29,7 +52,36 @@ export default function Register(props:Props) {
                     name="normal_register"
                     className="register-form"
                     layout="horizontal"
-                    onFinish={onFinish}
+                    onFinish={
+                        async (values: API.LoginParams) => {
+                            try {
+                              const msg = await register({ ...values });
+                              if (msg.code === 0) {
+                                const token = msg.token;
+                                localStorage.setItem('token', token);
+                                const defaultLoginSuccessMessage = intl.formatMessage({
+                                  id: 'pages.login.success',
+                                  defaultMessage: '注册成功！',
+                                });
+                                message.success(defaultLoginSuccessMessage);
+                                await fetchUserInfo();
+                                const urlParams = new URL(window.location.href).searchParams;
+                                history.push(urlParams.get('redirect') || '/');
+                                return;
+                              }
+                              console.log(msg);
+                              // 如果失败去设置用户错误信息
+                              setUserLoginState(msg);
+                            } catch (error) {
+                              const defaultLoginFailureMessage = intl.formatMessage({
+                                id: 'pages.login.failure',
+                                defaultMessage: '注册失败，请重试！',
+                              });
+                              console.log(error);
+                              message.error(defaultLoginFailureMessage);
+                            }
+                        }
+                    }
                     size="large"
                 >
                     <Form.Item
@@ -81,7 +133,7 @@ export default function Register(props:Props) {
                                     if (!value || getFieldValue('password') === value) {
                                         return Promise.resolve();
                                     }
-                                    return Promise.reject(new Error('The new password that you entered do not match!'));
+                                    return Promise.reject(<FormattedMessage id="pages.register.password.not.match" defaultMessage='输入的密码不匹配'/>);
                                 },
                             })
                         ]}
