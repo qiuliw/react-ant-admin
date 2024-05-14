@@ -17,25 +17,23 @@ export default [
     path: '/',
     redirect: '/admin'
   },
-  // 用户
   {
     path: '/user',
     layout: false,
     component: './User/index',
     routes: [
       {
-        // index:true,
         path:'signIn',
         name: 'singIn',
-        component: '@/components/Pages/User/Login.tsx',
+        component: './User/Login.tsx',
       },{
         path:'signUp',
         name: 'singUp',
-        component: '@/components/Pages/User/Register.tsx',
+        component: './User/Register.tsx',
       },{
         path:'forget',
         name: 'forget',
-        component: '@/components/Pages/User/Forget.tsx',
+        component: './User/Forget.tsx',
       },
     ],
   },
