@@ -133,9 +133,6 @@ export default function LoginForm() {
                                 }}
                                 type="text"
                                 placeholder={intl.formatMessage({ id: 'pages.captcha.label', defaultMessage: '验证码' })}
-                                onChange={(e) => {
-                                    setPhone(e.target.value);
-                                }}
                             />
                             <Button 
                             loading={captchaIsLoding}
