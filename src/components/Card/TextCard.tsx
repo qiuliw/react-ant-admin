@@ -2,28 +2,36 @@ import { Card } from "antd";
 import { ReactNode } from "react";
 import { Flex, Button } from 'antd'
  
-type buttonText={
+export type ButtonContent={
     text:string,
     url: string
 }
 
-type CardContent = {
+export type CardContent = {
     title: string,
-    content: string,
-    buttonText: buttonText[]
+    contentText: ReactNode,
+    buttonContents: ButtonContent[]
 }
+    
 
-export default function TextCard(): ReactNode {
+export default function TextCard(cardContent: CardContent): ReactNode {
+    const { title, contentText, buttonContents } = cardContent;
     return (
         <>
             <Card title={title}>
-                <p>{text}</p>
+                {contentText}
                 <Flex gap="small" wrap style={{
-                    marginTop:'30px'
+                    marginTop:'20px'
                 }}>
-                    {buttons.map((button, index) => (
-                        <Button key={index} href={button.url}>{button.text}</Button>
-                    ))}
+                    {
+                        buttonContents.map((buttonContent,index)=>{
+                            return(
+                                <>
+                                    <Button key={index} href={buttonContent.url}>{buttonContent.text}</Button>
+                                </>
+                            )
+                        })
+                    }
                 </Flex>
             </Card>
         </>

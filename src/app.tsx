@@ -12,6 +12,7 @@ import React from 'react';
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/signIn';
 import { message, notification } from 'antd';
+import { Ping } from './components/RightContent';
 
 // 流程参考 https://www.bilibili.com/video/BV1yH4y1T7NW
 
@@ -60,7 +61,11 @@ export async function getInitialState(): Promise<{
 // layout
 export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) => {
   return {
-    actionsRender: () => [<Question key="doc" />, <SelectLang key="SelectLang" />],
+    actionsRender: () => [
+    <Question key="doc" />, 
+    <SelectLang key="SelectLang" />,
+    <Ping key="Ping" />,
+    ],
     avatarProps: {
       src: initialState?.currentUser?.avatar,
       title: <AvatarName />,

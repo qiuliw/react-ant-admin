@@ -2,18 +2,10 @@ import Callapse from '@/components/Card/OpenStoreGuidance';
 import { Card, Space } from 'antd';
 import styles from './index.scss';
 import DataCard from '@/components/Card/DataCard';
-import TextCard, {ButtonEasy} from '@/components/Card/TextCard'
+import TextCard, {ButtonContent,CardContent} from '@/components/Card/TextCard'
+
 export default () => {
 
-  const buttons: ButtonEasy[] = [
-    {
-    text: '查看',
-    url: '#'
-    },{
-      text: 'hhhh',
-      url: '#'
-    }
-]
 
 
   return (
@@ -33,21 +25,40 @@ export default () => {
         }}
         >
           <DataCard/>
-
-
           <Callapse/>
+          <TextCard
+            title="为您的店铺选择套餐题"
+            contentText={
+              <>
+              立即付费解锁更多功能，享受更好的服务和支持。已支持以下付款方式：<br/>
+              √ 银联支付（借记卡及信用卡，支持自动扣费）<br/>
+              √ 信用卡支付（Visa、JCB、MasterCard、American Express，支持自动扣费）<br/>
+              √ 微信支付
+              </>
+            }
+            buttonContents={[
+              {
+                text: '选择套餐',
+                url: '#'
+              }
+            ]}
+          />
+          <TextCard
+            title='您的店铺还未绑定域名！'
+            contentText={
+              <>
+                一个好的域名，助您的品牌深入人心。您可以在Godaddy、阿里云等域名服务商购买域名后，解析域名并绑定到MataCart后台。
+              </>
+            }
+            buttonContents={[
+              {
+                text: '点击设置',
+                url: '#'
+              }
+            ]}
+          >
 
-          <TextCard title="关于" text="欢迎使用" buttons={buttons} />
-          <Card title="Default size card" extra={<a href="#">More</a>} style={{width: '100%'}} >
-            <p>Card content</p>
-            <p>Card content</p>
-            <p>Card content</p>
-          </Card>
-          <Card title="Default size card" extra={<a href="#">More</a>} style={{width: '100%'}} >
-            <p>Card content</p>
-            <p>Card content</p>
-            <p>Card content</p>
-          </Card>
+          </TextCard>
           
         </Space>
       </div>
