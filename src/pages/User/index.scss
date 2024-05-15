@@ -54,12 +54,7 @@ h3 {
     color: #242833;
     border-radius: 4px;
     /* transition: background-color ease 0.3s; */
-    a {  
-        display: inline-block;  
-        color: #356dff;  
-        font-weight: 600;  
-        text-decoration: none;
-    }
+
 }
 /* .login-header-container:hover {
     transition-behavior: nomal;
@@ -70,7 +65,18 @@ h3 {
 
 } */
 
-
+a{  
+    display: inline-block;  
+    color: #356dff;  
+    font-weight: 600;  
+    text-decoration: none;
+    // a标签访问后的样式
+    &:visited{
+        color: #356dff;  
+        font-weight: 600;  
+        text-decoration: none;
+    }
+}
 
 .login-form-wrap {
     position: relative;

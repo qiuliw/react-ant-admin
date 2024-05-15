@@ -47,6 +47,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.8.1",
     "@ant-design/pro-components": "^2.6.48",
+    "@reduxjs/toolkit": "^2.2.4",
     "@umijs/route-utils": "^2.2.2",
     "antd": "^5.13.2",
     "antd-style": "^3.6.1",
@@ -88,6 +89,7 @@
     "swagger-ui-dist": "^4.19.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3",
+    "typescript-plugin-css-modules": "^5.1.0",
     "umi-presets-pro": "^2.0.3",
     "umi-serve": "^1.9.11"
   },

@@ -10,7 +10,7 @@ import { currentUser as queryCurrentUser } from '@/services/y2/api';
 import React from 'react';
 ;
 const isDev = process.env.NODE_ENV === 'development';
-const loginPath = '/user/login';
+const loginPath = '/user/signIn';
 import { message, notification } from 'antd';
 
 // 流程参考 https://www.bilibili.com/video/BV1yH4y1T7NW
@@ -153,7 +153,8 @@ export const request = {
   requestInterceptors: [
     (config:any) => {
       // 在请求拦截器中带token（除登录接口）
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem('token')
+      
       localStorage.setItem('token', token);
       if(token && config.url != loginPath)
       config.headers['token']= token;
