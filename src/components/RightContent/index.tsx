@@ -37,7 +37,7 @@ export const Question = () => {
 async function measureLatency() {  
   const startTime = performance.now();  
   try {  
-      await fetch('https://baidu.com/ping', { method: 'HEAD' });  
+      await fetch('https://baidu.com/', { method: 'HEAD' });  
   } catch (error) {  
     console.log(error);
   }
