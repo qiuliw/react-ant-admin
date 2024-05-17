@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
-import { Button } from 'antd';
+import { Button, ConfigProvider } from 'antd';
 import type { CollapseProps } from 'antd';
 import { Collapse } from 'antd';
 import Drawer from '../Drawer/Drawer';
+import PriceRangeSelector from './PriceRangeSelector';
+import PriceRangeInput from '../Input/PriceRangeInput';
+import './MoreSelect.scss'
+import ProductTypeSelector from './productTypeSelector';
+
 
 const text = `
   A dog is a type of domesticated animal.
@@ -10,16 +15,24 @@ const text = `
   it can be found as a welcome guest in many households across the world.
 `;
 
+
+
+
 const items: CollapseProps['items'] = [
   {
     key: '1',
-    label: 'This is panel header 1',
-    children: <p>{text}</p>,
+    label: '价格区间',
+    children: (
+      <>
+        <PriceRangeInput/>
+        <div className={'cleanText'}>清除</div>
+      </>
+    ),
   },
   {
     key: '2',
-    label: 'This is panel header 2',
-    children: <p>{text}</p>,
+    label: '商品类型',
+    children: <ProductTypeSelector/>,
   },
   {
     key: '3',
@@ -48,7 +61,18 @@ export default function MoreSelect(){
         更多筛选
       </Button>
       <Drawer title='筛选' open={open} onClose={onClose} >
-        <Collapse size='large' defaultActiveKey={['1']} ghost items={items} />;
+        <ConfigProvider 
+          theme={{
+            components:{
+              Collapse:{
+                
+              }
+            }
+          }}
+
+        >
+          <Collapse size='large' defaultActiveKey={['1']} ghost items={items} />;
+        </ConfigProvider>
       </Drawer>
     </>
   );
