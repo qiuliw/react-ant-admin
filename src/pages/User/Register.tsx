@@ -7,7 +7,8 @@ import React, { useState } from 'react';
 import { request } from '@umijs/max';
 import { flushSync } from 'react-dom';
 import { register } from '@/services/y2/api';
-
+import { getFakeCaptcha } from '@/services/ant-design-pro/login';
+import myConfig from '../../../config/myConfig';
 type FieldType = {
     username?: string;
     password?: string;
@@ -25,6 +26,9 @@ export default function Register(props:Props) {
     const [userLoginState, setUserLoginState] = useState<API.LoginResult>({});
     const [type, setType] = useState<string>('account');
     const { initialState, setInitialState } = useModel('@@initialState');
+    const [captchaIsLoding, setCaptchaIsLoading] = useState(false);
+    const [formIsLoading, setFormIsLoading] = useState(false);
+    const [phone, setPhone] = useState('');
 
     const fetchUserInfo = async () => {
       const userInfo = await initialState?.fetchUserInfo?.();
@@ -89,17 +93,81 @@ export default function Register(props:Props) {
                         rules={[
                             {
                                 required: true,
-                                message: intl.formatMessage({ id: 'pages.login.username.required' }),
+                                message: intl.formatMessage({ id: 'pages.login.phone.required', defaultMessage:'手机号是必填项' }),
                             },
+                            // {
+                            //     pattern: /^1\d{10}$/,
+                            //     message: (
+                            //         <FormattedMessage
+                            //             id="pages.login.phoneNumber.invalid"
+                            //             defaultMessage="手机号格式错误！"
+                            //         />
+                            //     ),
+                            // },
                         ]}
                     >
                         <Input
                             style={{
                                 height: '52px',
                             }}
+                            onChange={(e) => {
+                                setPhone(e.target.value);
+                            }}
                             prefix={<UserOutlined className="site-form-item-icon" />}
                             placeholder={intl.formatMessage({ id: 'pages.login.username.label' })}
                         />
+                    </Form.Item>
+
+                    <Form.Item
+                        name="captcha"
+                        rules={[
+                            {
+                                required: true,
+                                message: intl.formatMessage({ id: 'pages.captcha.required', defaultMessage: '请输入验证码' }),
+                            },
+                        ]}
+
+                    >
+                        <div
+                            style={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignContent: 'center',
+                            }}
+                        >
+                            <Input
+                                style={{
+                                    width: '50%',
+                                    height: '51px',
+                                    flex: 2,
+                                    marginRight: '10px',
+                                }}
+                                type="text"
+                                placeholder={intl.formatMessage({ id: 'pages.captcha', defaultMessage: '验证码' })}
+                            />
+                            <Button 
+                            loading={captchaIsLoding}
+                            style={{
+                                height: '51px',
+                                flex: 1
+                            }}
+                            onClick={async () => {
+                                setCaptchaIsLoading(true);
+                                const result = await getFakeCaptcha({
+                                   phone,
+                                });
+                                if (!result) {
+                                    message.error('验证码获取失败！');return;
+                                }else{
+                                    message.success('获取验证码成功！验证码为：123456');
+                                }
+                                setCaptchaIsLoading(false);
+                              }}
+                            >
+                                <FormattedMessage id={'pages.getCaptcha'}/>
+                            </Button>
+                        </div>
+
                     </Form.Item>
                     <Form.Item
                         name="password"
@@ -152,15 +220,28 @@ export default function Register(props:Props) {
                         name="agreement"
                         valuePropName="checked"
                         rules={[
-                            {
-                                validator: (_, value) =>
-                                    value
-                                        ? Promise.resolve()
-                                        : Promise.reject(new Error('Should accept agreement')),
-                            },
+                            // {
+                            //     validator: (_, value) =>
+                            //         value
+                            //             ? Promise.resolve()
+                            //             : Promise.reject(new Error('Should accept agreement')),
+                            // },
                         ]}
                     >
-                        <Checkbox>同意协议</Checkbox>
+                        <Checkbox style={{
+                            color: '#7a8499',
+                            fontSize: '12px'
+                        }}><FormattedMessage id={'pages.registerAgreed'} defaultMessage='注册表示您已同意'/>{myConfig.title}
+                        </Checkbox>
+                        
+                        <a style={{
+                            fontSize: '12px',
+                            fontWeight: '400'
+                        }} href='https://www.matacart.com/xieyi.html'><FormattedMessage id="pages.userAgreement" defaultMessage="用户协议" />,</a>
+                        <a style={{
+                            fontSize: '12px',
+                            fontWeight: '400'
+                        }} href='https://www.matacart.com/privacy.html'><FormattedMessage id='pages.privacyPolicy' defaultMessage='隐私政策' /></a>
                     </Form.Item>
                     <Button
                         style={{
@@ -186,7 +267,7 @@ export default function Register(props:Props) {
                 }}
                 orientationMargin="3em"
             >
-                通过其他方式注册
+                <FormattedMessage id="pages.register.otherWays" defaultMessage='通过其他方式注册' />
             </Divider>
             {/* 其他登录方式 */}
             <div
@@ -221,8 +302,9 @@ export default function Register(props:Props) {
                     {intl.formatMessage({ id: 'pages.register.link.linkie' })}
                 </Button>
 
-                <div>已有账号，
-                    <Link to="/user/signIn">去登录</Link>
+                <div>
+                    <FormattedMessage id={'pages.alreadyHavaAccount'}/>，
+                    <Link to="/user/signIn"><FormattedMessage id={'pages.goToLogin'}/></Link>
                 </div>
             </div>
         </>

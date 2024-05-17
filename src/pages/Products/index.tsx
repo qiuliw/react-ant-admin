@@ -58,10 +58,10 @@ const initialItems = [
 
 
 export default function Product() {
+
     const [activeKey, setActiveKey] = useState(initialItems[0].key);
     const [items, setItems] = useState(initialItems);
     const newTabIndex = useRef(0);
-
 
     const onChange = (newActiveKey: string) => {
         setActiveKey(newActiveKey);

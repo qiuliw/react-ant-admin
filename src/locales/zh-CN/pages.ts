@@ -18,7 +18,7 @@ export default {
   'pages.login.username.placeholder': '用户名: admin or user',
   'pages.login.username.required': '用户名是必填项！',
   'pages.login.password.placeholder': '密码: ant.design',
-   'pages.register.password.again': '请再次输入密码',
+  'pages.register.password.again': '请再次输入密码',
   'pages.login.password.required': '密码是必填项！',
   'pages.login.phoneLogin.tab': '手机号登录',
   'pages.login.phoneLogin.errorMessage': '验证码错误',
@@ -29,6 +29,10 @@ export default {
   'pages.login.captcha.required': '验证码是必填项！',
   'pages.login.phoneLogin.getVerificationCode': '获取验证码',
   'pages.getCaptchaSecondText': '秒后重新获取',
+  'pages.getCaptcha': '获取验证码',
+  'pages.captcha': '验证码',
+  'pages.userAgreement': '用户协议',
+  'pages.privacyPolicy': '隐私政策',
   'pages.login.rememberMe': '自动登录',
   'pages.login.forgotPassword': '忘记密码 ?',
   'pages.login.submit': '登录',
@@ -76,7 +80,13 @@ export default {
   'pages.searchTable.tenThousand': '万',
   'pages.searchTable.batchDeletion': '批量删除',
   'pages.searchTable.batchApproval': '批量审批',
-  'pages.user.center':'个人中心',
+  'pages.user.center': '个人中心',
   'pages.user.settings': '个人设置',
-  'pages.user.logout': '退出'
+  'pages.user.logout': '退出',
+  'pages.register.otherWays': '通过其他方式注册',
+  "alreadyHaveAccount": "已有账号",  
+  "goToLogin": "去登录",
+  //
+  "forget.title": '忘记密码',
+  "menu.captcha": '验证'
 };

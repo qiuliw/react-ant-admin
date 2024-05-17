@@ -132,7 +132,7 @@ export default function LoginForm() {
                                     marginRight: '10px',
                                 }}
                                 type="text"
-                                placeholder={intl.formatMessage({ id: 'pages.captcha.label', defaultMessage: '验证码' })}
+                                placeholder={intl.formatMessage({ id: 'pages.captcha', defaultMessage: '验证码' })}
                             />
                             <Button 
                             loading={captchaIsLoding}
@@ -154,7 +154,7 @@ export default function LoginForm() {
                               }}
 
 
-                            >获取验证码</Button>
+                            ><FormattedMessage id={'pages.getCaptcha'} defaultMessage={'获取验证码'}/></Button>
                         </div>
 
                     </Form.Item>
@@ -190,7 +190,7 @@ export default function LoginForm() {
 
                 </Form>
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50px' }}>
-                    <Link to='/user/signIn'>去登录</Link>
+                    <Link to='/user/signIn'><FormattedMessage id='pages.goToLogin'/></Link>
 
                 </div>
             </div>
