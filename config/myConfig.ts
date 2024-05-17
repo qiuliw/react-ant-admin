@@ -1,6 +1,6 @@
 
 const state={
-    title: 'MataCard'
+    title: 'MateCart'
 }
 
 export default state;

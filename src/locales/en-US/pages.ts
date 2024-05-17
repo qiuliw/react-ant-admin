@@ -91,3 +91,4 @@ export default {
   "forget.title": 'Forgot Password',
   "menu.captcha": 'Captcha',
 };
+
