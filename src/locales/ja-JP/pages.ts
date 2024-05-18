@@ -19,7 +19,7 @@ export default {
   'pages.login.link.apple': 'Appleアカウントでログイン', // 注意: 在日语中，Apple 通常直接翻译为“Apple”
   'pages.login.link.linkie': 'Linkieアカウントでログイン',
   'pages.register.password.again': 'パスワードを再入力してください',
-  'pages.registerAgreed': '',
+  'pages.registerAgreed': '登録することは、MateCartの利用規約に同意したことを意味します',
   'pages.userAgreement': '利用規約',
   'pages.privacyPolicy': 'プライバシーポリシー',
   'pages.login.phoneLogin.errorMessage': '検証コードエラー',
@@ -32,7 +32,7 @@ export default {
   'pages.getCaptcha': '認証コードを取得',
   'pages.captcha': '認証コード',
   'pages.getCaptchaSecondText': '秒',
-  'pages.login.rememberMe': 'Remember me',
+  'pages.login.rememberMe': '私を記憶する',
   'pages.login.forgotPassword': 'パスワードをお忘れですか？',
   'pages.login.submit': 'ログイン',
   'pages.login.loginWith': 'その他のログイン方法：',
@@ -86,4 +86,20 @@ export default {
   "pages.or": 'または',
   "forget.title": 'パスワードを忘れた',  
 "menu.captcha": '認証コード',
+"pages.shouldGreetment": "関連する条項に同意してください！",  
+"pages.alreadyHavaAccount": "既存アカウントをお持ちの場合は",
+"pages.register.password.not.match": '入力したパスワードは一致しません',  
+"pages.login.phone.required": '携帯電話番号は必須項目です！',  
+"pages.reset.success": 'パスワードのリセットに成功しました！',  
+"pages.reset.failure": 'パスワードのリセットに失敗しました。もう一度試行してください！',  
+"pages.getcaptcha.success": '認証コードの取得に成功しました！認証コードは：',  
+"pages.getcaptcha.failure": '認証コードの取得に失敗しました！',  
+"register.title": '無料試用を開始',
+'pages.register.link.google': 'Googleを使って登録',  
+'pages.register.link.facebook': 'Facebookを使って登録',  
+'pages.register.link.apple': 'Appleを使って登録',  // 注意：通常Apple的官方服务会使用“Apple ID”而不是“Apples”  
+'pages.register.link.linkie': 'Linkieを使って登録',
+"pages.captcha.required": "認証コードを入力してください",
+
+
 };

@@ -29,6 +29,7 @@ export default function Register(props:Props) {
     const [captchaIsLoding, setCaptchaIsLoading] = useState(false);
     const [formIsLoading, setFormIsLoading] = useState(false);
     const [phone, setPhone] = useState('');
+    const intl = useIntl();
 
     const fetchUserInfo = async () => {
       const userInfo = await initialState?.fetchUserInfo?.();
@@ -42,7 +43,6 @@ export default function Register(props:Props) {
       }
     };
 
-    const intl = useIntl();
     return (
         <>
             {/* 表头 */}
@@ -70,7 +70,7 @@ export default function Register(props:Props) {
                                 message.success(defaultLoginSuccessMessage);
                                 await fetchUserInfo();
                                 const urlParams = new URL(window.location.href).searchParams;
-                                history.push(urlParams.get('redirect') || '/');
+                                history.push('/user/signIn');
                                 return;
                               }
                               console.log(msg);
@@ -95,15 +95,15 @@ export default function Register(props:Props) {
                                 required: true,
                                 message: intl.formatMessage({ id: 'pages.login.phone.required', defaultMessage:'手机号是必填项' }),
                             },
-                            // {
-                            //     pattern: /^1\d{10}$/,
-                            //     message: (
-                            //         <FormattedMessage
-                            //             id="pages.login.phoneNumber.invalid"
-                            //             defaultMessage="手机号格式错误！"
-                            //         />
-                            //     ),
-                            // },
+                            {
+                                pattern: /^1\d{10}$/,
+                                message: (
+                                    <FormattedMessage
+                                        id="pages.login.phoneNumber.invalid"
+                                        defaultMessage="手机号格式错误！"
+                                    />
+                                ),
+                            },
                         ]}
                     >
                         <Input
@@ -157,9 +157,13 @@ export default function Register(props:Props) {
                                    phone,
                                 });
                                 if (!result) {
-                                    message.error('验证码获取失败！');return;
+                                    message.error(intl.formatMessage({
+                                        id: 'pages.getcaptcha.failure'
+                                    }));return;
                                 }else{
-                                    message.success('获取验证码成功！验证码为：123456');
+                                    message.success(intl.formatMessage({
+                                        id: 'pages.getcaptcha.success'
+                                    }));
                                 }
                                 setCaptchaIsLoading(false);
                               }}
@@ -216,25 +220,23 @@ export default function Register(props:Props) {
                             placeholder={intl.formatMessage({ id: 'pages.register.password.again' })}
                         />
                     </Form.Item>
-                    <Form.Item<FieldType>
+                    <Form.Item
                         name="agreement"
                         valuePropName="checked"
                         rules={[
-                            // {
-                            //     validator: (_, value) =>
-                            //         value
-                            //             ? Promise.resolve()
-                            //             : Promise.reject(new Error('Should accept agreement')),
-                            // },
+                            {
+                                validator: (_, value) =>
+                                    value
+                                        ? Promise.resolve()
+                                        : Promise.reject(new Error(intl.formatMessage({id:'pages.shouldGreetment'}))),
+                            },
                         ]}
                     >
                         <Checkbox style={{
                             color: '#7a8499',
                             fontSize: '12px'
-                        }}><FormattedMessage id={'pages.registerAgreed'} defaultMessage='注册表示您已同意'/>{myConfig.title}
-                        </Checkbox>
-                        
-                        <a style={{
+                        }}><FormattedMessage id={'pages.registerAgreed'} defaultMessage='注册表示您已同意'/>{myConfig.title}&nbsp;
+                                                <a style={{
                             fontSize: '12px',
                             fontWeight: '400'
                         }} href='https://www.matacart.com/xieyi.html'><FormattedMessage id="pages.userAgreement" defaultMessage="用户协议" />,</a>
@@ -242,6 +244,9 @@ export default function Register(props:Props) {
                             fontSize: '12px',
                             fontWeight: '400'
                         }} href='https://www.matacart.com/privacy.html'><FormattedMessage id='pages.privacyPolicy' defaultMessage='隐私政策' /></a>
+                        </Checkbox>
+                        
+
                     </Form.Item>
                     <Button
                         style={{

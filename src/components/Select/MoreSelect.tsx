@@ -6,7 +6,7 @@ import Drawer from '../Drawer/Drawer';
 import PriceRangeSelector from './PriceRangeSelector';
 import PriceRangeInput from '../Input/PriceRangeInput';
 import './MoreSelect.scss'
-import ProductTypeSelector from './productTypeSelector';
+import ProductTypeSelector from './ProductTypeSelector';
 
 
 const text = `
@@ -36,7 +36,7 @@ const items: CollapseProps['items'] = [
   },
   {
     key: '3',
-    label: 'This is panel header 3',
+    label: '自定义商品类型',
     children: <p>{text}</p>,
   },
 ];
@@ -65,7 +65,8 @@ export default function MoreSelect(){
           theme={{
             components:{
               Collapse:{
-                
+                headerPadding: '0 0 0 0',
+                contentPadding: '0 0 0 0'
               }
             }
           }}

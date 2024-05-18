@@ -86,7 +86,22 @@ export default {
   'pages.register.otherWays': '通过其他方式注册',
   "alreadyHaveAccount": "已有账号",  
   "goToLogin": "去登录",
-  //
   "forget.title": '忘记密码',
-  "menu.captcha": '验证'
+  "menu.captcha": '验证',
+  "pages.goToLogin": '去登陆',
+
+  //
+  "pages.shouldGreetment": '请同意相关条款！',
+  "pages.alreadyHavaAccount": '已有账号',
+  "pages.or": '或',
+  // 
+  "pages.register.password.not.match": '输入的密码不匹配',
+  "pages.login.phone.required": '手机号是必填项！',
+  "pages.reset.success": '重设密码成功！',
+  'pages.reset.failure': '重设密码失败，请重试！',
+  'pages.getcaptcha.success': '获取验证码成功！验证码为：',
+  "pages.getcaptcha.failure": '验证码获取失败！',
+  "register.title":'开始您的免费试用',
+  //
+  "pages.captcha.required":'请输入验证码',
 };

@@ -90,5 +90,14 @@ export default {
   "pages.or": 'or',
   "forget.title": 'Forgot Password',
   "menu.captcha": 'Captcha',
+  "pages.shouldGreetment": "Please agree to the relevant terms!",  
+  "pages.register.password.not.match": 'The entered passwords do not match',  
+"pages.login.phone.required": 'Phone number is a required field!',  
+"pages.reset.success": 'Password reset successful!',  
+"pages.reset.failure": 'Password reset failed, please try again!',  
+"pages.getcaptcha.success": 'Captcha obtained successfully! The captcha is:',  
+"pages.getcaptcha.failure": 'Failed to obtain captcha!',  
+"register.title": 'Start your free trial',
+"pages.captcha.required": "Please enter the captcha",
 };
 
