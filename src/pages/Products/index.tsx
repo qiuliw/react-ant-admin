@@ -44,7 +44,7 @@ const items: MenuProps['items'] = [
 type TargetKey = React.MouseEvent | React.KeyboardEvent | string;
 
 const initialItems = [
-  { label: 'Tab 1', children: (<ProductsSelectCard/>), key: '1' },
+  { label: '全部', children: (<ProductsSelectCard/>), key: '1' },
   { label: 'Tab 2', children: 'Content of Tab 2', key: '2' },
   {
     label: 'Tab 3',

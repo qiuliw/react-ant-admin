@@ -100,4 +100,6 @@ export default {
 "pages.getcaptcha.failure": '驗證碼獲取失敗！',  
 "register.title": '開始您的免費試用',
 "pages.captcha.required": "請輸入驗證碼",
+"pages.register.success": "註冊成功",
+"pages.register.failure": "註冊失敗，請重試",
 };

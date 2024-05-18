@@ -99,5 +99,7 @@ export default {
 "pages.getcaptcha.failure": 'Failed to obtain captcha!',  
 "register.title": 'Start your free trial',
 "pages.captcha.required": "Please enter the captcha",
+"pages.register.success": "Registration successful",
+"pages.register.failure": "Registration failed, please try again",
 };
 

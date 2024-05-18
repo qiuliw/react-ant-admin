@@ -104,4 +104,6 @@ export default {
   "register.title":'开始您的免费试用',
   //
   "pages.captcha.required":'请输入验证码',
+  "pages.register.success": '注册成功',
+  "pages.register.failure": '注册失败，请重试',
 };

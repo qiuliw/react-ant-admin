@@ -100,6 +100,7 @@ export default {
 'pages.register.link.apple': 'Appleを使って登録',  // 注意：通常Apple的官方服务会使用“Apple ID”而不是“Apples”  
 'pages.register.link.linkie': 'Linkieを使って登録',
 "pages.captcha.required": "認証コードを入力してください",
-
+"pages.register.success": "登録が成功しました",
+"pages.register.failure": "登録に失敗しました、もう一度試行してください",
 
 };

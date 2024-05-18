@@ -15,10 +15,11 @@
 export default [
   {
     path: '/',
-    redirect: '/admin'
+    redirect: '/home'
   },
   {
     path: '/user',
+    name: 'login',
     layout: false,
     component: './User/index',
     routes: [
@@ -39,8 +40,8 @@ export default [
   },
   // menu
   {
-    path: '/admin',
-    name: '首页',
+    path: '/home',
+    name: 'home',
     icon: 'crown',
     // access: 'canAdmin',//权限
     component: './Admin/index',
@@ -50,19 +51,19 @@ export default [
   },
   {  
       path: '/products',
-      name: '商品',
+      name: 'products',
       icon: 'smile',
       component: './Products/index',
   },
   // stores
   {
-    name: '店铺',
+    name: 'stores',
     path: '/stores',
     icon: 'crown',
     routes:[
       {
         path: 'create',
-        name: '创建店铺',
+        name: 'create',
         component: './Stores/Create',
       }
     ]

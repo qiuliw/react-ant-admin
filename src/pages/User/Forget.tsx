@@ -51,7 +51,7 @@ export default function LoginForm() {
                                     const token = msg.token;
                                     // localStorage.setItem('token', token);
                                     const defaultLoginSuccessMessage = intl.formatMessage({
-                                      id: 'pages.login.success',
+                                      id: 'pages.reset.success',
                                       defaultMessage: '重设密码成功！',
                                     });
                                     message.success(defaultLoginSuccessMessage);
@@ -66,7 +66,7 @@ export default function LoginForm() {
                                   setUserLoginState(msg);
                                 } catch (error) {
                                   const defaultLoginFailureMessage = intl.formatMessage({
-                                    id: 'pages.login.failure',
+                                    id: 'pages.reset.failure',
                                     defaultMessage: '重设密码失败，请重试！',
                                   });
                                   console.log(error);
