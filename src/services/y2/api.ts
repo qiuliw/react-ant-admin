@@ -1,4 +1,3 @@
-import { Access } from './../../.umi-production/plugin-access/index';
 // @ts-ignore
 /* eslint-disable */
 import { request } from '@umijs/max';

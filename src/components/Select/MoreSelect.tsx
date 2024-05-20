@@ -104,14 +104,19 @@ export default function MoreSelect(){
             components:{
               Collapse:{
                 headerPadding: '12px 40px 12px 16px',
-                contentPadding: '0 16px'
+                contentPadding: '0 16px',
+                headerBg: ''
                 
               }
             }
           }}
-
         >
-          <Collapse expandIconPosition={'end'} defaultActiveKey={['1']} ghost items={items} />
+          <Collapse style={{
+              color: '#242833',
+              lineHeight: 1.5715,
+              fontSize: "16px",
+              fontWeight: 500,
+          }} expandIconPosition={'end'} defaultActiveKey={['1']} ghost items={items} />
         </ConfigProvider>
       </Drawer>
     </>

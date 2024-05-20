@@ -14,6 +14,7 @@
 //     });
 //   },
 // };
+import { message } from 'antd';
 import { Request, Response } from 'express';
 
 const waitTime = (time: number = 100) => {
@@ -221,7 +222,7 @@ export default {
   'POST /api/ApiAppstore/reset': async (req: Request, res: Response) => {
     const { phone, username, captcha } = req.body;
 
-    if (captcha != '123456'){
+    if (captcha != '123456') {
       res.send({
         code: 1,
       });
@@ -245,6 +246,24 @@ export default {
     });
     access = 'admin';
     return;
+  },
+
+  'POST /api/Oauth2/gettoken': async (req: Request, res: Response) => {
+    const { 
+      grant_type,
+      accessKeyId,
+      accessKeySecret } = req.body;
+    if(grant_type=='client_credential'
+      && accessKeyId=='hdq8v4nqcpbras5u8l'
+      && accessKeySecret==='ay9clijrp84j8lyx9ftzjyx4zdm0mstp'
+    ){
+      res.send({
+        access_token:'123456',
+      })
+    }else{
+      message.error('授权失败'); 
+    }
+
   },
 };
 
