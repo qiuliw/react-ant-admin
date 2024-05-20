@@ -53,5 +53,4 @@ export default {
   'menu.products': '商品',
   "menu.stores": "店铺",
   'menu.stores.create': '创建店铺',
-
 };

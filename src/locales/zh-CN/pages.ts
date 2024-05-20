@@ -106,4 +106,7 @@ export default {
   "pages.captcha.required":'请输入验证码',
   "pages.register.success": '注册成功',
   "pages.register.failure": '注册失败，请重试',
+  // 3
+  'pages.captcha.wrong': '验证码错误',
+  
 };

@@ -8,13 +8,18 @@ import defaultSettings from '../config/defaultSettings';
 // import { errorConfig } from './requestErrorConfig';
 import { currentUser as queryCurrentUser } from '@/services/y2/api';
 import React from 'react';
-;
+import axios from 'axios';
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/signIn';
 import { message, notification } from 'antd';
 import { Ping } from './components/RightContent';
-
+import access from './access';
+import { Oauth2 } from '../config/myConfig'
+import { getAccessToken } from '@/services/y2/api';
 // 流程参考 https://www.bilibili.com/video/BV1yH4y1T7NW
+
+
+
 
 // getInitialState 获取初始化状态
 export async function getInitialState(): Promise<{
@@ -36,6 +41,14 @@ export async function getInitialState(): Promise<{
     }
     return undefined;
   };
+
+
+  // access_token 初始化
+  let access_token = localStorage.getItem('access_token')
+  if (!access_token) {
+    access_token = await getAccessToken();
+    localStorage.setItem('access_token', access_token);
+  }
 
   // 如果不是登录页面，执行
   const { location } = history;
@@ -62,9 +75,9 @@ export async function getInitialState(): Promise<{
 export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) => {
   return {
     actionsRender: () => [
-    <Question key="doc" />, 
-    <SelectLang key="SelectLang" />,
-    <Ping key="Ping" />,
+      <Question key="doc" />,
+      <SelectLang key="SelectLang" />,
+      <Ping key="Ping" />,
     ],
     avatarProps: {
       src: initialState?.currentUser?.avatar,
@@ -106,11 +119,11 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
     ],
     links: isDev
       ? [
-          <Link key="openapi" to="/umi/plugin/openapi" target="_blank">
-            <LinkOutlined />
-            <span>OpenAPI 文档</span>
-          </Link>,
-        ]
+        <Link key="openapi" to="/umi/plugin/openapi" target="_blank">
+          <LinkOutlined />
+          <span>OpenAPI 文档</span>
+        </Link>,
+      ]
       : [],
     menuHeaderRender: undefined,
     // 自定义 403 页面
@@ -148,26 +161,29 @@ export const request = {
   // 错误统一处理
   errorConfig: {
     // 错误接收及处理
-    errorHandler(){
+    errorHandler() {
       message.error("网络繁忙，请稍后再试");
     },
   },
-  
+
 
   // 请求拦截器
   requestInterceptors: [
-    (config:any) => {
+    (config: any) => {
       // 在请求拦截器中带token（除登录接口）
       const token = localStorage.getItem('token')
-      
-      localStorage.setItem('token', token);
-      if(token && config.url != loginPath)
-      config.headers['token']= token;
-    return config;
+      if (token && config.url != loginPath)
+        config.headers['token'] = token;
+      // 携带access_token
+      config.headers['access_token'] = localStorage.getItem('access_token');
+
+      return config;
     },
   ],
   // 响应拦截器
   responseInterceptors: [
-    (response:any)=> response,
+    (response: any) => response,
+    // access_token 过期
   ]
 };
+

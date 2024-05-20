@@ -44,11 +44,10 @@ export default function LoginForm() {
                     className="login-form"
                     layout="horizontal"
                     // 重设密码
-                    onFinish={async (values: API.LoginParams) => {
+                    onFinish={async (values: API.LoginParams) => {                            
                                 try {
-                                  const msg = await reset({ ...values });
+                                    const msg = await reset({ ...values });
                                   if (msg.code === 0) {
-                                    const token = msg.token;
                                     // localStorage.setItem('token', token);
                                     const defaultLoginSuccessMessage = intl.formatMessage({
                                       id: 'pages.reset.success',
@@ -59,17 +58,14 @@ export default function LoginForm() {
                                     // const urlParams = new URL(window.location.href).searchParams;
                                     // history.push(urlParams.get('redirect') || '/');
                                     history.push('/user/signIn');
-                                    return;
+                                  }else{
+                                    message.error(intl.formatMessage({id: 'pages.captcha.wrong', defaultMessage: '验证码错误'}));
                                   }
-                                  console.log(msg);
-                                  // 如果失败去设置用户错误信息
-                                  setUserLoginState(msg);
                                 } catch (error) {
                                   const defaultLoginFailureMessage = intl.formatMessage({
                                     id: 'pages.reset.failure',
                                     defaultMessage: '重设密码失败，请重试！',
                                   });
-                                  console.log(error);
                                   message.error(defaultLoginFailureMessage);
                                 }
                             }
@@ -84,15 +80,15 @@ export default function LoginForm() {
                                 required: true,
                                 message: intl.formatMessage({ id: 'pages.login.phone.required', defaultMessage:'手机号是必填项' }),
                             },
-                            // {
-                            //     pattern: /^1\d{10}$/,
-                            //     message: (
-                            //         <FormattedMessage
-                            //             id="pages.login.phoneNumber.invalid"
-                            //             defaultMessage="手机号格式错误！"
-                            //         />
-                            //     ),
-                            // },
+                            {
+                                pattern: /^1\d{10}$/,
+                                message: (
+                                    <FormattedMessage
+                                        id="pages.login.phoneNumber.invalid"
+                                        defaultMessage="手机号格式错误！"
+                                    />
+                                ),
+                            },
                         ]}
                     >
                         <Input

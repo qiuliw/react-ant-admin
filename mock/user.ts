@@ -25,8 +25,8 @@ const waitTime = (time: number = 100) => {
 };
 
 async function getFakeCaptcha(req: Request, res: Response) {
-  await waitTime(2000);
-  return res.json('captcha-xxx');
+  await waitTime(500);
+  return res.json('123');
 }
 
 const { ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION } = process.env;
@@ -219,27 +219,32 @@ export default {
   'GET  /api/login/captcha': getFakeCaptcha,
 
   'POST /api/ApiAppstore/reset': async (req: Request, res: Response) => {
-    const { phone, username,captcha } = req.body;
-    console.log(phone, username,captcha);
-    await waitTime(1000);
+    const { phone, username, captcha } = req.body;
+
+    if (captcha != '123456'){
       res.send({
-        code: 0,
-        token: 'sdfsadfasdfasf3rwetwetgeww',
-        currentAuthority: 'admin',
+        code: 1,
       });
-      access = 'admin';
-    
+      return;
+    }
+
+    res.send({
+      code: 0,
+      currentAuthority: 'admin',
+    });
+    access = 'admin';
   },
 
   'POST /api/ApiAppstore/register': async (req: Request, res: Response) => {
     const { password, username } = req.body;
     await waitTime(1000);
-      res.send({
-        code: 0,
-        token: 'sdfsadfasdfasf3rwetwetgeww',
-        currentAuthority: 'admin',
-      });
-      access = 'admin';
-      return;
+    res.send({
+      code: 0,
+      token: 'sdfsadfasdfasf3rwetwetgeww',
+      currentAuthority: 'admin',
+    });
+    access = 'admin';
+    return;
   },
 };
+

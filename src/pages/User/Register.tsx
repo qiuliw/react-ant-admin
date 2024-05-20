@@ -8,7 +8,7 @@ import { request } from '@umijs/max';
 import { flushSync } from 'react-dom';
 import { register } from '@/services/y2/api';
 import { getFakeCaptcha } from '@/services/ant-design-pro/login';
-import myConfig from '../../../config/myConfig';
+import {state} from '../../../config/myConfig'
 type FieldType = {
     username?: string;
     password?: string;
@@ -61,21 +61,15 @@ export default function Register(props: Props) {
                             try {
                                 const msg = await register({ ...values });
                                 if (msg.code === 0) {
-                                    const token = msg.token;
-                                    localStorage.setItem('token', token);
                                     const defaultLoginSuccessMessage = intl.formatMessage({
                                         id: 'pages.register.success',
                                         defaultMessage: '注册成功！',
                                     });
                                     message.success(defaultLoginSuccessMessage);
-                                    await fetchUserInfo();
-                                    const urlParams = new URL(window.location.href).searchParams;
                                     history.push('/user/signIn');
                                     return;
                                 }
-                                console.log(msg);
-                                // 如果失败去设置用户错误信息
-                                setUserLoginState(msg);
+                                message.error(intl.formatMessage({id: 'pages.captcha.wrong', defaultMessage: '验证码错误'}));
                             } catch (error) {
                                 const defaultLoginFailureMessage = intl.formatMessage({
                                     id: 'pages.register.failure',
@@ -161,9 +155,10 @@ export default function Register(props: Props) {
                                             id: 'pages.getcaptcha.failure'
                                         })); return;
                                     } else {
-                                        message.success(intl.formatMessage({
+                                        let msg= intl.formatMessage({
                                             id: 'pages.getcaptcha.success'
-                                        }));
+                                        })+result
+                                        message.success(msg);
                                     }
                                     setCaptchaIsLoading(false);
                                 }}
@@ -235,7 +230,7 @@ export default function Register(props: Props) {
                         <Checkbox style={{
                             color: '#7a8499',
                             fontSize: '12px'
-                        }}><FormattedMessage id={'pages.registerAgreed'} defaultMessage='注册表示您已同意' />{myConfig.title}&nbsp;
+                        }}><FormattedMessage id={'pages.registerAgreed'} defaultMessage='注册表示您已同意' />{state.title}&nbsp;
                             <a style={{
                                 fontSize: '12px',
                                 fontWeight: '400'

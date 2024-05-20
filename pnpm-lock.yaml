@@ -16,7 +16,7 @@ importers:
         version: 2.6.49(antd@5.14.1(date-fns@2.30.0)(moment@2.30.1)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(rc-field-form@1.41.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@reduxjs/toolkit':
         specifier: ^2.2.4
-        version: 2.2.4(react-redux@8.1.3(@types/react-dom@18.2.19)(@types/react@18.2.55)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(redux@4.2.1))(react@18.2.0)
+        version: 2.2.4(react-redux@8.1.3(@types/react-dom@18.2.19)(@types/react@18.2.55)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(redux@5.0.1))(react@18.2.0)
       '@umijs/route-utils':
         specifier: ^2.2.2
         version: 2.2.2
@@ -26,6 +26,9 @@ importers:
       antd-style:
         specifier: ^3.6.1
         version: 3.6.1(@types/react@18.2.55)(antd@5.14.1(date-fns@2.30.0)(moment@2.30.1)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      axios:
+        specifier: ^1.7.0
+        version: 1.7.0
       blueimp-md5:
         specifier: ^2.19.0
         version: 2.19.0
@@ -3155,6 +3158,9 @@ packages:
   axios@0.27.2:
     resolution: {integrity: sha512-t+yRIyySRTp/wua5xEr+z1q60QmLq8ABsS5O9Me1AsE5dfKqgnCFzwiCZZ/cGNd1lq4/7akDWMxdhVlucjmnOQ==}
 
+  axios@1.7.0:
+    resolution: {integrity: sha512-IiB0wQeKyPRdsFVhBgIo31FbzOyf2M6wYl7/NVutFwFBRMiAbjNiydJIHKeLmPugF4kJLfA1uWZ82Is2QzqqFA==}
+
   babel-jest@29.7.0:
     resolution: {integrity: sha512-BrvGY3xZSwEcCzKvKsCi2GgHqDqsYkOP4/by5xCgIwGXQxIEh+8ew3gmrE1y7XRR6LHZIj6yLYnUi/mm2KXKBg==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
@@ -4841,6 +4847,15 @@ packages:
 
   follow-redirects@1.15.5:
     resolution: {integrity: sha512-vSFWUON1B+yAw1VN4xMfxgn5fTUiaOzAJCKBwIIgT/+7CuGy9+r+5gITvP62j3RmaD5Ph65UaERdOSRGUzZtgw==}
+    engines: {node: '>=4.0'}
+    peerDependencies:
+      debug: '*'
+    peerDependenciesMeta:
+      debug:
+        optional: true
+
+  follow-redirects@1.15.6:
+    resolution: {integrity: sha512-wWN62YITEaOpSK584EZXJafH1AGpO8RVgElfkuXbTOrPX4fIfOyEpW/CsiNd8JdYrAoOvafRTOEnvsO++qCqFA==}
     engines: {node: '>=4.0'}
     peerDependencies:
       debug: '*'
@@ -10278,7 +10293,7 @@ snapshots:
       babel-plugin-import: 1.13.8
       babel-runtime-jsx-plus: 0.1.5
       classnames: 2.5.1
-      dva-core: 2.0.4(redux@4.2.1)
+      dva-core: 2.0.4(redux@5.0.1)
       dva-immer: 1.0.1(dva@2.5.0-beta.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0))
       dva-loading: 3.0.24(dva-core@2.0.4(redux@4.2.1))
       history: 5.3.0
@@ -13260,7 +13275,7 @@ snapshots:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
 
-  '@reduxjs/toolkit@2.2.4(react-redux@8.1.3(@types/react-dom@18.2.19)(@types/react@18.2.55)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(redux@4.2.1))(react@18.2.0)':
+  '@reduxjs/toolkit@2.2.4(react-redux@8.1.3(@types/react-dom@18.2.19)(@types/react@18.2.55)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(redux@5.0.1))(react@18.2.0)':
     dependencies:
       immer: 10.1.1
       redux: 5.0.1
@@ -13268,7 +13283,7 @@ snapshots:
       reselect: 5.1.0
     optionalDependencies:
       react: 18.2.0
-      react-redux: 8.1.3(@types/react-dom@18.2.19)(@types/react@18.2.55)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(redux@4.2.1)
+      react-redux: 8.1.3(@types/react-dom@18.2.19)(@types/react@18.2.55)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(redux@5.0.1)
 
   '@remix-run/router@1.15.0': {}
 
@@ -13663,7 +13678,7 @@ snapshots:
       '@types/history': 4.7.11
       '@types/react': 18.2.55
       '@types/react-router': 5.1.20
-      redux: 4.2.1
+      redux: 5.0.1
 
   '@types/react-router@5.1.20':
     dependencies:
@@ -15432,6 +15447,14 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
+  axios@1.7.0:
+    dependencies:
+      follow-redirects: 1.15.6
+      form-data: 4.0.0
+      proxy-from-env: 1.1.0
+    transitivePeerDependencies:
+      - debug
+
   babel-jest@29.7.0(@babel/core@7.23.9):
     dependencies:
       '@babel/core': 7.23.9
@@ -16772,6 +16795,17 @@ snapshots:
       redux-saga: 0.16.2
       warning: 3.0.0
 
+  dva-core@2.0.4(redux@5.0.1):
+    dependencies:
+      '@babel/runtime': 7.23.9
+      flatten: 1.0.3
+      global: 4.4.0
+      invariant: 2.2.4
+      is-plain-object: 2.0.4
+      redux: 5.0.1
+      redux-saga: 0.16.2
+      warning: 3.0.0
+
   dva-immer@1.0.1(dva@2.5.0-beta.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0)):
     dependencies:
       '@babel/runtime': 7.23.9
@@ -17802,6 +17836,8 @@ snapshots:
   flatten@1.0.3: {}
 
   follow-redirects@1.15.5: {}
+
+  follow-redirects@1.15.6: {}
 
   for-each@0.3.3:
     dependencies:
@@ -22151,6 +22187,22 @@ snapshots:
       '@types/react-dom': 18.2.19
       react-dom: 18.2.0(react@18.2.0)
       redux: 4.2.1
+
+  react-redux@8.1.3(@types/react-dom@18.2.19)(@types/react@18.2.55)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(redux@5.0.1):
+    dependencies:
+      '@babel/runtime': 7.23.9
+      '@types/hoist-non-react-statics': 3.3.5
+      '@types/use-sync-external-store': 0.0.3
+      hoist-non-react-statics: 3.3.2
+      react: 18.2.0
+      react-is: 18.2.0
+      use-sync-external-store: 1.2.0(react@18.2.0)
+    optionalDependencies:
+      '@types/react': 18.2.55
+      '@types/react-dom': 18.2.19
+      react-dom: 18.2.0(react@18.2.0)
+      redux: 5.0.1
+    optional: true
 
   react-refresh@0.14.0: {}
 
