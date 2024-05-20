@@ -11,9 +11,11 @@ export default function DrawerComponent(props:{
     open:boolean,
     onClose:()=>void,
     children:React.ReactNode
+    styles?:React.CSSProperties
+
 }) {
 
-    let { title,open,onClose,children } = props;
+    let { title,open,onClose,children,styles } = props;
     
     return (
         <Drawer

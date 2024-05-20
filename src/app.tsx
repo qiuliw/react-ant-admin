@@ -37,6 +37,7 @@ export async function getInitialState(): Promise<{
       });
       return msg.data; // 返回用户信息
     } catch (error) {
+      console.log(error);
       history.push(loginPath);
     }
     return undefined;
@@ -175,7 +176,8 @@ export const request = {
       if (token && config.url != loginPath)
         config.headers['token'] = token;
       // 携带access_token
-      config.headers['access_token'] = localStorage.getItem('access_token');
+
+      config.headers['Authorization'] ='Bearer '+ localStorage.getItem('access_token') ;
 
       return config;
     },
