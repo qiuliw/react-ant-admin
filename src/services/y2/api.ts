@@ -120,22 +120,44 @@ export async function register(body: API.LoginParams, options?: { [key: string]:
 }
 
 /** 获取access_token */
+// export async function getAccessToken() {
+//   let AccessToken = '';
+//   await axios.post(
+//     Oauth2.hdyUrl,
+//     {
+//       grant_type: Oauth2.grant_type,
+//       accessKeyId: Oauth2.accessKeyId,
+//       accessKeySecret: Oauth2.accessKeySecret
+//     }, {
+//     headers: {
+//       'Content-Type': 'application/x-www-form-urlencoded',
+//     },
+//   }).then((res:any) => {
+//     AccessToken = res.data.access_token;
+//   }).catch((error:any) => {
+//     console.log('error', error);
+//   });
+//   return AccessToken;
+// }
+
+/** 获取access_token */
 export async function getAccessToken() {
   let AccessToken = '';
-  await axios.post(
-    Oauth2.hdyUrl,
-    {
-      grant_type: Oauth2.grant_type,
-      accessKeyId: Oauth2.accessKeyId,
-      accessKeySecret: Oauth2.accessKeySecret
-    }, {
+  await request(Oauth2.hdyUrl,{
+    method: 'GET',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
     },
-  }).then((res:any) => {
+    data: {
+      grant_type: Oauth2.grant_type,
+      accessKeyId: Oauth2.accessKeyId,
+      accessKeySecret: Oauth2.accessKeySecret
+    },
+  }).then((res:any) =>{
     AccessToken = res.data.access_token;
-  }).catch((error:any) => {
+  }).catch((error:any)=>{
     console.log('error', error);
-  });
+  })
   return AccessToken;
 }
+

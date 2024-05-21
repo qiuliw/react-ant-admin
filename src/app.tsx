@@ -11,11 +11,13 @@ import React from 'react';
 import axios from 'axios';
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/signIn';
-import { message, notification } from 'antd';
+import { message } from 'antd';
 import { Ping } from './components/RightContent';
 import access from './access';
 import { Oauth2 } from '../config/myConfig'
 import { getAccessToken } from '@/services/y2/api';
+import type { RequestConfig } from '@umijs/max';
+import { errorConfig } from './requestErrorConfig';
 // 流程参考 https://www.bilibili.com/video/BV1yH4y1T7NW
 
 
@@ -156,14 +158,48 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
 };
 
 
+
+
+
+// 与后端约定的响应数据格式
+interface ResponseStructure {
+  code: number;
+  data: any;
+  errorCode?: number;
+  errorMessage?: string;
+}
+
+
+
 // 请求封装
-export const request = {
+export const request: RequestConfig = {
   timeout: 60000, //超时处理，请求超过1分钟，取消请求
+
   // 错误统一处理
   errorConfig: {
+    // 抛出错误
+    errorThrower: (res:any) => {
+      const { code, data, errorCode, errorMessage} =
+        res as unknown as ResponseStructure;
+        // access_token 过期
+      if (code===40013) {
+        const error: any = new Error(errorMessage);
+        error.name = 'access_token_expires';
+        error.info = { errorCode, errorMessage, data };
+        throw error; // 抛出自制的错误
+      }
+    },
     // 错误接收及处理
-    errorHandler() {
-      message.error("网络繁忙，请稍后再试");
+    errorHandler(error: any, opts: any) {
+      // message.error("网络繁忙，请稍后再试");
+      let access_token = ''
+      if(error.name === 'access_token_expires'){
+        getAccessToken().then((res:any)=>{
+          access_token = res.data;
+          localStorage.setItem('access_token',access_token)
+        });
+      console.log('重新获取access_token')
+      }
     },
   },
 
@@ -178,14 +214,17 @@ export const request = {
       
       // 携带access_token
       config.headers['Authorization'] ='Bearer '+ localStorage.getItem('access_token') ;
-
       return config;
     },
+    
   ],
   // 响应拦截器
   responseInterceptors: [
     (response: any) => response,
     // access_token 过期
-  ]
+
+  ],
+
+
 };
 
