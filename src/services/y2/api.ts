@@ -132,9 +132,9 @@ export async function getAccessToken() {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
     },
-  }).then(res => {
+  }).then((res:any) => {
     AccessToken = res.data.access_token;
-  }).catch((error) => {
+  }).catch((error:any) => {
     console.log('error', error);
   });
   return AccessToken;
