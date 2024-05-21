@@ -49,8 +49,12 @@ export async function getInitialState(): Promise<{
   // access_token 初始化
   let access_token = localStorage.getItem('access_token')
   if (!access_token) {
-    access_token = await getAccessToken();
-    localStorage.setItem('access_token', access_token);
+    getAccessToken().then((res)=>{
+      localStorage.setItem('access_token',res.access_token)
+      // console.log(res)
+    }).catch((err)=>{
+      message.error(err.message)
+    })
   }
 
   // 如果不是登录页面，执行
@@ -189,17 +193,27 @@ export const request: RequestConfig = {
         throw error; // 抛出自制的错误
       }
     },
-    // 错误接收及处理
+    // 错误接收及处理 axios
+    // errorHandler(error: any, opts: any) {
+    //   // message.error("网络繁忙，请稍后再试");
+    //   let access_token = ''
+    //   if(error.name === 'access_token_expires'){
+    //     getAccessToken().then((res:any)=>{
+    //       access_token = res.data;
+    //       localStorage.setItem('access_token',access_token)
+    //     });
+    //   console.log('重新获取access_token')
+    //   message.error('access_token过期，请稍后再试');
+    //   }
+
+
     errorHandler(error: any, opts: any) {
       // message.error("网络繁忙，请稍后再试");
-      let access_token = ''
       if(error.name === 'access_token_expires'){
-        getAccessToken().then((res:any)=>{
-          access_token = res.data;
-          localStorage.setItem('access_token',access_token)
-        });
-      console.log('重新获取access_token')
-      message.error('access_token过期，请稍后再试');
+          getAccessToken().then(res=>{
+            let access_token = res.data.access_token;
+            localStorage.setItem('access_token',access_token)
+          }).catch((err)=>{console.log(err)})
       }
     },
   },

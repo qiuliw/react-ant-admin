@@ -7,8 +7,9 @@ import Drawer from '../Drawer/Drawer';
 import PriceRangeSelector from './PriceRangeSelector';
 import PriceRangeInput from '../Input/PriceRangeInput';
 import './MoreSelect.scss'
-import ProductTypeSelector from './ProductTypeSelector';
+
 import CustomizeProductTypeSelector from './CustomizeProductTypeSelector';
+import ProductTypeSelector from './ProductTypeSelector';
 
 const text = `
   A dog is a type of domesticated animal.
