@@ -54,6 +54,13 @@ export default [
       name: 'products',
       icon: 'smile',
       component: './Products/index',
+      routes: [
+        {
+          path: 'new',
+          name: 'new',
+          component: './Products/New',
+        }
+      ]
   },
   // stores
   {
