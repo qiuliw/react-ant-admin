@@ -199,6 +199,7 @@ export const request: RequestConfig = {
           localStorage.setItem('access_token',access_token)
         });
       console.log('重新获取access_token')
+      message.error('access_token过期，请稍后再试');
       }
     },
   },

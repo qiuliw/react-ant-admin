@@ -120,44 +120,70 @@ export async function register(body: API.LoginParams, options?: { [key: string]:
 }
 
 /** 获取access_token */
-// export async function getAccessToken() {
-//   let AccessToken = '';
-//   await axios.post(
-//     Oauth2.hdyUrl,
-//     {
-//       grant_type: Oauth2.grant_type,
-//       accessKeyId: Oauth2.accessKeyId,
-//       accessKeySecret: Oauth2.accessKeySecret
-//     }, {
-//     headers: {
-//       'Content-Type': 'application/x-www-form-urlencoded',
-//     },
-//   }).then((res:any) => {
-//     AccessToken = res.data.access_token;
-//   }).catch((error:any) => {
-//     console.log('error', error);
-//   });
-//   return AccessToken;
-// }
-
-/** 获取access_token */
 export async function getAccessToken() {
   let AccessToken = '';
-  await request(Oauth2.hdyUrl,{
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    data: {
+  await axios.post(
+    Oauth2.hdyUrl,
+    {
       grant_type: Oauth2.grant_type,
       accessKeyId: Oauth2.accessKeyId,
       accessKeySecret: Oauth2.accessKeySecret
+    }, {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
     },
-  }).then((res:any) =>{
+  }).then((res:any) => {
     AccessToken = res.data.access_token;
-  }).catch((error:any)=>{
+  }).catch((error:any) => {
     console.log('error', error);
-  })
+  });
   return AccessToken;
 }
 
+/** 获取access_token */
+// export async function getAccessToken() {
+//   let AccessToken = '';
+//   await request(Oauth2.hdyUrl,{
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/x-www-form-urlencoded',
+//     },
+//     data: {
+//       grant_type: Oauth2.grant_type,
+//       accessKeyId: Oauth2.accessKeyId,
+//       accessKeySecret: Oauth2.accessKeySecret
+//     },
+//   }).then((res:any) =>{
+//     AccessToken = res.data.access_token;
+//   }).catch((error:any)=>{
+//     console.log('error', error);
+//   })
+//   return AccessToken
+// }
+
+  
+// export async function getAccessToken() {  
+//   try {  
+//     const res = await request(Oauth2.hdyUrl, {  
+//       method: 'POST',  
+//       // headers: {  
+//       //   'Content-Type': 'application/json',  
+//       // },  
+//       data:{  
+//         grant_type: Oauth2.grant_type,  
+//         accessKeyId: Oauth2.accessKeyId,  
+//         accessKeySecret: Oauth2.accessKeySecret  
+//       },  
+//     });  
+  
+//     // 确保 res.data 和 res.data.access_token 存在  
+//     if (res && res.data && res.data.access_token) {  
+//       return res.data.access_token;  
+//     } else {  
+//       throw new Error('No access_token found in the response');  
+//     }  
+//   } catch (error) {  
+//     console.error('Error fetching access token:', error);  
+//     throw error; // 或者你可以选择返回一个错误对象或 null/undefined  
+//   }  
+// }

@@ -24,10 +24,10 @@ const items: CollapseProps['items'] = [
     key: '1',
     label: '价格区间',
     children: (
-      <>
-        <PriceRangeInput/>
+      <div>
+        <PriceRangeInput />
         <div className={'cleanText'}>清除</div>
-      </>
+      </div>
     ),
   },
   {
@@ -104,9 +104,8 @@ export default function MoreSelect(){
             components:{
               Collapse:{
                 headerPadding: '12px 40px 12px 16px',
-                contentPadding: '0 16px',
+                contentPadding: '0 40px 0 16px',
                 headerBg: ''
-                
               }
             }
           }}
@@ -116,7 +115,12 @@ export default function MoreSelect(){
               lineHeight: 1.5715,
               fontSize: "16px",
               fontWeight: 500,
-          }} expandIconPosition={'end'} defaultActiveKey={['1']} ghost items={items} />
+              paddingBlock: 0,
+          }} expandIconPosition={'end'} 
+          defaultActiveKey={['1']} ghost 
+          items={items}
+          size='small'
+          />
         </ConfigProvider>
       </Drawer>
     </>
