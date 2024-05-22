@@ -3,7 +3,9 @@ import type { SearchProps } from 'antd/es/input/Search';
 import type { SelectProps } from 'antd';
 import PriceRangeSelector from "../Select/PriceRangeSelector";
 import MoreSelect from "../Select/MoreSelect";
-
+import { result } from "lodash";
+import { useState } from 'react';
+import Nothing from "../Info/Nothing";
 
 const { Search } = Input;
 const onSearch: SearchProps['onSearch'] = (value, _e, info) => console.log(info?.source, value);
@@ -29,6 +31,8 @@ const options: SelectProps['options'] = [
     },
 ];
 
+
+
 const tagRender: TagRender = (props) => {
     const { label, value, closable, onClose } = props;
     const onPreventMouseDown = (event: React.MouseEvent<HTMLSpanElement>) => {
@@ -48,6 +52,8 @@ const tagRender: TagRender = (props) => {
     );
 };
 export default function ProductsSelectCard() {
+    const resultList=useState([]);
+
     return (
         <>
             <div className="products-select">
@@ -168,14 +174,17 @@ export default function ProductsSelectCard() {
                                 { value: '创建时间（从近到远）', label: '创建时间（从近到远）' },
                             ]}
                         />
-
                     </div>
                 </div>
             </div>
+            {/* {(resultList.length > 0 ? 
             <div className="products-result-list">
                 <div className="products-result-list-item">
+                    
                 </div>
-            </div>
+            </div>:<Nothing/>)} */}
+            <Nothing/>
+            
         </>
     );
 }

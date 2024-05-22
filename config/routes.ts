@@ -53,8 +53,12 @@ export default [
       path: '/products',
       name: 'products',
       icon: 'smile',
-      component: './Products/index',
       routes: [
+        {
+          path: 'index',
+          name: 'index',
+          component: './Products/index',
+        },
         {
           path: 'new',
           name: 'new',
