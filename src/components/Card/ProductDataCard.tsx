@@ -1,11 +1,11 @@
 import { Card, Form, Input } from "antd";
-import TextArea from "antd/es/input/TextArea";
 import './ProductDataCard.scss'
 
 const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     console.log('Change:', e.target.value);
 };
 
+const {TextArea} = Input
 
 export default function ProductDataCard() {
     return (

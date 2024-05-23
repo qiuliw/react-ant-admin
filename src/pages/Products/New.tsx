@@ -2,8 +2,9 @@ import { ArrowLeftOutlined } from '@ant-design/icons'
 import './New.scss'
 import { Button, Card, ConfigProvider, Form, Input, Select } from 'antd'
 import { Provider } from './../../.umi-production/plugin-model/index';
-import TextArea from 'antd/es/input/TextArea';
 import ProductDataCard from '@/components/Card/ProductDataCard';
+import ProductImgCard from '@/components/Card/ProductImgCard';
+import PriceOrTransactionCard from '@/components/Card/PriceOrTransactionCard';
 
 
 
@@ -27,8 +28,9 @@ export default function New() {
                 </div>
                 <div className='mc-layout-main'>
                     <div className='mc-layout-content'>
-                    {/* 商品信息 */}
-                    <ProductDataCard />
+                        <ProductDataCard />
+                        <ProductImgCard />
+                        <PriceOrTransactionCard />
                     </div>
                     <div className='mc-layout-extra'>
                         <Card>11111111</Card>

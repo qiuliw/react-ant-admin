@@ -65,13 +65,18 @@
             flex: 9;
             min-width: 510px;
 
-
+            display: flex;
+            flex-direction: column;
+            gap:20px
 
         }
 
         &-extra {
             flex:1;
             min-width: 285px;
+            .ant-card {
+                background-color: aquamarine;
+            }
         }
     }
 }
