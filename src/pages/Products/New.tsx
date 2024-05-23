@@ -5,6 +5,7 @@ import { Provider } from './../../.umi-production/plugin-model/index';
 import ProductDataCard from '@/components/Card/ProductDataCard';
 import ProductImgCard from '@/components/Card/ProductImgCard';
 import PriceOrTransactionCard from '@/components/Card/PriceOrTransactionCard';
+import StockCard from '@/components/Card/StockCard';
 
 
 
@@ -31,6 +32,7 @@ export default function New() {
                         <ProductDataCard />
                         <ProductImgCard />
                         <PriceOrTransactionCard />
+                        <StockCard/>
                     </div>
                     <div className='mc-layout-extra'>
                         <Card>11111111</Card>

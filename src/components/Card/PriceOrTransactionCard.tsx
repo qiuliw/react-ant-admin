@@ -9,7 +9,7 @@ const onChange: InputNumberProps['onChange'] = (value) => {
 export default function PriceOrTransactionCard() {
     return (
         <Scoped>
-            <Card title='价格/交易' className="card">
+            <Card title='价格/交易'>
                 <Form layout="vertical">
                     <Row>
                         <Col span={11}>
@@ -29,13 +29,12 @@ export default function PriceOrTransactionCard() {
                                     formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                                     parser={(value) => value?.replace(/\$\s?|(,*)/g, '') as unknown as number}
                                     onChange={onChange}
-                                    className="price-input"
+                                    className="ant-input"
                                 />
                             </Form.Item>
                         </Col>
-                        <Col span={2}>
-                        </Col>
-                        <Col span={11}>
+
+                        <Col offset={2} span={11}>
                             <Form.Item label={
                                 <>
                                     原价
@@ -52,7 +51,7 @@ export default function PriceOrTransactionCard() {
                                     formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                                     parser={(value) => value?.replace(/\$\s?|(,*)/g, '') as unknown as number}
                                     onChange={onChange}
-                                    className="price-input"
+                                    className="ant-input"
                                 />
                             </Form.Item>
                         </Col>
@@ -75,7 +74,7 @@ export default function PriceOrTransactionCard() {
                                     formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                                     parser={(value) => value?.replace(/\$\s?|(,*)/g, '') as unknown as number}
                                     onChange={onChange}
-                                    className="price-input"
+                                    className="ant-input"
                                 />
                             </Form.Item>
                         </Col>
@@ -95,7 +94,7 @@ export default function PriceOrTransactionCard() {
                                 <InputNumber
                                     prefix="US$"
                                     defaultValue={'--'}
-                                    className="price-input"
+                                    className="ant-input"
                                     disabled
                                 />
                             </Form.Item>
@@ -115,7 +114,7 @@ export default function PriceOrTransactionCard() {
                                 <InputNumber
                                     suffix="%"
                                     defaultValue={'--'}
-                                    className="price-input"
+                                    className="ant-input"
                                     disabled
                                 />
                             </Form.Item>
@@ -127,7 +126,7 @@ export default function PriceOrTransactionCard() {
                             span: 5,
                         }}
                         name="needTaxes">
-                        <Checkbox>需要收取税费</Checkbox>
+                        <Checkbox>开启库存追踪</Checkbox>
                     </Form.Item>
                 </Form>
             </Card>
@@ -137,23 +136,27 @@ export default function PriceOrTransactionCard() {
 
 
 const Scoped = styled.div`
-    .ant-card{
+.ant{
+    &-card{
         &-head-title{
-          font-weight: 400;
+            font-weight: 400;
         }
         &-body{
             padding-bottom: 0;
         }
-    }
-
-    .price{
-        &-item{
+        label{
             font-weight: 600;
         }
-        &-input{
+    }
+    &-checkbox-wrapper{
+        span{
+            font-weight: 400;
+        }
+    }
+    &-input{
             width: 100%;
             height: 36px;
-        }
-    }   
+    } 
+}
 `
 
