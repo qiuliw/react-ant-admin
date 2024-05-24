@@ -14,5 +14,23 @@ export default function MultipleStylesCard() {
 
 
 const Scoped = styled.div`
-    
+.ant{
+    &-card{
+        &-head-title{
+            font-weight: 400;
+        }
+        label{
+            font-weight: 600;
+        }
+    }
+    &-checkbox-wrapper{
+        span{
+            font-weight: 400;
+        }
+    }
+    &-input{
+            width: 100%;
+            height: 36px;
+    } 
+}
 `

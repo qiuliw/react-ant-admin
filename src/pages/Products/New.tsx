@@ -8,6 +8,7 @@ import StockCard from '@/components/Card/StockCard';
 import CustomsInformation from '@/components/Card/CustomsInformation';
 import MultipleStylesCard from '@/components/Card/MultipleStylesCard';
 import styled from 'styled-components';
+import ProductSettingsCard from '@/components/Card/ProductSettingsCard';
 
 
 
@@ -39,7 +40,8 @@ export default function New() {
                             <MultipleStylesCard/>
                         </div>
                         <div className='mc-layout-extra'>
-                            <Card>11111111</Card>
+                            <ProductSettingsCard/>
+
                         </div>
                     </div>
                 </div>
@@ -125,9 +127,16 @@ const Scoped = styled.div`
         &-extra {
             flex:1;
             min-width: 285px;
-            .ant-card {
-                background-color: aquamarine;
+            display: flex;
+            flex-direction: column;
+            gap:20px;
+
+            .ant {
+                &-card {
+                    background-color: #f7f8fb;
+                }
             }
+            
         }
     }
 }
