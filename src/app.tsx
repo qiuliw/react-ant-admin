@@ -22,7 +22,6 @@ import { errorConfig } from './requestErrorConfig';
 
 
 
-
 // getInitialState 获取初始化状态
 export async function getInitialState(): Promise<{
   settings?: Partial<LayoutSettings>;

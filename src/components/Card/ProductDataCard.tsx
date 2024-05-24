@@ -1,6 +1,7 @@
 import { Card, Form, Input } from "antd";
 import './ProductDataCard.scss'
 
+
 const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     console.log('Change:', e.target.value);
 };
@@ -28,7 +29,7 @@ export default function ProductDataCard() {
                     </TextArea>
                 </Form.Item>
                 <Form.Item label='商品描述'>
-
+                    {/*  */}
                 </Form.Item>
             </Form>
 
