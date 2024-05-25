@@ -1,7 +1,6 @@
 import { Card, Form, Input } from "antd";
 import './ProductDataCard.scss'
-
-
+import TinymceEditor from '../MCE/TinymceEditor'
 const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     console.log('Change:', e.target.value);
 };
@@ -30,6 +29,7 @@ export default function ProductDataCard() {
                 </Form.Item>
                 <Form.Item label='商品描述'>
                     {/*  */}
+                    <TinymceEditor/>
                 </Form.Item>
             </Form>
 
