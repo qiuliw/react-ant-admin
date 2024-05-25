@@ -21,17 +21,41 @@ export default function App() {
         tinymceScriptSrc='/tinymce/tinymce.min.js'  
         licenseKey='gpl'
         onInit={(_evt, editor) => (editorRef.current = editor)}  
-        initialValue='<p>This is the initial content of the editor.</p>'  
+        initialValue=''  
         init={{
           language_url: '/langs/zh_CN.js',
           language: 'zh_CN',
           height: 650,
           min_height: 400, //没内容时的高度
-          menubar: true,  // 显示菜单栏
-          plugins: 'print preview searchreplace autolink directionality visualblocks visualchars fullscreen image link media template code codesample table charmap hr pagebreak nonbreaking anchor insertdatetime advlist lists wordcount imagetools textpattern help emoticons autosave bdmap indent2em autoresize formatpainter axupimgs',
-          toolbar: 'code undo redo restoredraft | cut copy paste pastetext | forecolor backcolor bold italic underline strikethrough link anchor | alignleft aligncenter alignright alignjustify outdent indent | \
-          styleselect formatselect fontselect fontsizeselect | bullist numlist | blockquote subscript superscript removeformat | \
-          table image media charmap emoticons hr pagebreak insertdatetime print preview | fullscreen | bdmap indent2em lineheight formatpainter axupimgs', 
+          // menubar: true,  // 显示菜单栏
+          // 工具栏是否换行
+          toolbar_mode: 'wrap',
+          // 插件
+          plugins: [
+            'advlist',
+            'autolink',
+            'lists',
+            'link',
+            'image',
+            'charmap',
+            'anchor',
+            'searchreplace',
+            'visualblocks',
+            'code',
+            'fullscreen',
+            'insertdatetime',
+            'media',
+            'table',
+            'preview',
+            'wordcount',
+        ],
+          toolbar:
+          'undo redo | blocks fontsize | ' +
+          'bold italic strikethrough underline removeformat | forecolor backcolor | ' +
+          'alignleft aligncenter alignright alignjustify | ' +
+          'lineheight bullist numlist outdent indent | ' +
+          'link image imageupload media table | ' +
+          'blockquote hr code superscript subscript | fullscreen ', 
           content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
           // toolbar_sticky: true,
           promotion:false //去除upgrade按钮
