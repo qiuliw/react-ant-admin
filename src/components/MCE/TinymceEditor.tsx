@@ -27,7 +27,7 @@ export default function App() {
           language: 'zh_CN',
           height: 650,
           min_height: 400, //没内容时的高度
-          // menubar: true,  // 显示菜单栏
+          menubar: false,  // 显示菜单栏
           // 工具栏是否换行
           toolbar_mode: 'wrap',
           // 插件
