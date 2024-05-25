@@ -240,7 +240,7 @@ export default function ProductSettingsCard() {
                     </Form.Item>
                     <Form.Item
                         style={{
-                            marginBottom: 5
+                            marginBottom: 0
                         }}
                         className="moreLink"
                         label={<div className="label-content between">
@@ -299,5 +299,12 @@ const Scoped = styled.div`
     .desc{
         color: #7A8499;
         font-size: 14px;
+    }
+    .ant-form-item{
+        .ant-form-item-label{
+            >label::after{
+                margin-inline-end: 0px;
+            }
+        }
     }
 `

@@ -9,6 +9,7 @@ import CustomsInformation from '@/components/Card/CustomsInformation';
 import MultipleStylesCard from '@/components/Card/MultipleStylesCard';
 import styled from 'styled-components';
 import ProductSettingsCard from '@/components/Card/ProductSettingsCard';
+import SEOCard from '@/components/Card/SEOCard';
 
 
 
@@ -41,7 +42,7 @@ export default function New() {
                         </div>
                         <div className='mc-layout-extra'>
                             <ProductSettingsCard/>
-
+                            <SEOCard/>
                         </div>
                     </div>
                 </div>

@@ -43,9 +43,6 @@ export default function StockCard() {
                     </Row>
                     <Form.Item
                         valuePropName="checked"
-                        wrapperCol={{
-                            span: 5,
-                        }}
                         name="enableInventoryTracking"
                         style={{
                             marginBottom: 0
@@ -55,9 +52,6 @@ export default function StockCard() {
                     </Form.Item>
                     <Form.Item
                         valuePropName="checked"
-                        wrapperCol={{
-                            span: 5,
-                        }}
                         name="continueSelling">
                         <Checkbox>缺货后继续销售
                             <Tooltip title="这里是关于用户名的额外信息">
