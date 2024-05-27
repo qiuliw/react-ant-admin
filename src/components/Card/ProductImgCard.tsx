@@ -1,5 +1,5 @@
-import { Card } from "antd";
-import React from 'react';
+import { Card, Form, Input, Modal } from "antd";
+import React, { useState } from 'react';
 import { InboxOutlined } from '@ant-design/icons';
 import type { UploadProps } from 'antd';
 import { message, Upload } from 'antd';
@@ -33,20 +33,20 @@ const props: UploadProps = {
   },
 };
 
-const Scoped = styled.div`
-  .product-img-card{
-    .ant-card-head-title{
-        font-weight: 400;
-    }
-}
-`
+
 
 export default function ProductImgCard() {
+
+  const [modalOpen,setModalOpen] = useState(false)
+
+
   return (
     <Scoped>
       <Card title="商品图片/视频" className="product-img-card"
         extra={<>
-          <a>添加URL</a>
+          <a onClick={()=>{
+            setModalOpen(true);
+          }}>添加URL</a>
           <a style={{
             marginLeft: 20
           }}>添加多媒体图片</a>
@@ -62,11 +62,44 @@ export default function ProductImgCard() {
             banned files.
           </p>
         </Dragger>
-          <UploadTipDesc>
-            支持上传jpg、png、webp、SVG格式图片，最大限制为10M（4M为最佳店铺浏览体验）；支持上传GIF格式动图，最大限制8M
-          </UploadTipDesc>
-      </Card>
+        <UploadTipDesc>
+          支持上传jpg、png、webp、SVG格式图片，最大限制为10M（4M为最佳店铺浏览体验）；支持上传GIF格式动图，最大限制8M
+        </UploadTipDesc>
 
+
+
+        {/* 添加url Modal */}
+        <Modal
+          title="YouTube视频"
+          centered
+          width="90vw"
+          
+          open={modalOpen}
+          onOk={() => setModalOpen(false)}
+          onCancel={() => setModalOpen(false)}
+          styles={{
+            body:{
+              height:"120px",
+            }
+          }}
+          style={{
+            maxWidth: "860px"
+          }}
+        >
+          <Form layout="vertical">
+          <Form.Item label={<div style={{ fontWeight: 500,fontSize: "14px"}}>复制 YouTube 视频URL到下面输入框</div>}>
+            <Input/>
+          </Form.Item>
+          </Form>
+
+        </Modal>
+
+        {/* 添加多媒体图片 Modal */}
+
+
+        
+
+      </Card>
     </Scoped>
 
   )
@@ -74,3 +107,20 @@ export default function ProductImgCard() {
 
 
 
+const Scoped = styled.div`
+.product-img-card{
+  .ant-card-head-title{
+      font-weight: 400;
+  }
+}
+
+.content{
+  height:40px;
+}
+.footer{
+
+}
+
+
+
+`

@@ -11,6 +11,7 @@ import styled from 'styled-components';
 import ProductSettingsCard from '@/components/Card/ProductSettingsCard';
 import SEOCard from '@/components/Card/SEOCard';
 import ThirdPartyInfoCard from '@/components/Card/ThirdPartyInfoCard';
+import ThemeTemplateCard from '@/components/Card/ThemeTemplateCard';
 
 
 
@@ -45,6 +46,7 @@ export default function New() {
                             <ProductSettingsCard/>
                             <SEOCard/>
                             <ThirdPartyInfoCard/>
+                            <ThemeTemplateCard/>
                         </div>
                     </div>
                 </div>
@@ -88,7 +90,7 @@ const Scoped = styled.div`
                     display: flex;
                     justify-content: center;
                     align-content: center;
-    
+                    transition: 1s;
                     &-icon {
                         font-size: 18px;
                     }
@@ -142,5 +144,8 @@ const Scoped = styled.div`
             
         }
     }
+}
+a{
+  font-weight: 400
 }
 `
