@@ -2,34 +2,18 @@ import { Card, Flex, Form, Input, Modal, Select } from "antd";
 import React, { useState } from 'react';
 import { InboxOutlined, LoadingOutlined, PlusOutlined, SearchOutlined, ShopOutlined } from '@ant-design/icons';
 import type { GetProp, UploadProps } from 'antd';
-import { message, Upload } from 'antd';
+import { message, Upload, Image } from 'antd';
 import styled from 'styled-components';
 import { values } from "lodash";
 import { rule } from '@/services/ant-design-pro/api';
+import axios from "axios";
+import UploadCard from "./UploadLargeCard";
+import UploadSmallCard from "./UploadSmallCard";
 
 const { Dragger } = Upload;
 
 
-// outer upload
-const props: UploadProps = {
-  name: 'file',
-  multiple: true,
-  action: 'https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload',
-  onChange(info) {
-    const { status } = info.file;
-    if (status !== 'uploading') {
-      console.log(info.file, info.fileList);
-    }
-    if (status === 'done') {
-      message.success(`${info.file.name} file uploaded successfully.`);
-    } else if (status === 'error') {
-      message.error(`${info.file.name} file upload failed.`);
-    }
-  },
-  onDrop(e) {
-    console.log('Dropped files', e.dataTransfer.files);
-  },
-};
+
 
 // 图片上传
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
@@ -75,7 +59,7 @@ export default function ProductImgCard() {
       setLoading(true);
       return;
     }
-    if (info.file.status === 'error'){
+    if (info.file.status === 'error') {
       message.error("文件上传失败，请重试");
       setLoading(false);
     }
@@ -98,7 +82,15 @@ export default function ProductImgCard() {
     </button>
   );
 
+  // 显示图片列表
+  const [imgList, setImgList] = useState([]);
 
+  const getImgList = () => {
+    axios.get('/api/imgList').then((req) => {
+      console.log(req.data)
+      setImgList(req.data);
+    })
+  }
 
   return (
     <Scoped>
@@ -112,20 +104,12 @@ export default function ProductImgCard() {
           }}
             onClick={() => {
               setAddImgModalOpen(true);
+              getImgList();
             }}
           >添加多媒体图片</a>
         </>}
       >
-        <Dragger {...props}>
-          <p className="ant-upload-drag-icon">
-            <InboxOutlined />
-          </p>
-          <p className="ant-upload-text">Click or drag file to this area to upload</p>
-          <p className="ant-upload-hint">
-            Support for a single or bulk upload. Strictly prohibited from uploading company data or other
-            banned files.
-          </p>
-        </Dragger>
+        <UploadCard />
         <UploadTipDesc>
           支持上传jpg、png、webp、SVG格式图片，最大限制为10M（4M为最佳店铺浏览体验）；支持上传GIF格式动图，最大限制8M
         </UploadTipDesc>
@@ -223,20 +207,50 @@ export default function ProductImgCard() {
               ]}
             />
           </div>
-          <div className="content">
-            <Upload
-              name="avatar"
-              listType="picture-card"
-              className="avatar-uploader"
-              showUploadList
-              action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
-              beforeUpload={beforeUpload}
-              onChange={handleChange}
-              multiple
-            >
-              {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
-            </Upload>
+          <div className="content" style={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "5px 5px"
+          }}>
+            <UploadSmallCard />
 
+            {
+              imgList?.map((values: any, index) => {
+                return (
+                  <div style={{
+                    height: 150,
+                    width: 128
+                  }}>
+                    <div style={{
+                      height: 128,
+                      width: 128,
+                      backgroundColor: "#f0f0f0",
+                      borderRadius: "4px",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignContent: "center"
+                    }}>
+
+                      <Image
+                        style={{
+                          borderRadius: "4px",
+                        }}
+                        // height="100%"
+                        width="100%"
+                        src={values?.fileUrl} key={values?.fileId} />
+
+                    </div>
+                    <div style={{
+                      height: 16,
+                      fontSize: 16,
+                      // marginTop: 6,
+                      overflow: "hidden"
+                    }}>{values?.fileName}</div>
+                  </div>
+                )
+              })
+            }
+            
           </div>
         </Modal>
 
@@ -269,5 +283,4 @@ const Scoped = styled.div`
 .footer{
 
 }
-
 `
