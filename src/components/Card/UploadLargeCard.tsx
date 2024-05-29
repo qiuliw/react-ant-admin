@@ -7,8 +7,9 @@ const { Dragger } = Upload;
 
 const props: UploadProps = {
     name: 'file',
+    showUploadList: false,
     multiple: true,
-    action: 'https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload',
+    action: '/api/upload',
     onChange(info) {
         const { status } = info.file;
         if (status !== 'uploading') {
@@ -28,18 +29,21 @@ const props: UploadProps = {
 export default function UploadLargeCard() {
 
 
-    return (<>
-        <Dragger {...props}
-        height={200}
-        >
+    return (
+        <div>
+            <div></div>
+            <Dragger {...props}
+                height={200}
+            >
                 <PlusOutlined style={{
                     fontSize: 30,
                     color: "#929292"
-                    
-                }}/>
-            <p className="ant-upload-text">添加图片（或把图片拖到框内）</p>
-        </Dragger>
-    </>)
+
+                }} />
+                <p className="ant-upload-text">添加图片（或把图片拖到框内）</p>
+            </Dragger>
+        </div>
+    )
 }
 
 

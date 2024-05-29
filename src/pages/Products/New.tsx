@@ -1,5 +1,5 @@
 import { ArrowLeftOutlined } from '@ant-design/icons'
-import { Button, Card, ConfigProvider, Form, Input, Select } from 'antd'
+import { Button, Card, ConfigProvider, Drawer, Form, Input, Select } from 'antd'
 import { Provider } from './../../.umi-production/plugin-model/index';
 import ProductDataCard from '@/components/Card/ProductDataCard';
 import ProductImgCard from '@/components/Card/ProductImgCard';
@@ -12,6 +12,7 @@ import ProductSettingsCard from '@/components/Card/ProductSettingsCard';
 import SEOCard from '@/components/Card/SEOCard';
 import ThirdPartyInfoCard from '@/components/Card/ThirdPartyInfoCard';
 import ThemeTemplateCard from '@/components/Card/ThemeTemplateCard';
+import { Divider } from 'antd';
 
 
 
@@ -48,6 +49,10 @@ export default function New() {
                             <ThirdPartyInfoCard/>
                             <ThemeTemplateCard/>
                         </div>
+                    </div>
+                    <Divider/>
+                    <div className='mc-footer'>
+                        <Button type='primary'>创建</Button>
                     </div>
                 </div>
             </div>
@@ -141,7 +146,10 @@ const Scoped = styled.div`
                     background-color: #f7f8fb;
                 }
             }
-            
+        }
+        .mc-footer{
+            display:flex;
+            flex-direction: row-reverse;
         }
     }
 }
