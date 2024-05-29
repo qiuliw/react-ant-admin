@@ -51,6 +51,7 @@ export default {
   'menu.editor.koni': '拓扑编辑器',
   // 1
   'menu.products': '商品',
+  'menu.products.index': '商品列表',
   "menu.stores": "店铺",
   'menu.stores.create': '创建店铺',
 };

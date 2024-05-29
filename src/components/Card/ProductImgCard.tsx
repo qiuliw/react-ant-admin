@@ -5,7 +5,6 @@ import type { GetProp, UploadProps } from 'antd';
 import { message, Upload, Image } from 'antd';
 import styled from 'styled-components';
 import { values } from "lodash";
-import { rule } from '@/services/ant-design-pro/api';
 import axios from "axios";
 import UploadCard from "./UploadLargeCard";
 import UploadSmallCard from "./UploadSmallCard";

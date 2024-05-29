@@ -1,4 +1,7 @@
-﻿import component from "@/locales/bn-BD/component";
+﻿import { layout } from "@/app.bak";
+import component from "@/locales/bn-BD/component";
+import menu from "@/locales/bn-BD/menu";
+import { Children } from "react";
 
 /**
  * @name umi 的路由配置
@@ -62,10 +65,12 @@ export default [
         {
           path: 'new',
           name: 'new',
+          menu: false,
           component: './Products/New',
         }
       ]
   },
+
   // stores
   {
     name: 'stores',

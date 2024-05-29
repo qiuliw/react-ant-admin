@@ -11,6 +11,7 @@ import { ImportOutlined,PlusOutlined, } from '@ant-design/icons'
 import type { MenuProps } from 'antd'
 import { useState, useRef } from 'react'
 import ProductsSelectCard from '@/components/Card/ProductsSelectCard'
+import { history, Link } from '@umijs/max';
 
 const items: MenuProps['items'] = [
     {
@@ -134,7 +135,9 @@ export default function Product() {
                         </div>
                     </div>
                     <div className='create-title-right'>
-                        <Button type="primary" style={{
+                        <Button type="primary" 
+                        onClick={()=>{history.push('/products/new')}}
+                        style={{
                             marginTop: "10px",
                             width: "88px", height: "36px", fontSize: "16px",
 
