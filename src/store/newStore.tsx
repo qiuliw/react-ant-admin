@@ -12,12 +12,8 @@ class newStore {
       resume: observable,
       desc: observable,
 
+      selectedImg: observable,
 
-
-
-      // increment:action.bound,  // 可以设置bound属性修改this指向
-      // decrement:action,
-      // reset:action
     })
   }
 
@@ -34,6 +30,7 @@ class newStore {
   
   // 商品图片/视频
 
+  selectedImg = [];
 
   
   //############### 操作状态的方法 #####################
@@ -41,3 +38,6 @@ class newStore {
 }
 // eslint-disable-next-line import/no-anonymous-default-export
 export default new newStore()
+
+
+

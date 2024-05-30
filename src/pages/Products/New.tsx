@@ -13,6 +13,7 @@ import SEOCard from '@/components/Card/SEOCard';
 import ThirdPartyInfoCard from '@/components/Card/ThirdPartyInfoCard';
 import ThemeTemplateCard from '@/components/Card/ThemeTemplateCard';
 import { Divider } from 'antd';
+import { history } from '@umijs/max';
 
 
 
@@ -25,7 +26,9 @@ export default function New() {
                 <div className="mc-layout">
                     <div className="mc-header">
                         <div className="mc-header-left">
-                            <div className="mc-header-left-secondary">
+                            <div className="mc-header-left-secondary" onClick={()=>{
+                                history.push('/products/index')
+                            }}>
                                 <ArrowLeftOutlined className="mc-header-left-secondary-icon" />
                             </div>
                             <div className="mc-header-left-content">添加商品</div>
@@ -91,14 +94,17 @@ const Scoped = styled.div`
                     width: 32px;
                     border: #d7dbe7 1px solid;
                     border-radius: 4px;
-    
                     display: flex;
                     justify-content: center;
                     align-content: center;
-                    transition: 1s;
+                    &:hover{
+                        background-color:  #eaf0ff;
+                        cursor: pointer;
+                    }
                     &-icon {
                         font-size: 18px;
                     }
+
                 }
     
                 &-content {

@@ -1,4 +1,4 @@
-import { Card, Flex, Form, Input, Modal, Select } from "antd";
+import { Badge, Card, Flex, Form, Input, Modal, Select } from "antd";
 import React, { useState } from 'react';
 import { InboxOutlined, LoadingOutlined, PlusOutlined, SearchOutlined, ShopOutlined } from '@ant-design/icons';
 import type { GetProp, UploadProps } from 'antd';
@@ -8,8 +8,10 @@ import { values } from "lodash";
 import axios from "axios";
 import UploadCard from "./UploadLargeCard";
 import UploadSmallCard from "./UploadSmallCard";
-
+import newStore from "@/store/newStore";
 const { Dragger } = Upload;
+
+
 
 
 
@@ -68,11 +70,13 @@ export default function ProductImgCard() {
     </button>
   );
 
-  // 显示图片列表
-  const [imgList, setImgList] = useState([]);
+  // 从文件库中选择
+  const [imgList, setImgList] = useState<any>([]);
+  // 被选中的图片列表
+  const [selectedImg, setSelectedImg] = useState<any>([]);
 
   const getImgList = () => {
-    axios.get('/api/imgList').then((req:any) => {
+    axios.get('/api/imgList').then((req: any) => {
       console.log(req.data)
       setImgList(req.data);
     })
@@ -99,8 +103,6 @@ export default function ProductImgCard() {
         <UploadTipDesc>
           支持上传jpg、png、webp、SVG格式图片，最大限制为10M（4M为最佳店铺浏览体验）；支持上传GIF格式动图，最大限制8M
         </UploadTipDesc>
-
-
 
         {/* 添加url Modal */}
         <Modal
@@ -181,6 +183,7 @@ export default function ProductImgCard() {
               }}
 
             />
+
             <Select
               placeholder="文件类型"
               style={{ width: 120, height: 36 }}
@@ -199,53 +202,64 @@ export default function ProductImgCard() {
             gap: "8px"
           }}>
             <UploadSmallCard />
-
             {
-              imgList?.map((values: any, index) => {
+              imgList?.map((img: any, index: any) => {
+                let selectImgIndex = selectedImg.indexOf(img)
                 return (
                   <div style={{
                     height: 150,
-                    width: 128
+                    width: 128,
+                    borderRadius:8,
+                    overflow:"hidden"
                   }}>
-                    <div style={{
-                      height: 128,
-                      width: 128,
-                      backgroundColor: "#f0f0f0",
-                      borderRadius: "4px",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignContent: "center"
-                    }}>
+                    {/* 遮罩 */}
+                    <Mask
+                    >
+                      <div className={"img-mask"+(selectedImg.indexOf(img)>-1?' img-selected':'')}
+                        onClick={() => {
+                          const tempSelctList = [...selectedImg];
 
-                      <Image
-                        style={{
-                          borderRadius: "4px",
-                          height: "auto",
-                          width: "auto",
-                           margin: "auto",
-                           maxHeight: "100%", 
-                           maxWidth: "100%",
-                           objectFit: "contain",
-                           background: "rgb(247, 248, 251)",
-                           cursor: "default",
+                          if (!selectedImg.includes(img)) {
+                            tempSelctList.push(img);
+                            setSelectedImg(tempSelctList);
+                          } else {
+                            let index = selectedImg.indexOf(img);
+                            tempSelctList.splice(index, 1)
+                            setSelectedImg(tempSelctList) // 删除索引为index的元素
+                          }
+                          console.log(selectedImg);
+
                         }}
-                        // height="100%"
-                        // width="100%"
-                        
-                        src={values?.fileUrl} key={values?.fileId} />
+                      >
+                      </div>
+                    </Mask>
+                    <Badge  offset={[-20,20]} count={(selectImgIndex>-1?selectImgIndex+1:0)} style={{
+                      zIndex: 10
+                    }}>
+                    <img
+                      style={{
+                        height: 128,
+                        width: 128,
+                        overflow: 'hidden',
+                        objectFit: "contain",
+                        background: "rgb(247, 248, 251)",
+                        cursor: "default",
+                      }}
+                      src={img?.fileUrl} key={img?.fileId} />
+                    </Badge> 
 
-                    </div>
+
                     <div style={{
                       height: 22,
                       fontSize: 16,
                       // marginTop: 6,
                       overflow: "hidden"
-                    }}>{values?.fileName}</div>
+                    }}>{img?.fileName}</div>
                   </div>
                 )
               })
             }
-            
+
           </div>
         </Modal>
 
@@ -263,6 +277,9 @@ const UploadTipDesc = styled.div`
 `
 
 const Scoped = styled.div`
+
+
+
 .product-img-card{
   .ant-card-head-title{
       font-weight: 400;
@@ -275,5 +292,24 @@ const Scoped = styled.div`
 .footer{
 
 }
-`
 
+
+`
+// 外层styled 样式无法直接穿透内层变化的jsx，只会在指定标签初次渲染时加载，指定标签下的子元素变化不在跟随。运算遍历的地方需再用一层styled样式标签包裹，重新渲染时才会再次调用styled组件
+const Mask = styled.div`
+.img-mask{
+  position:absolute;
+  border-radius:6px;
+  height: 128px;
+  width: 128px;
+  z-index: 20;
+  &:hover{
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+}
+.img-selected{
+
+  border: 3px solid rgba(0, 132, 255, 0.5);
+}
+  
+`

@@ -6,3 +6,36 @@
 
 1. yarn install
 2. yarn build
+
+
+# 技术栈
+
+
+`React`、`TS`、`mock`
+
+`styled-component`、`scss` : css管理
+
+`Umi/MAX 4`：框架工具库、路由、鉴权、多语言
+
+`Mobx` 全局状态管理
+
+`AntD`、`AntD-Pro` UI组件，框架
+
+`Axios`、`Umi-max request`：网络请求
+
+`tinymce`: 富文本编辑器
+
+
+# 功能实现情况
+
+**登录页**
+
+- 登录
+- 注册
+- 忘记密码
+
+**首页**
+
+- 表层页面
+
+****
