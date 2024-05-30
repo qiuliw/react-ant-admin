@@ -73,7 +73,7 @@ export default function ProductImgCard() {
   // 从文件库中选择
   const [imgList, setImgList] = useState<any>([]);
   // Modal被选中的图片列表
-  const [selectedImg, setSelectedImg] = useState<any>([]);
+  const [tempSelectedImg, setSelectedImg] = useState<any>([]);
 
   const getImgList = () => {
     axios.get('/api/cloudImgList').then((req: any) => {
@@ -107,7 +107,7 @@ export default function ProductImgCard() {
         }}>
           {
             newStore.getSelectedImgList()?.map((img: any, index: any) => {
-              let selectImgIndex = selectedImg.indexOf(img)
+              let tempSelectedImgIndex = tempSelectedImg.indexOf(img)
               return (
                 <div style={{
                   height: 150,
@@ -197,8 +197,8 @@ export default function ProductImgCard() {
           open={addImgModalOpen}
           onOk={() => {
             setAddImgModalOpen(false)
-            newStore.setSelectedImgList([...newStore.getSelectedImgList(), ...selectedImg]);
-            selectedImg.length = 0;
+            newStore.setSelectedImgList([...newStore.getSelectedImgList(), ...tempSelectedImg]);
+            tempSelectedImg.length = 0;
           }}
           onCancel={() => setAddImgModalOpen(false)}
         >
@@ -239,7 +239,21 @@ export default function ProductImgCard() {
             <UploadSmallCard />
             {
               imgList?.map((img: any, index: any) => {
-                let selectImgIndex = selectedImg.indexOf(img)
+                // 选中顺序
+                let tempSelectedImgIndex = tempSelectedImg.indexOf(img)
+                // 是否已被之前选中
+                let isBeforeSelected = newStore.isIncludeSelectedImgList(img);
+                // 是否现在被选中
+                let isCurrentSelected = tempSelectedImgIndex > -1;
+                let imgMask ='';
+                if(isBeforeSelected){
+                  imgMask="img-selected-band";
+                }else if(isCurrentSelected){
+                  imgMask = "img-selected img-mask"
+                }else{
+                  imgMask = "img-mask"
+                }
+                
                 return (
                   <div style={{
                     height: 150,
@@ -250,24 +264,22 @@ export default function ProductImgCard() {
                     {/* 遮罩 */}
                     <Mask
                     >
-                      <div className={"img-mask" + (selectedImg.indexOf(img) > -1 ? ' img-selected' : '')}
+                      <div className={imgMask}
                         onClick={() => {
-                          const tempSelctList = [...selectedImg];
-                          if (!selectedImg.includes(img)) {
+                          const tempSelctList = [...tempSelectedImg];
+                          if (!tempSelectedImg.includes(img)) {
                             tempSelctList.push(img);
                             setSelectedImg(tempSelctList);
                           } else {
-                            let index = selectedImg.indexOf(img);
-                            tempSelctList.splice(index, 1)
+                            tempSelctList.splice(tempSelectedImgIndex, 1)
                             setSelectedImg(tempSelctList) // 删除索引为index的元素
                           }
-                          console.log(selectedImg);
 
                         }}
                       >
                       </div>
                     </Mask>
-                    <Badge offset={[-20, 20]} count={(selectImgIndex > -1 ? selectImgIndex + 1 : 0)}
+                    <Badge offset={[-20, 20]} count={(tempSelectedImgIndex > -1 ? tempSelectedImgIndex + 1 : 0)}
                       style={{
                         zIndex: 10
                       }}>
@@ -346,5 +358,7 @@ const Mask = styled.div`
 
   border: 3px solid rgba(0, 132, 255, 0.5);
 }
-  
+.img-selected-band{
+  background-color: rgb(184, 14, 14);
+} 
 `
