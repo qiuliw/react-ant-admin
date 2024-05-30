@@ -72,11 +72,11 @@ export default function ProductImgCard() {
 
   // 从文件库中选择
   const [imgList, setImgList] = useState<any>([]);
-  // 被选中的图片列表
+  // Modal被选中的图片列表
   const [selectedImg, setSelectedImg] = useState<any>([]);
 
   const getImgList = () => {
-    axios.get('/api/imgList').then((req: any) => {
+    axios.get('/api/cloudImgList').then((req: any) => {
       console.log(req.data)
       setImgList(req.data);
     })
@@ -99,10 +99,41 @@ export default function ProductImgCard() {
           >添加多媒体图片</a>
         </>}
       >
-        <UploadCard />
-        <UploadTipDesc>
+        <div className="content" style={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: "8px",
+          height: "auto",
+        }}>
+          {
+            newStore.getSelectedImgList()?.map((img: any, index: any) => {
+              let selectImgIndex = selectedImg.indexOf(img)
+              return (
+                <div style={{
+                  height: 150,
+                  width: 128,
+                  borderRadius: 8,
+                  overflow: "hidden"
+                }}>
+                  <img
+                    style={{
+                      height: 128,
+                      width: 128,
+                      overflow: 'hidden',
+                      objectFit: "contain",
+                      background: "rgb(247, 248, 251)",
+                      cursor: "default",
+                    }}
+                    src={img?.fileUrl} key={img?.fileId} />
+                </div>)
+            })
+          }
+        </div>
+          {newStore.selectedImgList.length>0? '':<><UploadCard /><UploadTipDesc>
           支持上传jpg、png、webp、SVG格式图片，最大限制为10M（4M为最佳店铺浏览体验）；支持上传GIF格式动图，最大限制8M
-        </UploadTipDesc>
+        </UploadTipDesc></>}
+         
+        
 
         {/* 添加url Modal */}
         <Modal
@@ -164,7 +195,11 @@ export default function ProductImgCard() {
           centered
           title='从文件库中选择'
           open={addImgModalOpen}
-          onOk={() => setAddImgModalOpen(false)}
+          onOk={() => {
+            setAddImgModalOpen(false)
+            newStore.setSelectedImgList([...newStore.getSelectedImgList(), ...selectedImg]);
+            selectedImg.length = 0;
+          }}
           onCancel={() => setAddImgModalOpen(false)}
         >
           <div className="img-modal-header" style={{
@@ -209,16 +244,15 @@ export default function ProductImgCard() {
                   <div style={{
                     height: 150,
                     width: 128,
-                    borderRadius:8,
-                    overflow:"hidden"
+                    borderRadius: 8,
+                    overflow: "hidden"
                   }}>
                     {/* 遮罩 */}
                     <Mask
                     >
-                      <div className={"img-mask"+(selectedImg.indexOf(img)>-1?' img-selected':'')}
+                      <div className={"img-mask" + (selectedImg.indexOf(img) > -1 ? ' img-selected' : '')}
                         onClick={() => {
                           const tempSelctList = [...selectedImg];
-
                           if (!selectedImg.includes(img)) {
                             tempSelctList.push(img);
                             setSelectedImg(tempSelctList);
@@ -233,20 +267,21 @@ export default function ProductImgCard() {
                       >
                       </div>
                     </Mask>
-                    <Badge  offset={[-20,20]} count={(selectImgIndex>-1?selectImgIndex+1:0)} style={{
-                      zIndex: 10
-                    }}>
-                    <img
+                    <Badge offset={[-20, 20]} count={(selectImgIndex > -1 ? selectImgIndex + 1 : 0)}
                       style={{
-                        height: 128,
-                        width: 128,
-                        overflow: 'hidden',
-                        objectFit: "contain",
-                        background: "rgb(247, 248, 251)",
-                        cursor: "default",
-                      }}
-                      src={img?.fileUrl} key={img?.fileId} />
-                    </Badge> 
+                        zIndex: 10
+                      }}>
+                      <img
+                        style={{
+                          height: 128,
+                          width: 128,
+                          overflow: 'hidden',
+                          objectFit: "contain",
+                          background: "rgb(247, 248, 251)",
+                          cursor: "default",
+                        }}
+                        src={img?.fileUrl} key={img?.fileId} />
+                    </Badge>
 
 
                     <div style={{

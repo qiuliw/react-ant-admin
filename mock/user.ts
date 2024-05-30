@@ -277,7 +277,7 @@ export default {
       fileName: '1'
     })
   },
-  'GET /api/imgList': (req: Request,res:Response) => {
+  'GET /api/cloudImgList': (req: Request,res:Response) => {
     res.json([
     {
       fileId: 1,
