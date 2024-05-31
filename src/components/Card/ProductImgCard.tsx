@@ -1,5 +1,5 @@
 import { Badge, Card, Flex, Form, Input, Modal, Select } from "antd";
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { InboxOutlined, LoadingOutlined, PlusOutlined, SearchOutlined, ShopOutlined } from '@ant-design/icons';
 import type { GetProp, UploadProps } from 'antd';
 import { message, Upload, Image } from 'antd';
@@ -70,6 +70,7 @@ export default function ProductImgCard() {
     </button>
   );
 
+
   // 从文件库中选择
   const [imgList, setImgList] = useState<any>([]);
   // Modal被选中的图片列表
@@ -80,6 +81,34 @@ export default function ProductImgCard() {
       console.log(req.data)
       setImgList(req.data);
     })
+  }
+
+  const [imgMask,setIsMask] = useState('');
+
+  // Modal 中选中顺序
+  const getTempSelectedImgIndex = (img:any)=>{
+    return tempSelectedImg.indexOf(img);
+  }
+  // 是否已被之前选中
+  const isBeforeSelected =(img:any)=>{
+   return newStore.isIncludeSelectedImgList(img);
+  } 
+  // 是否现在被选中
+  const isCurrentSelected = (img:any)=>{
+    return tempSelectedImg.indexOf(img) > -1
+  }
+
+  
+
+  //
+  const imgClass =(img:any)=>{
+    if(isBeforeSelected(img)){
+      return "img-selected-band";
+    }else if(isCurrentSelected(img)){
+      return "img-selected img-mask"
+    }else{
+      return "img-mask"
+    }
   }
 
   return (
@@ -239,21 +268,8 @@ export default function ProductImgCard() {
             <UploadSmallCard />
             {
               imgList?.map((img: any, index: any) => {
-                // 选中顺序
-                let tempSelectedImgIndex = tempSelectedImg.indexOf(img)
-                // 是否已被之前选中
-                let isBeforeSelected = newStore.isIncludeSelectedImgList(img);
-                // 是否现在被选中
-                let isCurrentSelected = tempSelectedImgIndex > -1;
-                let imgMask ='';
-                if(isBeforeSelected){
-                  imgMask="img-selected-band";
-                }else if(isCurrentSelected){
-                  imgMask = "img-selected img-mask"
-                }else{
-                  imgMask = "img-mask"
-                }
-                
+                let imgIndex= getTempSelectedImgIndex(img);
+                // 
                 return (
                   <div style={{
                     height: 150,
@@ -264,22 +280,23 @@ export default function ProductImgCard() {
                     {/* 遮罩 */}
                     <Mask
                     >
-                      <div className={imgMask}
+                      <div className={imgClass(img)}
                         onClick={() => {
-                          const tempSelctList = [...tempSelectedImg];
+                          let newTempSelectedImg = [...tempSelectedImg];
                           if (!tempSelectedImg.includes(img)) {
-                            tempSelctList.push(img);
-                            setSelectedImg(tempSelctList);
+                            newTempSelectedImg.push(img);
+                            setSelectedImg(newTempSelectedImg);
                           } else {
-                            tempSelctList.splice(tempSelectedImgIndex, 1)
-                            setSelectedImg(tempSelctList) // 删除索引为index的元素
+                            newTempSelectedImg.splice(getTempSelectedImgIndex(img), 1)
+                            setSelectedImg(newTempSelectedImg)
                           }
+
 
                         }}
                       >
                       </div>
                     </Mask>
-                    <Badge offset={[-20, 20]} count={(tempSelectedImgIndex > -1 ? tempSelectedImgIndex + 1 : 0)}
+                    <Badge offset={[-20, 20]} count={(imgIndex > -1 ? imgIndex + 1 : 0)}
                       style={{
                         zIndex: 10
                       }}>
