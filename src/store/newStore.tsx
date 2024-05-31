@@ -31,7 +31,9 @@ class newStore {
 
   @observable selectedImgList :any[] =  [];
 
-  
+  // // 商品图片/视频 - className
+  // @observable selectedImgListImgClass : any[] = [];
+
   //############### 操作状态的方法 #####################
 
   // 操作选中的图片数组
