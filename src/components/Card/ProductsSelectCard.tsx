@@ -6,6 +6,9 @@ import MoreSelect from "../Select/MoreSelect";
 import { result } from "lodash";
 import { useState } from 'react';
 import Nothing from "../Info/Nothing";
+import type { TableColumnsType, TableProps } from 'antd'
+import ProductList from "../List/ProductList";
+
 
 const { Search } = Input;
 const onSearch: SearchProps['onSearch'] = (value, _e, info) => console.log(info?.source, value);
@@ -30,6 +33,8 @@ const options: SelectProps['options'] = [
         label: undefined
     },
 ];
+
+
 
 
 
@@ -61,7 +66,8 @@ export default function ProductsSelectCard() {
                     display: 'flex',
                     flexWrap: 'wrap',
                     gap: '12px 12px',
-                    justifyContent: 'space-between'
+                    justifyContent: 'space-between',
+                    marginBottom: '12px'
                 }}>
                     <div className="products-select-items-left" style={{
                         display: 'flex',
@@ -146,7 +152,7 @@ export default function ProductsSelectCard() {
                         <PriceRangeSelector />
                     </div>
                     <div
-                        className="products-select-items-left"
+                        className="products-select-items-right"
                         style={{
                             display: 'flex',
                             flexWrap: 'wrap',
@@ -183,8 +189,8 @@ export default function ProductsSelectCard() {
                     
                 </div>
             </div>:<Nothing/>)} */}
-            <Nothing/>
-            
+            {/* <Nothing/> */}
+            <ProductList/>
         </>
     );
 }

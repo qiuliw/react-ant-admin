@@ -11,12 +11,6 @@ import UploadSmallCard from "./UploadSmallCard";
 import newStore from "@/store/newStore";
 const { Dragger } = Upload;
 
-
-
-
-
-
-
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 
 const getBase64 = (img: FileType, callback: (url: string) => void) => {
@@ -70,7 +64,6 @@ export default function ProductImgCard() {
     </button>
   );
 
-
   // 从文件库中选择
   const [imgList, setImgList] = useState<any>([]);
   // Modal被选中的图片列表
@@ -97,10 +90,7 @@ export default function ProductImgCard() {
   const isCurrentSelected = (img:any)=>{
     return tempSelectedImg.indexOf(img) > -1
   }
-
-  
-
-  //
+  // 
   const imgClass =(img:any)=>{
     if(isBeforeSelected(img)){
       return "img-selected-band";
@@ -136,7 +126,10 @@ export default function ProductImgCard() {
         }}>
           {
             newStore.getSelectedImgList()?.map((img: any, index: any) => {
-              let tempSelectedImgIndex = tempSelectedImg.indexOf(img)
+              let tempSelectedImgIndex = tempSelectedImg.indexOf(img);
+              // useEffect(()=>{
+                
+              // })
               return (
                 <div style={{
                   height: 150,
@@ -268,6 +261,11 @@ export default function ProductImgCard() {
             <UploadSmallCard />
             {
               imgList?.map((img: any, index: any) => {
+                
+
+
+
+
                 let imgIndex= getTempSelectedImgIndex(img);
                 // 
                 return (
@@ -280,18 +278,19 @@ export default function ProductImgCard() {
                     {/* 遮罩 */}
                     <Mask
                     >
-                      <div className={imgClass(img)}
+                      <div 
+                      // className={}
                         onClick={() => {
+ 
                           let newTempSelectedImg = [...tempSelectedImg];
-                          if (!tempSelectedImg.includes(img)) {
+
+                          if (!tempSelectedImg.includes(img)){
                             newTempSelectedImg.push(img);
                             setSelectedImg(newTempSelectedImg);
                           } else {
                             newTempSelectedImg.splice(getTempSelectedImgIndex(img), 1)
                             setSelectedImg(newTempSelectedImg)
                           }
-
-
                         }}
                       >
                       </div>
