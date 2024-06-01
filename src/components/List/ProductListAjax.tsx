@@ -191,7 +191,7 @@ export default function ProductListAjax() {
     //   });
     const limit  = getRandomuserParams(tableParams).results;
     const page = getRandomuserParams(tableParams).page;
-    axios.get(`/api/product_list?page=${page}&limit=${limit}`)
+    axios.post(`/api/product_list?page=${page}&limit=${limit}`)
       .then((res) => {
         let newData:DataType[] = [];
         res.data.data.forEach((item:any)=>{
