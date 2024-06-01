@@ -50,6 +50,8 @@ const getRandomuserParams = (params: TableParams) => ({
 export default function ProductListAjax() {
   const [loading, setLoading] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+
+  // 分页器初始参数
   const [tableParams, setTableParams] = useState<TableParams>({
     pagination: {
       current: 1,
