@@ -84,6 +84,7 @@ export default {
   'pages.searchTable.tenThousand': '萬',
   'pages.searchTable.batchDeletion': '批量刪除',
   'pages.searchTable.batchApproval': '批量審批',
+<<<<<<< HEAD
   'pages.user.center': '個人中心',
   "pages.alreadyHaveAccount": "已有帳號",  
   "pages.goToLogin": "去登入",
@@ -102,4 +103,7 @@ export default {
 "pages.captcha.required": "請輸入驗證碼",
 "pages.register.success": "註冊成功",
 "pages.register.failure": "註冊失敗，請重試",
+=======
+  'pages.user.center':'個人中心'
+>>>>>>> upstream/main
 };
