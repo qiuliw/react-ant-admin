@@ -18,6 +18,14 @@ import { message } from 'antd';
 import { Request, Response } from 'express';
 import { fill } from 'lodash';
 
+interface DataType {
+  key: React.Key;
+  imgUrl: string;
+  name: string;
+  price: number;
+  inventory: number;
+  state:boolean;
+}
 const waitTime = (time: number = 100) => {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -301,6 +309,21 @@ export default {
       fileUrl:'https://s21.ax1x.com/2024/05/28/pk1JZZD.png',
     }
     ])
-  } 
+  },
+  'GET /api/product/query' :(req:Request,res:Response) =>{
+    res.status(200);
+    let tempData: DataType[] = [];
+    for(let i=0;i<40;++i){
+        tempData.push({
+            key: i.toString(),
+            imgUrl: '#',
+            name: i.toString(),
+            price: i,
+            state: false,
+            inventory: i
+        });
+    }
+    res.json(tempData);
+  }
 };
 

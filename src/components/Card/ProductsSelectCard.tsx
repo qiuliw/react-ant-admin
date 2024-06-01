@@ -8,6 +8,7 @@ import { useState } from 'react';
 import Nothing from "../Info/Nothing";
 import type { TableColumnsType, TableProps } from 'antd'
 import ProductList from "../List/ProductList";
+import ProductListAjax from "../List/ProductListAjax";
 
 
 const { Search } = Input;
@@ -190,7 +191,10 @@ export default function ProductsSelectCard() {
                 </div>
             </div>:<Nothing/>)} */}
             {/* <Nothing/> */}
-            <ProductList/>
+
+            {/* <ProductList/> */}
+            <ProductListAjax/>
+
         </>
     );
 }

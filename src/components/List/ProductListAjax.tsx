@@ -1,9 +1,13 @@
 import React, { ReactNode, useEffect, useState } from 'react';
-import { Popover, Switch, Table, Tooltip } from 'antd';
+import { Avatar, Modal, Popover, Switch, Table, Tooltip } from 'antd';
 import type { GetProp, TableColumnsType, TableProps } from 'antd';
 import qs from 'qs';
-import { CopyOutlined, EyeOutlined } from '@ant-design/icons';
+import { CopyOutlined, EyeOutlined, UserOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
+import Product from './../../pages/Products/index';
+import ProductList from './ProductList';
+import { result } from 'lodash';
+import axios from 'axios';
 
 type ColumnsType<T> = TableProps<T>['columns'];
 type TablePaginationConfig = Exclude<GetProp<TableProps, 'pagination'>, boolean>;
@@ -60,14 +64,13 @@ interface TableParams {
 // ];
 
 
-
 const getRandomuserParams = (params: TableParams) => ({
   results: params.pagination?.pageSize,
   page: params.pagination?.current,
   ...params,
 });
 
-const App: React.FC = () => {
+export default function ProductListAjax() {
   const [loading, setLoading] = useState(false);
   const [tableParams, setTableParams] = useState<TableParams>({
     pagination: {
@@ -80,16 +83,18 @@ const App: React.FC = () => {
     //数据初始化
     const initializeData = async () => {
         let tempData: DataType[] = [];
-        for(let i=0;i<40;++i){
-            tempData.push({
-                key: i.toString(),
-                imgUrl: '#',
-                name: i.toString(),
-                price: i,
-                state: false,
-                inventory: i
-            });
-        }
+        // for(let i=0;i<40;++i){
+        //     tempData.push({
+        //         key: i.toString(),
+        //         imgUrl: '#',
+        //         name: i.toString(),
+        //         price: i,
+        //         state: false,
+        //         inventory: i
+        //     });
+        // }
+
+
         setData(tempData);
     };
 
@@ -114,6 +119,12 @@ const App: React.FC = () => {
       title: '商品',
       dataIndex: 'name',
       width: 170,
+      render: (value, record, index)=><>
+        <Avatar shape="square" size="large" src={record.imgUrl} icon={<UserOutlined />} />
+        <span style={{
+          marginLeft: 10
+        }}>{record.name}</span>
+      </>
     },
     {
       title: '售价',
@@ -173,34 +184,55 @@ const App: React.FC = () => {
                     </div>
                 </Tooltip>
             </ButtonIcon>
+
+            {/* 复制商品模态框 */}
+          
+            <Modal 
+              centered
+            >
+              
+            </Modal>
+            
+
+
         </div>
         
         )}
-    }
+    },
+
   ];
 
   const fetchData = () => {
-    // setLoading(true);
-    // fetch(`https://randomuser.me/api?${qs.stringify(getRandomuserParams(tableParams))}`)
+    setLoading(true);
+    // fetch(`/api/product/query/${qs.stringify(getRandomuserParams(tableParams))}`)
+    // fetch(`/api/product/query`)
     //   .then((res) => res.json())
     //   .then(({ results }) => {
     //     setData(results);
     //     setLoading(false);
-    //     setTableParams({
-    //       ...tableParams,
-    //       pagination: {
-    //         ...tableParams.pagination,
-    //         total: 200,
-    //         // 200 is mock data, you should read it from server
-    //         // total: data.totalCount,
-    //       },
-    //     });
+    //     // setTableParams({
+    //     //   ...tableParams,
+    //     //   pagination: {
+    //     //     ...tableParams.pagination,
+    //     //     total: 200,
+    //     //     // 200 is mock data, you should read it from server
+    //     //     // total: data.totalCount,
+    //     //   },
+    //     // });
+    //     console.log(result);
     //   });
+    axios.get('/api/product/query')
+      .then((res)=>{
+        console.log(res)
+        setData(res.data);
+        setLoading(false)
+      })
+
   };
 
-//   useEffect(() => {
-//     fetchData();
-//   }, [tableParams.pagination?.current, tableParams.pagination?.pageSize]);
+  useEffect(() => {
+    fetchData();
+  }, [tableParams.pagination?.current, tableParams.pagination?.pageSize]);
 
   const handleTableChange: TableProps['onChange'] = (pagination, filters, sorter) => {
     setTableParams({
@@ -227,7 +259,6 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
 
 
 const ButtonIcon = styled.div`
