@@ -2,7 +2,7 @@ import React, { ReactNode, useEffect, useState } from 'react';
 import { Avatar, Checkbox, Input, Modal, Popover, Radio, Switch, Table, Tooltip } from 'antd';
 import type { GetProp, RadioChangeEvent, TableColumnsType, TableProps } from 'antd';
 import qs from 'qs';
-import { CopyOutlined, EyeOutlined, UserOutlined } from '@ant-design/icons';
+import { CopyOutlined, EyeOutlined, QuestionCircleOutlined, UserOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 import Product from './../../pages/Products/index';
 import ProductList from './ProductList';
@@ -236,26 +236,41 @@ export default function ProductListAjax() {
             <Input />
           </div>
           <div>
-            <Checkbox>
-              复制商品图片
-              {/* <Tooltip >
-              勾选该选项后，商品主图、属性值图、SKU图将会被一并复制
-            </Tooltip> */}
+            <Checkbox className='selectItem' >
+              <span style={{
+                  marginRight: '3px',
+                  display: 'flex',
+                  alignContent: 'center',
+                  flexWrap: 'nowrap',
+                  width: '200px'
+                }}>
+                <span style={{
+                  marginRight: '3px',
+                }}>复制商品图片</span>
+                <Tooltip title="prompt text">
+                    <QuestionCircleOutlined />
+              </Tooltip>
+              </span>
+
             </Checkbox>
           </div>
           <div>
             <Checkbox>
-              复制商品库存
+              <span>复制商品库存</span>
             </Checkbox>
           </div>
 
           <div>商品状态</div>
           <Radio.Group onChange={onChangeRadio} value={radioValue}>
             <div>
-              <Radio value={1}>已上架</Radio>
+              <Radio value={1}>
+                <span>已上架</span>
+              </Radio>
             </div>
             <div>
-              <Radio value={2}>已下架</Radio>
+              <Radio value={2}>
+                <span>已下架</span>
+              </Radio>
             </div>
           </Radio.Group>
         </Content>
@@ -285,5 +300,9 @@ const ButtonIcon = styled.div`
 const Content = styled.div`
   display:flex;
   flex-direction: column;
-  gap: 5px
+  gap: 5px;
+  span{
+  font-size: 14px;
+  color: #313131
+  }
 `
