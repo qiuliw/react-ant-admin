@@ -15,11 +15,11 @@ type TablePaginationConfig = Exclude<GetProp<TableProps, 'pagination'>, boolean>
 // 表单项商品数据类型
 interface DataType {
   key: React.Key;
-  imgUrl: string;
-  name: string;
-  price: number;
-  inventory: number;
-  state: boolean;
+  imgUrl?: string;
+  name?: string;
+  price?: number;
+  inventory?: number;
+  state?: boolean;
 }
 
 // ToolTip内容
@@ -89,12 +89,20 @@ export default function ProductListAjax() {
       title: '商品',
       dataIndex: 'name',
       width: 170,
-      render: (value, record, index) => <>
+      render: (value, record, index) => <div style={{
+        display: 'flex',
+        flexWrap: 'nowrap',
+        alignContent: 'center',
+      }}>
         <Avatar shape="square" size="large" src={record.imgUrl} icon={<UserOutlined />} />
         <span style={{
-          marginLeft: 10
+          marginLeft: 10,
+          alignContent: 'center',
+          whiteSpace: 'nowrap',
+          // overflow: 'hidden',
+          // textOverflow: 'ellipsis',
         }}>{record.name}</span>
-      </>
+      </div>
     },
     {
       title: '售价',
@@ -181,16 +189,26 @@ export default function ProductListAjax() {
     //     // });
     //     console.log(result);
     //   });
-    axios.get('/api/product/query')
+    const limit  = getRandomuserParams(tableParams).results;
+    const page = getRandomuserParams(tableParams).page;
+    axios.get(`/api/product_list?page=${page}&limit=${limit}`)
       .then((res) => {
-        console.log(res)
-        setData(res.data);
+        let newData:DataType[] = [];
+        res.data.data.forEach((item:any)=>{
+          newData.push({
+            key:item.id,
+            imgUrl: item.product_image,
+            price: item.price,
+            name: item.title,
+          })
+        })
+        setData(newData);
         setLoading(false)
         setTableParams({
           ...tableParams,
           pagination: {
             ...tableParams.pagination,
-            total: 200,
+            total: res.data.count,
             // 200 is mock data, you should read it from server
             // total: data.totalCount,
           }
