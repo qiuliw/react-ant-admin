@@ -313,7 +313,7 @@ export default {
   'GET /api/product/query' :(req:Request,res:Response) =>{
     res.status(200);
     let tempData: DataType[] = [];
-    for(let i=0;i<40;++i){
+    for(let i=0;i<10;++i){
         tempData.push({
             key: i.toString(),
             imgUrl: '#',

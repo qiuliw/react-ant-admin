@@ -153,13 +153,7 @@ export default function ProductListAjax() {
                 </div>
               </Tooltip>
             </ButtonIcon>
-
-
-
-
-
           </div>
-
         )
       }
     },
@@ -190,6 +184,15 @@ export default function ProductListAjax() {
         console.log(res)
         setData(res.data);
         setLoading(false)
+        setTableParams({
+          ...tableParams,
+          pagination: {
+            ...tableParams.pagination,
+            total: 200,
+            // 200 is mock data, you should read it from server
+            // total: data.totalCount,
+          }
+        });
       })
 
   };
@@ -221,6 +224,8 @@ export default function ProductListAjax() {
         loading={loading}
         onChange={handleTableChange}
       />
+
+
       {/* 复制商品模态框 */}
 
       <Modal
