@@ -89,7 +89,7 @@ export default function ProductListAjax() {
     {
       title: '商品',
       dataIndex: 'name',
-      width: 170,
+      width: 180,
       render: (value, record, index) => <div style={{
         display: 'flex',
         flexWrap: 'nowrap',
@@ -100,8 +100,11 @@ export default function ProductListAjax() {
           marginLeft: 10,
           alignContent: 'center',
           whiteSpace: 'nowrap',
-          // overflow: 'hidden',
-          // textOverflow: 'ellipsis',
+
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          
+          maxWidth:"100%"
         }}>{record.name}</span>
       </div>
     },
@@ -109,6 +112,14 @@ export default function ProductListAjax() {
       title: '售价',
       dataIndex: 'price',
       width: 150,
+      render: (value, record, index) =>{
+        let num = Number(value);
+        return <>
+          {`US$ ${num.toFixed(2)}`}
+        </>
+      } 
+        
+      
     },
     {
       title: '库存数',
@@ -251,6 +262,7 @@ export default function ProductListAjax() {
 
   return (
     <>
+    {/* 商品列表 */}
       <Table
         columns={columns}
         rowKey={(record) => record.key}
@@ -258,6 +270,7 @@ export default function ProductListAjax() {
         pagination={tableParams.pagination}
         loading={loading}
         onChange={handleTableChange}
+        scroll={{ x: 1300 }}
       />
 
 
