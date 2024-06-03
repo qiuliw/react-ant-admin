@@ -344,7 +344,7 @@ export default {
     ])
   },
   // 产品列表
-  'POST /api/product_list' :(req:Request,res:Response) =>{
+  'POST  /api/ApiStore/product_list' :(req:Request,res:Response) =>{
     res.json({
       "code": 0,
       "msg": "",
