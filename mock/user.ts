@@ -956,8 +956,12 @@ export default {
     })
   },
   // 删除产品
-  'POST /api/product_del' :(req:Request,res:Response)=>{
-
+  'POST /api/ApiAppstore/product_del' :(req:Request,res:Response)=>{
+    console.log(req.body.id);
+    res.json({
+      status: "success",
+      id:req?.body?.id,
+    })
   }
 };
 

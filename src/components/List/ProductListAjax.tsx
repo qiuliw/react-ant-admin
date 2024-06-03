@@ -1,5 +1,5 @@
 import React, { ReactNode, useEffect, useState } from 'react';
-import { Avatar, Button, Checkbox, Input, Modal, Popover, Radio, Switch, Table, Tooltip } from 'antd';
+import { Avatar, Button, Checkbox, Input, message, Modal, Popover, Radio, Switch, Table, Tooltip } from 'antd';
 import type { GetProp, RadioChangeEvent, TableColumnsType, TableProps } from 'antd';
 import qs from 'qs';
 import { CopyOutlined, EyeOutlined, QuestionCircleOutlined, UserOutlined } from '@ant-design/icons';
@@ -8,6 +8,7 @@ import Product from './../../pages/Products/index';
 import ProductList from './ProductList';
 import { result } from 'lodash';
 import axios from 'axios';
+import { deleteProduct } from '@/services/y2/api';
 
 type ColumnsType<T> = TableProps<T>['columns'];
 type TablePaginationConfig = Exclude<GetProp<TableProps, 'pagination'>, boolean>;
@@ -141,7 +142,7 @@ export default function ProductListAjax() {
       width: 100,
       fixed: 'right',
 
-      render: (index) => {
+      render: (index,record) => {
         return (
           <div style={{
             color: '#474f5e',
@@ -163,7 +164,18 @@ export default function ProductListAjax() {
                 </div>
               </Tooltip>
             </ButtonIcon>
-            <Button type="link" danger>
+            <Button type="link" 
+              onClick={()=>{
+                deleteProduct(record.key.toString()).then((res)=>{
+                  console.log(res)
+                  if(res?.status=="success"){
+                    message.success(`${res.id}，删除成功`);
+                  }else{
+                    message.error(`${res.id}，删除失败，请重试`)
+                  }
+                });
+              }}
+            danger>
               Delete
             </Button>
           </div>

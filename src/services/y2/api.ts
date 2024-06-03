@@ -155,4 +155,16 @@ export async function getAccessToken() {
   })
 }
 
-  
+
+// 删除产品
+export async function deleteProduct(id:string) {
+  return request('/api/ApiAppstore/product_del',{
+    method: 'POST',
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+    data: {
+      id:id,
+    },
+  })
+}
