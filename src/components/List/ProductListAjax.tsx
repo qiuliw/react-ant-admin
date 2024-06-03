@@ -61,9 +61,9 @@ export default function ProductListAjax() {
   });
 
   // 复制商品模态框
-
   const [radioValue, setRadioValue] = useState(0)
 
+  // 
   const onChangeRadio = (e: RadioChangeEvent) => {
     console.log('radio checked', e.target.value);
     setRadioValue(e.target.value);
@@ -181,6 +181,7 @@ export default function ProductListAjax() {
                   console.log(res)
                   if(res?.code==0){
                     message.success(`${res.id}，删除成功`);
+                    fetchData();
                   }else{
                     message.error(`${res.id}，删除失败，请重试`)
                   }
@@ -271,11 +272,16 @@ export default function ProductListAjax() {
         loading={loading}
         onChange={handleTableChange}
         scroll={{ x: 1300 }}
+        rowSelection={{
+          type: 'checkbox',
+          onChange: (selectedRowKeys: React.Key[], selectedRows: DataType[]) => {
+            console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+
+          },
+        }}
       />
-
-
+      
       {/* 复制商品模态框 */}
-
       <Modal
         centered
         title="复制商品"
