@@ -88,7 +88,7 @@ const getAccess = () => {
 // 代码中会兼容本地 service mock 以及部署站点的静态数据
 export default {
   // 支持值为 Object 和 Array
-  'GET /api/ApiAppstore/currentUser': (req: Request, res: Response) => {
+  'POST /api/ApiAppstore/currentUser': (req: Request, res: Response) => {
     if (!getAccess()) {
       res.status(401).send({
         data: {
@@ -318,7 +318,7 @@ export default {
       fileName: '1'
     })
   },
-  'GET /api/cloudImgList': (req: Request,res:Response) => {
+  'POST /api/cloudImgList': (req: Request,res:Response) => {
     res.json([
     {
       fileId: 1,
@@ -343,7 +343,8 @@ export default {
     }
     ])
   },
-  'GET /api/product_list' :(req:Request,res:Response) =>{
+  // 产品列表
+  'POST /api/product_list' :(req:Request,res:Response) =>{
     res.json({
       "code": 0,
       "msg": "",
@@ -952,7 +953,11 @@ export default {
               ]
           }
       ]
-  })
+    })
+  },
+  // 删除产品
+  'POST /api/product_del' :(req:Request,res:Response)=>{
+
   }
 };
 

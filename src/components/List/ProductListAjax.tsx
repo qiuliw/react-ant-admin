@@ -1,5 +1,5 @@
 import React, { ReactNode, useEffect, useState } from 'react';
-import { Avatar, Checkbox, Input, Modal, Popover, Radio, Switch, Table, Tooltip } from 'antd';
+import { Avatar, Button, Checkbox, Input, Modal, Popover, Radio, Switch, Table, Tooltip } from 'antd';
 import type { GetProp, RadioChangeEvent, TableColumnsType, TableProps } from 'antd';
 import qs from 'qs';
 import { CopyOutlined, EyeOutlined, QuestionCircleOutlined, UserOutlined } from '@ant-design/icons';
@@ -163,6 +163,9 @@ export default function ProductListAjax() {
                 </div>
               </Tooltip>
             </ButtonIcon>
+            <Button type="link" danger>
+              Delete
+            </Button>
           </div>
         )
       }
