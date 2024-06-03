@@ -168,7 +168,7 @@ export default function ProductListAjax() {
               onClick={()=>{
                 deleteProduct(record.key.toString()).then((res)=>{
                   console.log(res)
-                  if(res?.status=="success"){
+                  if(res?.code==0){
                     message.success(`${res.id}，删除成功`);
                   }else{
                     message.error(`${res.id}，删除失败，请重试`)
