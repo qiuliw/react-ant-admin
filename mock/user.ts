@@ -210,7 +210,7 @@ export default {
 
     res.send({
       code: 1,
-      type,
+      msg: '用户名或密码错误',
       currentAuthority: 'guest',
     });
     access = 'guest';
@@ -347,7 +347,7 @@ export default {
   'POST  /api/ApiStore/product_list' :(req:Request,res:Response) =>{
     res.json({
       "code": 0,
-      "msg": "",
+      "msg": "ok",
       "count": "1356",
       "data": [
           {

@@ -91,10 +91,9 @@ class newStore {
 
 
 
-
+  
     // 库存追踪
   @observable inventoryTracking:boolean = false; 
-
 
   @action setInventoryTracking = (value:boolean)=>{
     this.inventoryTracking=value;
