@@ -185,7 +185,7 @@ export const request: RequestConfig = {
       const { code, data, errorCode, errorMessage} =
         res as unknown as ResponseStructure;
         // access_token 过期
-      if (code===40013) {
+      if (code==40013) {
         const error: any = new Error(errorMessage);
         error.name = 'access_token_expires';
         error.info = { errorCode, errorMessage, data };

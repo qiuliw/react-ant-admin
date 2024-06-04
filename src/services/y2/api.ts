@@ -168,3 +168,13 @@ export async function deleteProduct(id:string) {
     },
   })
 }
+
+export async function getProductList(page:any,limit:any){
+  return request(`/api/ApiStore/product_list?page=${page}&limit=${limit}`,{
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+}
+

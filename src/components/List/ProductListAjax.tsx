@@ -8,7 +8,7 @@ import Product from './../../pages/Products/index';
 import ProductList from './ProductList';
 import { result } from 'lodash';
 import axios from 'axios';
-import { deleteProduct } from '@/services/y2/api';
+import { deleteProduct, getProductList } from '@/services/y2/api';
 
 type ColumnsType<T> = TableProps<T>['columns'];
 type TablePaginationConfig = Exclude<GetProp<TableProps, 'pagination'>, boolean>;
@@ -218,10 +218,10 @@ export default function ProductListAjax() {
     //   });
     const limit  = getRandomuserParams(tableParams).results;
     const page = getRandomuserParams(tableParams).page;
-    axios.post(` /api/ApiStore/product_list?page=${page}&limit=${limit}`)
+    getProductList(page,limit)
       .then((res) => {
         let newData:DataType[] = [];
-        res.data.data.forEach((item:any)=>{
+        res.data.forEach((item:any)=>{
           newData.push({
             key:item.id,
             imgUrl: item.product_image,
