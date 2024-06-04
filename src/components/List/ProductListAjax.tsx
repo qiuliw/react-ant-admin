@@ -9,6 +9,7 @@ import ProductList from './ProductList';
 import { result } from 'lodash';
 import axios from 'axios';
 import { deleteProduct, getProductList } from '@/services/y2/api';
+import { Response } from 'express';
 
 type ColumnsType<T> = TableProps<T>['columns'];
 type TablePaginationConfig = Exclude<GetProp<TableProps, 'pagination'>, boolean>;
@@ -220,8 +221,9 @@ export default function ProductListAjax() {
     const page = getRandomuserParams(tableParams).page;
     getProductList(page,limit)
       .then((res) => {
+        console.log(res)
         let newData:DataType[] = [];
-        res.data.forEach((item:any)=>{
+        res.data?.forEach((item:any)=>{
           newData.push({
             key:item.id,
             imgUrl: item.product_image,
@@ -235,7 +237,7 @@ export default function ProductListAjax() {
           ...tableParams,
           pagination: {
             ...tableParams.pagination,
-            total: res.data.count,
+            total: res.count,
             // 200 is mock data, you should read it from server
             // total: data.totalCount,
           }

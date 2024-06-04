@@ -84,20 +84,44 @@ class newStore {
   @observable ISBN:string = '';
   // 库存数量
   @observable inventory:number = 0;
-  // 缺货后继续销售
-  // @observable continueSell:
-
-
-
-
-
-  
     // 库存追踪
   @observable inventoryTracking:boolean = false; 
+
+  // 缺货后继续销售
+  @observable continueSell:Boolean =false;
+
+  @action setSKU = (value:string)=>{
+    this.SKU = value;
+  }
+  @action setISBN = (value:string)=>{
+    this.ISBN = value;
+  };
+
+  @action setInventory = (value:number)=>{
+    this.inventory = value;
+  }
 
   @action setInventoryTracking = (value:boolean)=>{
     this.inventoryTracking=value;
   }
+
+  // 海关信息
+
+  // 发货国家/地区
+  @observable notion:string = '';
+  // HS(协调制度)代码
+  @observable HSCode:string = '';
+  
+  @action setNotion = (value: string) => {  
+    this.notion = value;  
+  }  
+  
+  @action setHSCode = (value: string) => {  
+    this.HSCode = value;  
+  }  
+
+  
+
 }
 
 
