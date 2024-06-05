@@ -4,11 +4,12 @@ import type { SelectProps } from 'antd';
 import PriceRangeSelector from "../Select/PriceRangeSelector";
 import MoreSelect from "../Select/MoreSelect";
 import { result } from "lodash";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Nothing from "../Info/Nothing";
 import type { TableColumnsType, TableProps } from 'antd'
 import ProductList from "../List/ProductList";
 import ProductListAjax from "../List/ProductListAjax";
+import axios from "axios";
 
 
 const { Search } = Input;
@@ -35,7 +36,9 @@ const options: SelectProps['options'] = [
     },
 ];
 
-
+const getDomainList = () => {
+    return axios.post('/api/ApiAppstore/domain_select')
+}
 
 
 
@@ -59,7 +62,21 @@ const tagRender: TagRender = (props) => {
 };
 export default function ProductsSelectCard() {
     const resultList=useState([]);
-
+    const [domainList,setDomainList] = useState<any>([])
+    const [defaultDomain,setDefaultDomain] = useState('')
+    useEffect(()=>{
+        getDomainList().then((res)=>{
+            let list:any =[];
+            res?.data?.data.forEach((item:any,index:any)=>{
+                list.push({
+                    value: item.id,
+                    label: item.domain_name,
+                })
+            })
+            setDomainList(list);
+            setDefaultDomain(res.data.data[0].id);
+        })
+    })
     return (
         <>
             <div className="products-select">
@@ -79,19 +96,10 @@ export default function ProductsSelectCard() {
                         <Space.Compact>
                             <Select
                                 size='large'
-                                defaultValue="全部"
+                                defaultValue={domainList[0]}
                                 style={{ width: 100 }}
                                 listHeight={230}
-                                options={[
-                                    { value: '全部', label: '全部' },
-                                    { value: '商品名称', label: '商品名称' },
-                                    { value: '商品SPU', label: '商品SPU' },
-                                    { value: '商品SKU', label: '商品SKU' },
-                                    { value: '商品厂商', label: '商品厂商' },
-                                    { value: '商品条码', label: '商品条码' },
-                                    { value: '规格名称', label: '规格名称' },
-                                    { value: '商品描述', label: '商品描述' },
-                                ]}
+                                options={domainList}
                             />
                             <Search
                                 size='large'
@@ -180,6 +188,14 @@ export default function ProductsSelectCard() {
                                 { value: '创建时间（从远到近）', label: '创建时间（从远到近）' },
                                 { value: '创建时间（从近到远）', label: '创建时间（从近到远）' },
                             ]}
+                        />
+                        {/* 8 */}
+                        <Select
+                            size='large'
+                            options={domainList}
+                            placeholder="站点"
+                            style={{ width: 100 }}
+                            listHeight={230}
                         />
                     </div>
                 </div>

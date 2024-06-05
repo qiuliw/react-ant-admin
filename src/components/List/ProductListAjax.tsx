@@ -229,6 +229,9 @@ export default function ProductListAjax() {
             imgUrl: item.product_image,
             price: item.price,
             name: item.title,
+            state: item.status==1,
+            inventory: item.quantity,
+            
           })
         })
         setData(newData);
