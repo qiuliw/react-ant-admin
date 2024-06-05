@@ -96,10 +96,12 @@ export default function ProductsSelectCard() {
                         <Space.Compact>
                             <Select
                                 size='large'
-                                defaultValue={domainList[0]}
+                                defaultValue={'全部'}
                                 style={{ width: 100 }}
                                 listHeight={230}
-                                options={domainList}
+                                options={[
+
+                                ]}
                             />
                             <Search
                                 size='large'
@@ -200,15 +202,6 @@ export default function ProductsSelectCard() {
                     </div>
                 </div>
             </div>
-            {/* {(resultList.length > 0 ? 
-            <div className="products-result-list">
-                <div className="products-result-list-item">
-                    
-                </div>
-            </div>:<Nothing/>)} */}
-            {/* <Nothing/> */}
-
-            {/* <ProductList/> */}
             <ProductListAjax/>
 
         </>
