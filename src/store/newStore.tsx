@@ -120,6 +120,9 @@ class newStore {
     this.HSCode = value;  
   }  
 
+  // 多款式
+  @observable multipleStyles :boolean = false;
+
   
 
 }
