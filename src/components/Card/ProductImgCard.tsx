@@ -127,9 +127,9 @@ export default function ProductImgCard() {
           {
             newStore.getSelectedImgList()?.map((img: any, index: any) => {
               let tempSelectedImgIndex = tempSelectedImg.indexOf(img);
-              // useEffect(()=>{
-                
-              // })
+              
+
+
               return (
                 <div style={{
                   height: 150,

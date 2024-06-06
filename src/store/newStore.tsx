@@ -1,3 +1,4 @@
+import { SelectProps } from "antd";
 import { valueType } from "antd/es/statistic/utils";
 import { action, makeObservable, observable } from "mobx";
 
@@ -16,6 +17,53 @@ class newStore {
 
     // })
   // }
+
+
+
+  // 表单数据
+
+// model: 123211231
+// sku: 1112321
+// categoryIds: 1280766382208
+// product_image: 123
+// product_video: 
+// additional_image: []
+// price: 213
+// specialprice: 
+// start_time: 
+// end_time: 
+// quantity: 1
+// sales_count: 0
+// minimum: 1
+// weight: 1231
+// weight_class_id: 2
+// languages_id: 1
+// title: 12321
+// stock_status_id: 5
+// subtract: 1
+// shipping: 1
+// is_best: 0
+// is_new: 0
+// is_hot: 0
+// sort: 3
+// is_share: 0
+// is_sys: 0
+// inquiry_status: 0
+// ad_waf_status: 1
+// ad_product_id: 
+// ad_product_url: 
+// divided_status: 0
+// divided_country: 
+// divided_url:   
+// group_id: 0
+// content1: 
+// content: 
+// product_url: 
+// tag: 
+// meta_title: 
+// meta_keyword: 
+// meta_description: 
+// status: 1
 
 
   // 商品信息
@@ -105,6 +153,10 @@ class newStore {
     this.inventoryTracking=value;
   }
 
+  @action setContinueSell = (value:boolean) =>{
+    this.continueSell = value;
+  }
+
   // 海关信息
 
   // 发货国家/地区
@@ -114,14 +166,67 @@ class newStore {
   
   @action setNotion = (value: string) => {  
     this.notion = value;  
-  }  
-  
+  }
   @action setHSCode = (value: string) => {  
     this.HSCode = value;  
   }  
 
   // 多款式
   @observable multipleStyles :boolean = false;
+ // 设置 multipleStyles  
+ @action setMultipleStyles(value: boolean) {  
+  this.multipleStyles = value;  
+}  
+
+  // 商品设置
+
+  // 上架商品
+  @observable onPutProduct :boolean = false;
+  // SPU
+  @observable SPU :string = '';
+  // 重量
+  @observable weight:string = '';
+  // 商品厂商
+  @observable manufactuer:string = '';
+  // 标签
+  @observable tag= '';
+  // 商品类型
+  @observable productType= '';
+
+  
+  // 设置 onPutProduct  
+  @action setOnPutProduct(value: boolean) {  
+    this.onPutProduct = value;  
+  }  
+  
+  // 设置 SPU  
+  @action setSPU(value: string) {  
+    this.SPU = value;  
+  }  
+  
+  // 设置 weight  
+  @action setWeight(value: string) {  
+    this.weight = value;
+    console.log(value)  
+  }  
+  
+  // 设置 manufactuer  
+  @action setManufactuer(value: string) {  
+    this.manufactuer = value;
+    console.log(value)
+  }  
+  
+  // 设置 tag
+  @action setTag(value: string) {  
+    this.tag = value;
+  }  
+  
+  // 设置 productType（这里假设你可以传入任何类型的数组）  
+  @action setProductType(value: any[]) {  
+
+  }  
+
+
 
 }
 
