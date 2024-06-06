@@ -123,8 +123,6 @@ class newStore {
   // 多款式
   @observable multipleStyles :boolean = false;
 
-  
-
 }
 
 
