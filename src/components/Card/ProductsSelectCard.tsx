@@ -74,7 +74,7 @@ export default function ProductsSelectCard() {
                 })
             })
             setDomainList(list);
-            setDefaultDomain(res.data.data[0].id);
+            setDefaultDomain(res.data?.data[0]?.id);
         })
     })
     return (

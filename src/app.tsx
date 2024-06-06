@@ -18,6 +18,7 @@ import { Oauth2 } from '../config/myConfig'
 import { getAccessToken } from '@/services/y2/api';
 import type { RequestConfig } from '@umijs/max';
 import { errorConfig } from './requestErrorConfig';
+import AdmainSelect from './components/RightContent/AdmainSelect';
 // 流程参考 https://www.bilibili.com/video/BV1yH4y1T7NW
 
 
@@ -97,6 +98,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
     })
   })
   return {
+    //菜单栏
     actionsRender: () => [
       <Question key="doc" />,
       <SelectLang key="SelectLang" />,
@@ -108,9 +110,6 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
         style={{ width: 100 }}
         listHeight={230}
       />,
-      <span>
-
-      </span>
     ],
     avatarProps: {
       src: initialState?.currentUser?.avatar,
@@ -263,7 +262,6 @@ export const request: RequestConfig = {
   responseInterceptors: [
     (response: any) => response,
     // access_token 过期
-
   ],
 
 
