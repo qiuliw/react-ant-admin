@@ -142,7 +142,7 @@ export async function register(body: API.LoginParams, options?: { [key: string]:
 
 /** 获取access_token */
 export async function getAccessToken() {
-  return request(Oauth2.hdyUrl,{
+  return request(Oauth2.hdyUrl, {
     method: 'POST',
     headers: {
       'Content-Type': 'multipart/form-data',
@@ -157,21 +157,21 @@ export async function getAccessToken() {
 
 
 // 删除产品
-export async function deleteProduct(id:string) {
-  return request('/api/ApiStore/product_del',{
+export async function deleteProduct(id: string) {
+  return request('/api/ApiStore/product_del', {
     method: 'POST',
     headers: {
       'Content-Type': 'multipart/form-data',
     },
     data: {
-      id:id,
-      access_token:localStorage.getItem('access_token')
+      id: id,
+      access_token: localStorage.getItem('access_token')
     },
   })
 }
 
-export async function getProductList(page:any,limit:any){
-  return request(`/api/ApiStore/product_list?page=${page}&limit=${limit}`,{
+export async function getProductList(page: any, limit: any) {
+  return request(`/api/ApiStore/product_list?page=${page}&limit=${limit}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -179,3 +179,55 @@ export async function getProductList(page:any,limit:any){
   })
 }
 
+export async function addProduct() {
+  return request('/api/ApiStore/product_add', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+    data: {
+      "model": 123211231,
+      "sku": 1112321,
+      "categoryIds": 1280766382208,
+      "product_image": 123,
+      "product_video": "",
+      "additional_image": [],
+      "price": 213,
+      "specialprice": null,
+      "start_time": null,
+      "end_time": null,
+      "quantity": 1,
+      "sales_count": 0,
+      "minimum": 1,
+      "weight": 1231,
+      "weight_class_id": 2,
+      "languages_id": 1,
+      "title": "12321",
+      "stock_status_id": 5,
+      "subtract": 1,
+      "shipping": 1,
+      "is_best": 0,
+      "is_new": 0,
+      "is_hot": 0,
+      "sort": 3,
+      "is_share": 0,
+      "is_sys": 0,
+      "inquiry_status": 0,
+      "ad_waf_status": 1,
+      "ad_product_id": null,
+      "ad_product_url": "",
+      "divided_status": 0,
+      "divided_country": "",
+      "divided_url": "",
+      "group_id": 0,
+      "content1": "",
+      "content": "",
+      "product_url": "",
+      "tag": "",
+      "meta_title": "",
+      "meta_keyword": "",
+      "meta_description": "",
+      "status": 1
+    }
+  })
+}

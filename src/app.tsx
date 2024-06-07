@@ -96,7 +96,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
       setDomainList(list);
       setDefaultDomain(res.data.data[0]?.id);
     })
-  })
+  },[])
   return {
     //菜单栏
     actionsRender: () => [

@@ -13,6 +13,7 @@ import ThirdPartyInfoCard from '@/components/Card/ThirdPartyInfoCard';
 import ThemeTemplateCard from '@/components/Card/ThemeTemplateCard';
 import { Divider } from 'antd';
 import { history } from '@umijs/max';
+import newStore from '@/store/newStore';
 
 
 
@@ -54,7 +55,9 @@ export default function New() {
                     </div>
                     <Divider/>
                     <div className='mc-footer'>
-                        <Button type='primary'>创建</Button>
+                        <Button type='primary' onClick={()=>{
+                            newStore.submitAddProduct();
+                        }}>创建</Button>
                     </div>
                 </div>
             </div>

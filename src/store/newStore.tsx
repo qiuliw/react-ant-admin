@@ -1,4 +1,5 @@
-import { SelectProps } from "antd";
+import { addProduct } from "@/services/y2/api";
+import { message, SelectProps } from "antd";
 import { valueType } from "antd/es/statistic/utils";
 import { action, makeObservable, observable } from "mobx";
 
@@ -222,11 +223,17 @@ class newStore {
   }  
   
   // 设置 productType（这里假设你可以传入任何类型的数组）  
-  @action setProductType(value: any[]) {  
-
+  @action setProductType(value:string) {  
+    this.productType = value;
   }  
 
-
+  @action submitAddProduct(){
+    addProduct()
+      .then((res)=>{
+        if(res.code==0)message.success;
+        else message.error;
+      })
+  }
 
 }
 
