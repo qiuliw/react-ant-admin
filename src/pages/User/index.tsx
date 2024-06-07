@@ -19,7 +19,7 @@ const Login: React.FC = () => {
       style={{
         display: 'flex',
         width: '100vw',
-        minWidth: '1200px',
+        minWidth: '300px',
         height: '100vh',
       }}
     >

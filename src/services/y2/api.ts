@@ -3,6 +3,7 @@
 import { request } from '@umijs/max';
 import axios from 'axios';
 import { Oauth2 } from '../../../config/myConfig'
+import newStore from '@/store/newStore';
 
 /** 获取当前的用户 GET /api/currentUser */
 export async function currentUser(options?: { [key: string]: any }) {
@@ -186,23 +187,23 @@ export async function addProduct() {
       'Content-Type': 'multipart/form-data',
     },
     data: {
-      "model": 123211231,
-      "sku": 1112321,
-      "categoryIds": 1280766382208,
-      "product_image": 123,
-      "product_video": "",
-      "additional_image": [],
-      "price": 213,
-      "specialprice": null,
+      "model": newStore.title,
+      "sku": newStore.SKU,
+      "categoryIds": newStore.productType,
+      "product_image": newStore.selectedImgList[0] ,
+      "product_video": '',
+      "additional_image": newStore.selectedImgList,
+      "price": newStore.price,
+      "specialprice": newStore.costPrice,
       "start_time": null,
       "end_time": null,
-      "quantity": 1,
+      "quantity": newStore.inventory,
       "sales_count": 0,
       "minimum": 1,
-      "weight": 1231,
-      "weight_class_id": 2,
-      "languages_id": 1,
-      "title": "12321",
+      "weight": newStore.weight,
+      "weight_class_id": newStore.productType,
+      "languages_id": 2,
+      "title": newStore.title,
       "stock_status_id": 5,
       "subtract": 1,
       "shipping": 1,
@@ -221,12 +222,12 @@ export async function addProduct() {
       "divided_url": "",
       "group_id": 0,
       "content1": "",
-      "content": "",
+      "content": "呃呃呃呃呃呃呃呃呃呃呃呃呃",
       "product_url": "",
       "tag": "",
-      "meta_title": "",
+      "meta_title": "啊啊啊啊啊啊啊啊啊",
       "meta_keyword": "",
-      "meta_description": "",
+      "meta_description":"日日日日日日日日日日",
       "status": 1
     }
   })

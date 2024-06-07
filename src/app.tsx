@@ -18,7 +18,6 @@ import { Oauth2 } from '../config/myConfig'
 import { getAccessToken } from '@/services/y2/api';
 import type { RequestConfig } from '@umijs/max';
 import { errorConfig } from './requestErrorConfig';
-import AdmainSelect from './components/RightContent/AdmainSelect';
 // 流程参考 https://www.bilibili.com/video/BV1yH4y1T7NW
 
 
@@ -251,7 +250,6 @@ export const request: RequestConfig = {
       const token = localStorage.getItem('token')
       if (token && config.url != loginPath)
         config.headers['token'] = token;
-
       // 携带access_token
       config.headers['Authorization'] = 'Bearer ' + localStorage.getItem('access_token');
       return config;

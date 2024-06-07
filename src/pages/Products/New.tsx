@@ -1,5 +1,5 @@
 import { ArrowLeftOutlined } from '@ant-design/icons'
-import { Button, Card, ConfigProvider, Drawer, Form, Input, Select } from 'antd'
+import { Button, Card, ConfigProvider, Drawer, Form, Input, message, Select } from 'antd'
 import ProductDataCard from '@/components/Card/ProductDataCard';
 import ProductImgCard from '@/components/Card/ProductImgCard';
 import PriceOrTransactionCard from '@/components/Card/PriceOrTransactionCard';
@@ -14,10 +14,12 @@ import ThemeTemplateCard from '@/components/Card/ThemeTemplateCard';
 import { Divider } from 'antd';
 import { history } from '@umijs/max';
 import newStore from '@/store/newStore';
+import { observable } from 'mobx';
+import { observer } from 'mobx-react-lite';
 
 
 
-export default function New() {
+function New(){
 
 
     return (
@@ -56,7 +58,13 @@ export default function New() {
                     <Divider/>
                     <div className='mc-footer'>
                         <Button type='primary' onClick={()=>{
-                            newStore.submitAddProduct();
+                            newStore.submitAddProduct()
+                                .then(res=>{
+                                    if(res.code==0)message.success('okkk');
+                                    else message.error('noooo');
+                                    history.push('/products/index')
+                                })
+                            ;
                         }}>创建</Button>
                     </div>
                 </div>
@@ -64,6 +72,8 @@ export default function New() {
         </Scoped>
     )
 }
+
+export default observer(New);
 
 const Scoped = styled.div`
 .mc-layout-wrap{

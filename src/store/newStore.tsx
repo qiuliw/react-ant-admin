@@ -78,6 +78,10 @@ class newStore {
   // 商品图片/视频
   @observable selectedImgList :any[] =  [];
   
+  @action setTitle=(title:string)=>{
+    this.title=title;
+  }
+
   // 操作选中的图片数组
   @action getSelectedImgList = ()=>{
     return this.selectedImgList;
@@ -228,11 +232,7 @@ class newStore {
   }  
 
   @action submitAddProduct(){
-    addProduct()
-      .then((res)=>{
-        if(res.code==0)message.success;
-        else message.error;
-      })
+    return addProduct()
   }
 
 }

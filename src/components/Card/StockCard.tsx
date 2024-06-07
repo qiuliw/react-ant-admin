@@ -16,7 +16,9 @@ export default function StockCard() {
                 <Form layout="vertical">
                     <Row>
                         <Col span={11}>
-                            <Form.Item label="SKU"
+                            <Form.Item
+                            required
+                            label="SKU"
                                 name='SKU'>
                                 <Input
                                     onChange={onChange}
