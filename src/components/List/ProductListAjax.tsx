@@ -181,10 +181,10 @@ export default function ProductListAjax() {
                 deleteProduct(record.key.toString()).then((res)=>{
                   console.log(res)
                   if(res?.code==0){
-                    message.success(`${res.id}，删除成功`);
+                    message.success(`删除成功`);
                     fetchData();
                   }else{
-                    message.error(`${res.id}，删除失败，请重试`)
+                    message.error(`删除失败，请重试`)
                   }
                 });
               }}

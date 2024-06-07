@@ -9,7 +9,7 @@ const props: UploadProps = {
     name: 'file',
     showUploadList: false,
     multiple: true,
-    action: '/api/upload',
+    action: '/api/ApiAppstore/doUploadPic',
     onChange(info) {
         const { status } = info.file;
         if (status !== 'uploading') {
