@@ -250,6 +250,7 @@ export const request: RequestConfig = {
       const token = localStorage.getItem('token')
       if (token && config.url != loginPath)
         config.headers['token'] = token;
+        // config['token'] = token;
       // 携带access_token
       config.headers['Authorization'] = 'Bearer ' + localStorage.getItem('access_token');
       return config;
@@ -260,6 +261,10 @@ export const request: RequestConfig = {
   responseInterceptors: [
     (response: any) => response,
     // access_token 过期
+    (res:any) =>{
+      if(res.code==1001)history.push(loginPath)
+      else return res;
+    }
   ],
 
 

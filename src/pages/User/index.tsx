@@ -3,7 +3,6 @@ import { createStyles } from 'antd-style';
 import { FormattedMessage, history, useIntl, useModel, SelectLang, Outlet } from '@umijs/max';
 import './index.scss';
 import langShow from '@/locales/langShow';
-import API from '@/services/user';
 import { useState } from 'react';
 import ILang from '@/components/Lang/lang';
 
