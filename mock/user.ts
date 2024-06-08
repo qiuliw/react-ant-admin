@@ -961,6 +961,14 @@ export default {
       code: 0,
       id:req?.body?.id,
     })
-  }
+  },
+  'POST /api/ApiAppstore/doUploadPic' :(req:Request,res:Response)=>{
+    res.json({
+      fileId: '123456',  
+      fileName: 'example.jpg',  
+      fileUrl: '#'
+      // ... 其他你想要的返回数据  
+    })
+  },
 };
 

@@ -1,3 +1,4 @@
+import newStore from "@/store/newStore";
 import { InboxOutlined, PlusOutlined } from "@ant-design/icons";
 import { message, Upload, UploadProps } from "antd";
 import styled from "styled-components";
@@ -11,15 +12,18 @@ const props: UploadProps = {
     multiple: true,
     action: '/api/ApiAppstore/doUploadPic',
     onChange(info) {
-        const { status } = info.file;
+        const { status,response } = info.file;
         if (status !== 'uploading') {
             console.log(info.file, info.fileList);
         }
         if (status === 'done') {
             message.success(`${info.file.name} file uploaded successfully.`);
+            newStore.addSelectedImgList(response?.fileUrl)
         } else if (status === 'error') {
             message.error(`${info.file.name} file upload failed.`);
         }
+        console.log(response?.fileId,response?.fileName,response?.fileUrl);
+        
     },
     onDrop(e) {
         console.log('Dropped files', e.dataTransfer.files);
