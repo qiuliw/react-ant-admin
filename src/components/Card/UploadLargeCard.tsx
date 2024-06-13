@@ -32,7 +32,6 @@ const props: UploadProps = {
 
 export default function UploadLargeCard() {
 
-
     return (
         <div>
             <div></div>
@@ -49,7 +48,6 @@ export default function UploadLargeCard() {
         </div>
     )
 }
-
 
 const Scoped = styled.div`
     

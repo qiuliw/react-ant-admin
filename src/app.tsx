@@ -209,6 +209,7 @@ export const request: RequestConfig = {
     errorThrower: (res: any) => {
       const { code, data, errorCode, errorMessage } =
         res as unknown as ResponseStructure;
+        console.log(res);
       // access_token 过期
       if (code == 40013) {
         const error: any = new Error(errorMessage);
@@ -262,7 +263,13 @@ export const request: RequestConfig = {
     (response: any) => response,
     // access_token 过期
     (res:any) =>{
-      if(res.code==1001)history.push(loginPath)
+      if(res.code==1001)history.push(loginPath);
+      if(res.code==40013){
+        getAccessToken().then(res => {
+          let access_token = res.data.access_token;
+          localStorage.setItem('access_token', access_token)
+        }).catch((err) => { console.log(err) });
+      }
       else return res;
     }
   ],
