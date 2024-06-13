@@ -203,45 +203,45 @@ interface ResponseStructure {
 export const request: RequestConfig = {
   timeout: 60000, //超时处理，请求超过1分钟，取消请求
 
-  // 错误统一处理
-  errorConfig: {
-    // 抛出错误
-    errorThrower: (res: any) => {
-      const { code, data, errorCode, errorMessage } =
-        res as unknown as ResponseStructure;
-        console.log(res);
-      // access_token 过期
-      if (code == 40013) {
-        const error: any = new Error(errorMessage);
-        error.name = 'access_token_expires';
-        error.info = { errorCode, errorMessage, data };
-        throw error; // 抛出自制的错误
-      }
-    },
-    // 错误接收及处理 axios
-    // errorHandler(error: any, opts: any) {
-    //   // message.error("网络繁忙，请稍后再试");
-    //   let access_token = ''
-    //   if(error.name === 'access_token_expires'){
-    //     getAccessToken().then((res:any)=>{
-    //       access_token = res.data;
-    //       localStorage.setItem('access_token',access_token)
-    //     });
-    //   console.log('重新获取access_token')
-    //   message.error('access_token过期，请稍后再试');
-    //   }
+  // // 错误统一处理
+  // errorConfig: {
+  //   // 抛出错误
+  //   errorThrower: (res: any) => {
+  //     const { code, data, errorCode, errorMessage } =
+  //       res as unknown as ResponseStructure;
+  //       console.log(res);
+  //     // access_token 过期
+  //     if (code == 40013) {
+  //       const error: any = new Error(errorMessage);
+  //       error.name = 'access_token_expires';
+  //       error.info = { errorCode, errorMessage, data };
+  //       throw error; // 抛出自制的错误
+  //     }
+  //   },
+  //   // 错误接收及处理 axios
+  //   // errorHandler(error: any, opts: any) {
+  //   //   // message.error("网络繁忙，请稍后再试");
+  //   //   let access_token = ''
+  //   //   if(error.name === 'access_token_expires'){
+  //   //     getAccessToken().then((res:any)=>{
+  //   //       access_token = res.data;
+  //   //       localStorage.setItem('access_token',access_token)
+  //   //     });
+  //   //   console.log('重新获取access_token')
+  //   //   message.error('access_token过期，请稍后再试');
+  //   //   }
 
 
-    errorHandler(error: any, opts: any) {
-      // message.error("网络繁忙，请稍后再试");
-      if (error.name === 'access_token_expires') {
-        getAccessToken().then(res => {
-          let access_token = res.data.access_token;
-          localStorage.setItem('access_token', access_token)
-        }).catch((err) => { console.log(err) })
-      }
-    },
-  },
+  //   errorHandler(error: any, opts: any) {
+  //     // message.error("网络繁忙，请稍后再试");
+  //     if (error.name === 'access_token_expires') {
+  //       getAccessToken().then(res => {
+  //         let access_token = res.data.access_token;
+  //         localStorage.setItem('access_token', access_token)
+  //       }).catch((err) => { console.log(err) })
+  //     }
+  //   },
+  // },
 
 
   // 请求拦截器
