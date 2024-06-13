@@ -263,13 +263,13 @@ export const request: RequestConfig = {
     (response: any) => response,
     // access_token 过期
     (res:any) =>{
-      if(res.code==1001)history.push(loginPath);
-      if(res.code==40013){
-        getAccessToken().then(res => {
-          let access_token = res.data.access_token;
-          localStorage.setItem('access_token', access_token)
+      console.log(res);
+      if(res.data.code==40013){
+          getAccessToken().then(res => {
+          localStorage.setItem('access_token',  res.access_token)
         }).catch((err) => { console.log(err) });
       }
+      if(res.code==1001)history.push(loginPath);
       else return res;
     }
   ],

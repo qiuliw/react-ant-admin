@@ -153,9 +153,8 @@ export async function getAccessToken() {
       accessKeyId: Oauth2.accessKeyId,
       accessKeySecret: Oauth2.accessKeySecret
     },
-  })
+  });
 }
-
 
 // 删除产品
 export async function deleteProduct(id: string) {
