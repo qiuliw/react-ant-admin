@@ -11,13 +11,14 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/signIn';
-import { message, Select } from 'antd';
+import { Divider, message, Select } from 'antd';
 import { Ping } from './components/RightContent';
 import access from './access';
 import { Oauth2 } from '../config/myConfig'
 import { getAccessToken } from '@/services/y2/api';
 import type { RequestConfig } from '@umijs/max';
 import { errorConfig } from './requestErrorConfig';
+import SelectDomain from './components/RightContent/SelectDomain';
 // 流程参考 https://www.bilibili.com/video/BV1yH4y1T7NW
 
 
@@ -80,34 +81,19 @@ const getDomainList = () => {
 }
 // layout
 export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) => {
-  const [domainList, setDomainList] = useState<any>([])
-  const [defaultDomain, setDefaultDomain] = useState('')
-  useEffect(() => {
-    getDomainList().then((res) => {
-      let list: any = [];
-      res?.data?.data.forEach((item: any, index: any) => {
-        list.push({
-          value: item.id,
-          label: item.domain_name,
-        })
-      })
-      setDomainList(list);
-      setDefaultDomain(res.data.data[0]?.id);
-    })
-  },[])
+
+
+
+
   return {
     //菜单栏
     actionsRender: () => [
+      <SelectDomain/>,
       <Question key="doc" />,
       <SelectLang key="SelectLang" />,
       <Ping key="Ping" />,
-      <Select
-        size='large'
-        options={domainList}
-        placeholder="站点"
-        style={{ width: 100 }}
-        listHeight={230}
-      />,
+
+
     ],
     avatarProps: {
       src: initialState?.currentUser?.avatar,
