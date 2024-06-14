@@ -48,7 +48,35 @@ export default function SelectDomain() {
                         <div className="shopTitle">
                             qiuqiuqiu
                         </div>
-                        <Tag className="tag" style={{
+                        <Tag className="tag tag-success" style={{
+                            display: 'flex',
+                            alignContent: 'center'
+                        }}>
+                            <span className="tag-right">
+                                <span className="tag-dot tag-dot-success"/>
+                            </span>
+                            已停用
+                        </Tag>
+
+                    </div>
+                    <div className="shopInfo">
+                        rejgfpajrp
+                    </div>
+                    <div className="email">
+                        rejgfpajrp.matacart.com
+                    </div>
+                </div>
+
+                
+            </div>
+            <div className="popover_item">
+                <img  src='/img/storeLogo.png' className="storeLogo" />
+                <div className="storeInfo">
+                    <div className="storeName">
+                        <div className="shopTitle">
+                            qiuqiuqiu
+                        </div>
+                        <Tag className="tag tag-error" style={{
                             display: 'flex',
                             alignContent: 'center'
                         }}>
@@ -69,7 +97,6 @@ export default function SelectDomain() {
 
                 
             </div>
-
 
             <div className="popover_footer">
                 <Button type="primary" size='large' block>
@@ -164,8 +191,6 @@ const ContentWrap = styled.div`
                 }
                 .tag{
                     border-radius: 9999px;
-                    background-color: #ffebe7;
-                    border: 1px solid rgba(248,97,64,.2);
                     font-weight:400;
                     .tag-right{
                         display: flex;
@@ -181,9 +206,19 @@ const ContentWrap = styled.div`
                         .tag-dot-error{
                             background-color: #f86140;
                         }
+                        .tag-dot-success{
+                            background-color: #35c08e;
+                        }
                     }
                 }
-
+                .tag-success{
+                    background-color: #d6fae7;
+                    border: 1px solid rgba(53,192,142,.2);
+                }
+                .tag-error{
+                    background-color: #ffebe7;
+                    border: 1px solid rgba(248,97,64,.2);
+                }
 
             }
             .shopInfo{
