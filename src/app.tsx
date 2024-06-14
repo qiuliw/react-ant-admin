@@ -206,16 +206,16 @@ export const request: RequestConfig = {
   errorConfig: {
     // 抛出错误
     errorThrower: (res: any) => {
-      const { code, data, errorCode, errorMessage } =
-        res as unknown as ResponseStructure;
-        console.log(res);
-      // access_token 过期
-      if (code == 40013) {
-        const error: any = new Error(errorMessage);
-        error.name = 'access_token_expires';
-        error.info = { errorCode, errorMessage, data };
-        throw error; // 抛出自制的错误
-      }
+      // const { code, data, errorCode, errorMessage } =
+      //   res as unknown as ResponseStructure;
+      //   console.log(res);
+      // // access_token 过期
+      // if (data.code == 40013) {
+      //   const error: any = new Error(errorMessage);
+      //   error.name = 'access_token_expires';
+      //   error.info = { errorCode, errorMessage, data };
+      //   throw error; // 抛出自制的错误
+      // }
     },
   //   // 错误接收及处理 axios
   //   // errorHandler(error: any, opts: any) {
@@ -233,12 +233,12 @@ export const request: RequestConfig = {
 
     errorHandler(error: any, opts: any) {
       // message.error("网络繁忙，请稍后再试");
-      if (error.name === 'access_token_expires') {
-        getAccessToken().then(res => {
-          let access_token = res.data.access_token;
-          localStorage.setItem('access_token', access_token)
-        }).catch((err) => { console.log(err) })
-      }
+      // if (error.name === 'access_token_expires') {
+      //   getAccessToken().then(res => {
+      //     let access_token = res.data.access_token;
+      //     localStorage.setItem('access_token', access_token)
+      //   }).catch((err) => { console.log(err) })
+      // }
     },
   },
 
@@ -263,11 +263,11 @@ export const request: RequestConfig = {
     // access_token 过期
     (res:any) =>{
       console.log(res);
-      // if(res.data.code==40013){
-      //     getAccessToken().then(res => {
-      //     localStorage.setItem('access_token',  res.access_token)
-      //   }).catch((err) => { console.log(err) });
-      // }
+      if(res.data.code==40013){
+          getAccessToken().then(res => {
+          localStorage.setItem('access_token',  res.access_token)
+        }).catch((err) => { console.log(err) });
+      }
       if(res.code==1001)history.push(loginPath);
       else return res;
     }
