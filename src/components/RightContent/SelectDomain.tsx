@@ -1,102 +1,121 @@
+import { getDomainList } from "@/services/y2/api";
 import { DownOutlined, SearchOutlined } from "@ant-design/icons";
-import { Button, Divider, Input, Popover, Select, Tag } from "antd";
+import { Button, Divider, Input, message, Popover, Select, Tag } from "antd";
 import Search from "antd/lib/input/Search";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
+// 定义一个函数来高亮搜索词  
+function highlightSearchTerm(text:string, term:string) {  
+    // 使用正则表达式来匹配搜索词，并替换为带有<mark>标签的文本
+    console.log(term)
+        return text.replace(term,'<span class="mark">' + term + '</span>');
 
-const onSearch = () => {
+    }
+  
 
-}
+
+const domainList :any[]= [];
 
 export default function SelectDomain() {
-    const [domainList, setDomainList] = useState<any>([])
+    const [domainListCurrent, setDomainListCurrent] = useState<any>([])
     const [defaultDomain, setDefaultDomain] = useState('')
+    // 店铺列表popover是否展开
     const [isActive, setIsActive] = useState(false);
+    const [searchTerm ,setSearchTerm] = useState('')
 
+    const changeDomain = (item:any)=>{
+        setDefaultDomain(item.id)
+        setIsActive(false);
+    }
 
 
     useEffect(() => {
-        axios.post('/api/ApiAppstore/domain_select').then((res) => {
-            let list: any = [];
-            res?.data?.data.forEach((item: any, index: any) => {
-                list.push({
-                    value: item.id,
-                    label: item.domain_name,
+        getDomainList().then((res) => {
+            console.log(res)
+            res?.data?.forEach((item: any, index: any) => {
+                domainList.push({
+                    id: item.id,
+                    domainName: item.domain_name,
+                    secondDomain:item.second_domain,
+                    status: item.status,
                 })
             })
-            setDomainList(list);
-            setDefaultDomain(res.data.data[0]?.id);
-            console.log(domainList)
+            setDomainListCurrent(domainList);
+            setDefaultDomain(res.data[0]?.id);
+        }).catch((error)=>{
+            message.error('未获取到数据，请检查网络')
         })
     }, [])
-
 
     const content = (
         <ContentWrap>
             <div className="popover_header">
                 <div className="popover_input">
                     <Input size="large" suffix={<SearchOutlined />}
-                        placeholder="搜索店铺名称/handle/主域名" />
+                        onChange={(e)=>{
+                            let term = e.target.value
+                            setSearchTerm(term);
+                            if(!domainList)return;
+                            if(term==''){
+                                setDomainListCurrent([...domainList]);
+                                return;
+                            };
+                            // map 没return时 返回 undefine
+                            // let resultArray = domainList.map(item=>{
+                            //     if(item.id.includes(term)){
+                            //         return item;
+                            //     }
+                            // })
+                            let resultArray = domainList.filter(item=>item.id?.includes(term)||item.domainName?.includes(term)||item.secondName?.includes(term))
+                            setDomainListCurrent(resultArray)
+                        }}
+                        placeholder="搜索店铺名称/子域名/主域名" />
                 </div>
             </div>
-            <div className="popover_item">
-                <img  src='/img/storeLogo.png' className="storeLogo" />
-                <div className="storeInfo">
-                    <div className="storeName">
-                        <div className="shopTitle">
-                            qiuqiuqiu
+            <div className="popover_content">
+            {
+                domainListCurrent?.map((item:any,index:any)=>{
+                    return (
+                        <div className="popover_item" key={index} onClick={()=>{
+                            changeDomain(item)
+
+                            }}>
+                        <img  src='/img/storeLogo.png' className="storeLogo" />
+                        <div className="storeInfo">
+                            <div className="storeName">
+                                <div className="shopTitle">
+                                   {item?.id}
+                                </div>
+                                <Tag className="tag tag-success" style={{
+                                    display: 'flex',
+                                    alignContent: 'center'
+                                }}>
+                                    <span className="tag-right">
+                                        <span className={"tag-dot "+ ((item?.status==1)?'tag-dot-success ':'tag-dot-error') }/>
+                                    </span>
+                                    {(item?.status==1)?'营业中':'已停用'}
+                                </Tag>
+        
+                            </div>
+                            <div className="shopInfo">
+                                {item?.domainName}
+                            </div>
+                            <div className="email">
+                                {item?.secondDomain}
+                            </div>
                         </div>
-                        <Tag className="tag tag-success" style={{
-                            display: 'flex',
-                            alignContent: 'center'
-                        }}>
-                            <span className="tag-right">
-                                <span className="tag-dot tag-dot-success"/>
-                            </span>
-                            已停用
-                        </Tag>
-
+        
+                        
                     </div>
-                    <div className="shopInfo">
-                        rejgfpajrp
-                    </div>
-                    <div className="email">
-                        rejgfpajrp.matacart.com
-                    </div>
-                </div>
-
-                
+                    )
+                })
+            }
             </div>
-            <div className="popover_item">
-                <img  src='/img/storeLogo.png' className="storeLogo" />
-                <div className="storeInfo">
-                    <div className="storeName">
-                        <div className="shopTitle">
-                            qiuqiuqiu
-                        </div>
-                        <Tag className="tag tag-error" style={{
-                            display: 'flex',
-                            alignContent: 'center'
-                        }}>
-                            <span className="tag-right">
-                                <span className="tag-dot tag-dot-error"/>
-                            </span>
-                            已停用
-                        </Tag>
 
-                    </div>
-                    <div className="shopInfo">
-                        rejgfpajrp
-                    </div>
-                    <div className="email">
-                        rejgfpajrp.matacart.com
-                    </div>
-                </div>
 
-                
-            </div>
+
 
             <div className="popover_footer">
                 <Button type="primary" size='large' block>
@@ -113,6 +132,7 @@ export default function SelectDomain() {
                 onOpenChange={(open) => {
                     setIsActive(open);
                 }}
+                open={isActive}
                 trigger="click">
                 <div>
                     <h4>{defaultDomain}</h4>
@@ -159,88 +179,98 @@ const ContentWrap = styled.div`
         padding: 5px 10px 18px 10px;
         border-bottom: 1px solid #eef1f7;
     }
-    .popover_item{
-        padding: 18px 10px;
-        border-bottom: 1px solid #eef1f7;
-        display:flex;
-        .storeLogo{
-            width: 60px;
-            height: 60px;
-            margin-right: 12px;
-            border-radius: 3px;
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: contain;
-        }
-        .storeInfo{
-            flex:1;
-            overflow:hidden;
-            .storeName{
-                display:flex;
-                width:100%;
-                align-items:center;
-                justify-content:space-between;
-                .shopTitle{
-                    font-size: 16px;
+    .popover_content{
+        max-height: 290px;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        .popover_item{
+            padding: 18px 10px;
+            border-bottom: 1px solid #eef1f7;
+            display:flex;
+            &:hover{
+                background-color: #f7f7f7;
+                cursor:pointer;
+            }
+            .storeLogo{
+                width: 60px;
+                height: 60px;
+                margin-right: 12px;
+                border-radius: 3px;
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: contain;
+            }
+            .storeInfo{
+                flex:1;
+                overflow:hidden;
+                .storeName{
+                    display:flex;
+                    width:100%;
+                    align-items:center;
+                    justify-content:space-between;
+                    .shopTitle{
+                        font-size: 16px;
+                        font-style: normal;
+                        font-weight: 600;
+                        line-height: 22px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+                    .tag{
+                        border-radius: 9999px;
+                        font-weight:400;
+                        .tag-right{
+                            display: flex;
+                            flex-wrap: wrap;
+                            align-content: center ;
+                            .tag-dot{
+                                display:inline-block;
+                                border-radius: 50%;
+                                margin-right: 5px;
+                                height: 4px;
+                                width: 4px;
+                            }
+                            .tag-dot-error{
+                                background-color: #f86140;
+                            }
+                            .tag-dot-success{
+                                background-color: #35c08e;
+                            }
+                        }
+                    }
+                    .tag-success{
+                        background-color: #d6fae7;
+                        border: 1px solid rgba(53,192,142,.2);
+                    }
+                    .tag-error{
+                        background-color: #ffebe7;
+                        border: 1px solid rgba(248,97,64,.2);
+                    }
+
+                }
+                .shopInfo{
+                    margin-top: 2px;
+                    color: #7a8499;
+                    font-size: 12px;
                     font-style: normal;
-                    font-weight: 600;
-                    line-height: 22px;
+                    font-weight: 400;
+                    line-height: 16px;
                     overflow: hidden;
                     text-overflow: ellipsis;
                     white-space: nowrap;
                 }
-                .tag{
-                    border-radius: 9999px;
-                    font-weight:400;
-                    .tag-right{
-                        display: flex;
-                        flex-wrap: wrap;
-                        align-content: center ;
-                        .tag-dot{
-                            display:inline-block;
-                            border-radius: 50%;
-                            margin-right: 5px;
-                            height: 4px;
-                            width: 4px;
-                        }
-                        .tag-dot-error{
-                            background-color: #f86140;
-                        }
-                        .tag-dot-success{
-                            background-color: #35c08e;
-                        }
-                    }
+                .email{
+                    color: #7a8499;
+                    font-size: 12px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 16px;
                 }
-                .tag-success{
-                    background-color: #d6fae7;
-                    border: 1px solid rgba(53,192,142,.2);
-                }
-                .tag-error{
-                    background-color: #ffebe7;
-                    border: 1px solid rgba(248,97,64,.2);
-                }
-
-            }
-            .shopInfo{
-                margin-top: 2px;
-                color: #7a8499;
-                font-size: 12px;
-                font-style: normal;
-                font-weight: 400;
-                line-height: 16px;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-            }
-            .email{
-                color: #7a8499;
-                font-size: 12px;
-                font-style: normal;
-                font-weight: 400;
-                line-height: 16px;
             }
         }
     }
+
     .popover_footer{
         padding: 18px 10px 5px 10px;
     }

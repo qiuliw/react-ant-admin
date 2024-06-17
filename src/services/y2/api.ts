@@ -4,6 +4,7 @@ import { request } from '@umijs/max';
 import axios from 'axios';
 import { Oauth2 } from '../../../config/myConfig'
 import newStore from '@/store/newStore';
+import TableList from './../../pages/TableList/index';
 
 /** 获取当前的用户 GET /api/currentUser */
 export async function currentUser(options?: { [key: string]: any }) {
@@ -230,4 +231,15 @@ export async function addProduct() {
       "status": 1
     }
   })
+}
+
+
+export async function getDomainList( options?: { [key: string]: any }) {
+  return request<API.LoginResult>('/api/ApiAppstore/domain_select', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    ...(options || {}),
+  });
 }
