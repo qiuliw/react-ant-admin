@@ -171,6 +171,7 @@ export async function deleteProduct(id: string) {
   })
 }
 
+// 产品列表
 export async function getProductList(page: any, limit: any) {
   return request(`/api/ApiStore/product_list?page=${page}&limit=${limit}`, {
     method: 'POST',
@@ -234,6 +235,7 @@ export async function addProduct() {
 }
 
 
+// 店铺列表
 export async function getDomainList( options?: { [key: string]: any }) {
   return request<API.LoginResult>('/api/ApiAppstore/domain_select', {
     method: 'POST',
@@ -242,4 +244,14 @@ export async function getDomainList( options?: { [key: string]: any }) {
     },
     ...(options || {}),
   });
+}
+
+// 文件库
+export async function getFileList(page: any, limit: any) {
+  return request(`/api/ApiStore/file_list?page=${page}&limit=${limit}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
 }

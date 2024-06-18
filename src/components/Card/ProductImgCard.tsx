@@ -7,7 +7,6 @@ import styled from 'styled-components';
 import { values } from "lodash";
 import axios from "axios";
 import UploadCard from "./UploadLargeCard";
-import UploadSmallCard from "./UploadSmallCard";
 import newStore from "@/store/newStore";
 const { Dragger } = Upload;
 
@@ -34,10 +33,11 @@ export default function ProductImgCard() {
 
 
 
-
+// ##################### 添加多媒体文件 ###############################
 
   // 从文件库中选择
-  const [imgList, setImgList] = useState<any>([]);
+  const [fileLibrary, setFileLibrary] = useState<any>([]);
+
   // Modal被选中的图片列表
   const [tempSelectedImg, setSelectedImg] = useState<any>([]);
 
@@ -45,7 +45,7 @@ export default function ProductImgCard() {
   const getImgList = () => {
     axios.post('/api/cloudImgList').then((req: any) => {
       console.log(req.data)
-      setImgList(req.data);
+      setFileLibrary(req.data);
     })
   }
 
@@ -72,7 +72,9 @@ export default function ProductImgCard() {
     }
   }
 
-  // 图片上传
+
+// ###########   图片上传  ######################
+
   const { Dragger } = Upload;
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
@@ -127,6 +129,7 @@ export default function ProductImgCard() {
   const handleChange: UploadProps['onChange'] = ({ fileList: newFileList }) =>{
     console.log(newFileList);
     setFileList(newFileList);
+    newStore.setSelectedImgList(newFileList);
   }
 
 
@@ -299,10 +302,7 @@ export default function ProductImgCard() {
 
         {/* 添加多媒体图片 Modal */}
         <Modal
-          width="90vw"
-          style={{
-            maxWidth: "860px"
-          }}
+          width="90vw" style={{ maxWidth: "860px" }}
           styles={{
             body: {
               height: "700px",
@@ -319,6 +319,7 @@ export default function ProductImgCard() {
           }}
           onCancel={() => setAddImgModalOpen(false)}
         >
+          {/* 图片搜索 */}
           <div className="img-modal-header" style={{
             display: "flex",
             alignContent: "center",
@@ -348,75 +349,22 @@ export default function ProductImgCard() {
               ]}
             />
           </div>
-          <div className="content" style={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: "8px"
+          {/* 图片列表wrap */}
+          <div className="content" style={{ display: "flex", flexWrap: "wrap", gap: "8px"
           }}>
-            <UploadSmallCard />
-            {
-              imgList?.map((img: any, index: any) => {
+            {/* 列表 */}
+            <div>
+              {/* 上传 */}
+              <div>
 
+              </div>
+              {/* 图片 */}
+              <div>
 
-
-
-
-                let imgIndex = getTempSelectedImgIndex(img);
-                // 
-                return (
-                  <div style={{
-                    height: 150,
-                    width: 128,
-                    borderRadius: 8,
-                    overflow: "hidden"
-                  }}>
-                    {/* 遮罩 */}
-                    <Mask
-                    >
-                      <div
-                        className={imgClass(img)}
-                        onClick={() => {
-
-                          let newTempSelectedImg = [...tempSelectedImg];
-
-                          if (!tempSelectedImg.includes(img)) {
-                            newTempSelectedImg.push(img);
-                            setSelectedImg(newTempSelectedImg);
-                          } else {
-                            newTempSelectedImg.splice(getTempSelectedImgIndex(img), 1)
-                            setSelectedImg(newTempSelectedImg)
-                          }
-                        }}
-                      >
-                      </div>
-                    </Mask>
-                    <Badge offset={[-20, 20]} count={(imgIndex > -1 ? imgIndex + 1 : 0)}
-                      style={{
-                        zIndex: 10
-                      }}>
-                      <img
-                        style={{
-                          height: 128,
-                          width: 128,
-                          overflow: 'hidden',
-                          objectFit: "contain",
-                          background: "rgb(247, 248, 251)",
-                          cursor: "default",
-                        }}
-                        src={img?.fileUrl} key={img?.fileId} />
-                    </Badge>
-
-
-                    <div style={{
-                      height: 22,
-                      fontSize: 16,
-                      // marginTop: 6,
-                      overflow: "hidden"
-                    }}>{img?.fileName}</div>
-                  </div>
-                )
-              })
-            }
+              </div>
+            </div>
+            {/* 分页 */}
+            <div></div>
 
           </div>
         </Modal>
@@ -453,7 +401,6 @@ const Scoped = styled.div`
 
 
 `
-// 外层styled 样式无法直接穿透内层变化的jsx，只会在指定标签初次渲染时加载，指定标签下的子元素变化不在跟随。运算遍历的地方需再用一层styled样式标签包裹，重新渲染时才会再次调用styled组件
 const Mask = styled.div`
 .img-mask{
   position:absolute;

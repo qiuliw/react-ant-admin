@@ -82,7 +82,7 @@ export default function SelectDomain() {
             setDomainListCurrent(domainList);
             setDefaultDomain(res.data[0]?.id);
         }).catch((error) => {
-            message.error('未获取到数据，请检查网络')
+            message.error('未获取到店铺列表，请检查网络')
         })
     }, [])
 
