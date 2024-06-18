@@ -8,7 +8,7 @@ const { Dragger } = Upload;
 const props: UploadProps = {
     name: 'file',
     multiple: true,
-    action: '/api/upload',
+    action: '/api/ApiAppstore/doUploadPic',
     showUploadList:false,
     onChange(info) {
         const { status } = info.file

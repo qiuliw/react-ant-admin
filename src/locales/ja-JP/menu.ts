@@ -52,4 +52,10 @@ export default {
   'menu.products': '商品',  
 "menu.stores": '店舗',  
 'menu.stores.create': '店舗を作成',
+//
+'menu.search.stores': "店舗名/サブドメイン/メインドメインを検索",  
+'menu.stores.running': "営業中",  
+"menu.stores.stop": "休止中",  
+'menu.search.none': '該当の店舗はありません',  
+'menu.stores.manage': '店舗管理'
 };

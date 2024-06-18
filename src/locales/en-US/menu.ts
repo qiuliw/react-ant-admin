@@ -52,4 +52,10 @@ export default {
   'menu.products': 'Products',  
 "menu.stores": 'Stores',  
 'menu.stores.create': 'Create Store',
+//
+'menu.search.stores': "Search Store Name/Subdomain/Main Domain",  
+'menu.stores.running': "Open",  
+"menu.stores.stop": "Closed",  
+'menu.search.none': 'No stores matching the criteria',  
+'menu.stores.manage': 'Manage Stores'
 }

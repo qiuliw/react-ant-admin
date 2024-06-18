@@ -6,6 +6,13 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { result } from 'lodash';
+import { useIntl } from '@umijs/max';
+
+
+
+
+
+
 
 // 定义一个函数来高亮搜索词  
 function highlightSearchTerm(text: string, term: string) {
@@ -40,11 +47,11 @@ async function getFilterResultArray(term: string) {
     1. 店铺选择
     2. 店铺搜索
     3. 搜索高亮
+    4. 多语言
 
     待
     1. 虚拟列表
     2. 搜索防抖
-    3. 多语言
 **/
 export default function SelectDomain() {
     const [domainListCurrent, setDomainListCurrent] = useState<any>([])
@@ -53,6 +60,8 @@ export default function SelectDomain() {
     const [isActive, setIsActive] = useState(false);
     const [searchTerm, setSearchTerm] = useState('')
     const [searching, setSearching] = useState(false)
+    const intl = useIntl();// 多语言
+    
     const changeDomain = (item: any) => {
         setDefaultDomain(item.id)
         setIsActive(false);
@@ -103,7 +112,9 @@ export default function SelectDomain() {
                                 .finally(() => setTimeout(() => { setSearching(false) }, 100)) // 可以优化速度
 
                         }}
-                        placeholder="搜索店铺名称/子域名/主域名" />
+                        placeholder={intl.formatMessage({
+                            id: 'menu.search.stores'
+                        })} />
                 </div>
             </div>
             {/* 加载动画 */}
@@ -119,7 +130,7 @@ export default function SelectDomain() {
 
             {/* 店铺项 */}
             {!searching && <div className="popover_content">{
-                domainListCurrent ? (domainListCurrent.map((item: any, index: any) => {
+                domainListCurrent.length>0 ? (domainListCurrent.map((item: any, index: any) => {
                     return (
                         <div className="popover_item" key={index} onClick={() => {
                             changeDomain(item)
@@ -139,7 +150,7 @@ export default function SelectDomain() {
                                         <span className="tag-right">
                                             <span className={"tag-dot " + ((item?.status == 1) ? 'tag-dot-success ' : 'tag-dot-error')} />
                                         </span>
-                                        {(item?.status == 1) ? '营业中' : '已停用'}
+                                        {(item?.status == 1) ?intl.formatMessage({id:"menu.stores.running"}): intl.formatMessage({id:"menu.stores.stop"})}
                                     </Tag>
 
                                 </div>
@@ -152,7 +163,9 @@ export default function SelectDomain() {
                             </div>
                         </div>
                     )
-                })): '暂无符合条件的店铺'
+                })):<div>{intl.formatMessage({
+                    id:'menu.search.none'
+                })} </div>
             }
             
             </div>}
@@ -162,7 +175,9 @@ export default function SelectDomain() {
 
             <div className="popover_footer">
                 <Button type="primary" size='large' block>
-                    管理店铺
+                {intl.formatMessage({
+                    id:'menu.stores.manage'
+                })} 
                 </Button>
             </div>
 

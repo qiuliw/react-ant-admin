@@ -35,24 +35,6 @@ export default function ProductImgCard() {
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState<string>();
 
-  // const props : UploadProps = {
-  //   name: 'file',
-  //   action: '/api/ApiAppstore/doUploadPic',
-  //   data:{
-  //     app_id:19
-  //   },
-  //   onChange(info) {
-  //     // if (info.file.status !== 'uploading') {
-  //     //   console.log(info.file, info.fileList);
-  //     // }
-  //     // if (info.file.status === 'done') {
-  //     //   message.success(`${info.file.name} file uploaded successfully`);
-  //     // } else if (info.file.status === 'error') {
-  //     //   message.error(`${info.file.name} file upload failed.`);
-  //     // }
-  //     console.log(info);
-  //   }
-  // }
 
   const uploadButton = (
     <button style={{ border: 0, background: 'none' }} type="button">

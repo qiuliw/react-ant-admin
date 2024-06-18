@@ -53,4 +53,10 @@ export default {
   'menu.products': '商品',  
 "menu.stores": '店餪',  
 'menu.stores.create': '創建店餪',
+//
+'menu.search.stores': "搜尋店餪名稱/子域名/主域名",  
+'menu.stores.running': "營業中",  
+"menu.stores.stop": "已停用",  
+'menu.search.none': '暫無符合條件的店餪',  
+'menu.stores.manage': '管理店餪'
 };
