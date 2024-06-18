@@ -17,7 +17,7 @@ function highlightSearchTerm(text: string, term: string) {
 const domainList: any[] = [];
 
 
-// 过滤列表数组
+// 店铺搜索 
 async function getFilterResultArray(term: string) {
     return domainList.filter(item => (
         item.id?.toLocaleLowerCase().includes(term.toLocaleLowerCase()) || 
@@ -39,10 +39,12 @@ async function getFilterResultArray(term: string) {
     已完
     1. 店铺选择
     2. 店铺搜索
-    
+    3. 搜索高亮
+
     待
-    3. 虚拟列表
-    4. 多语言
+    1. 虚拟列表
+    2. 搜索防抖
+    3. 多语言
 **/
 export default function SelectDomain() {
     const [domainListCurrent, setDomainListCurrent] = useState<any>([])

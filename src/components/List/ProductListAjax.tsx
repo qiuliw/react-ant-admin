@@ -221,7 +221,6 @@ export default function ProductListAjax() {
     const page = getRandomuserParams(tableParams).page;
     getProductList(page,limit)
       .then((res) => {
-        console.log(res)
         let newData:DataType[] = [];
         res.data?.forEach((item:any)=>{
           newData.push({
@@ -259,7 +258,6 @@ export default function ProductListAjax() {
       filters,
       ...sorter,
     });
-
     // `dataSource` is useless since `pageSize` changed
     if (pagination.pageSize !== tableParams.pagination?.pageSize) {
       setData([]);
