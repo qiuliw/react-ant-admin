@@ -257,7 +257,7 @@ export default function ProductImgCard() {
                     <Mask
                     >
                       <div 
-                      // className={}
+                      className={imgClass(img)}
                         onClick={() => {
  
                           let newTempSelectedImg = [...tempSelectedImg];
