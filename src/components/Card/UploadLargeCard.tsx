@@ -34,7 +34,6 @@ export default function UploadLargeCard() {
 
     return (
         <div>
-            <div></div>
             <Dragger {...props}
                 height={200}
             >
