@@ -1,31 +1,57 @@
 import { getDomainList } from "@/services/y2/api";
-import { DownOutlined, SearchOutlined } from "@ant-design/icons";
-import { Button, Divider, Input, message, Popover, Select, Tag } from "antd";
+import { DownOutlined, LoadingOutlined, SearchOutlined } from "@ant-design/icons";
+import { Button, Divider, Input, message, Popover, Select, Spin, Tag } from "antd";
 import Search from "antd/lib/input/Search";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { result } from 'lodash';
 
 // 定义一个函数来高亮搜索词  
-function highlightSearchTerm(text:string, term:string) {  
+function highlightSearchTerm(text: string, term: string) {
     // 使用正则表达式来匹配搜索词，并替换为带有<mark>标签的文本
     console.log(term)
-        return text.replace(term,'<span class="mark">' + term + '</span>');
+    return text.replace(term,()=> `<span class="mark">'${term}'</span>`);
+}
 
-    }
-  
+const domainList: any[] = [];
 
 
-const domainList :any[]= [];
+// 过滤列表数组
+async function getFilterResultArray(term: string) {
+    return domainList.filter(item => (
+        item.id?.toLocaleLowerCase().includes(term.toLocaleLowerCase()) || 
+        item.domainName?.toLocaleLowerCase().includes(term) || 
+        item.secondDomain?.toLocaleLowerCase().includes(term.toLocaleLowerCase())
+        )).map((item)=>{
+            let i={...item};
+            if(item.id?.toLocaleLowerCase().includes(term.toLocaleLowerCase())){
+                    i.id=i.id?.replace(term,`<span class="mark">${term}</span>`)
+            }
+            return i;
+        })
+}
 
+
+
+// 店铺下拉组件 开发者：@qiuliw 2024-6-16
+/*
+    已完
+    1. 店铺选择
+    2. 店铺搜索
+    
+    待
+    3. 虚拟列表
+    4. 多语言
+**/
 export default function SelectDomain() {
     const [domainListCurrent, setDomainListCurrent] = useState<any>([])
     const [defaultDomain, setDefaultDomain] = useState('')
     // 店铺列表popover是否展开
     const [isActive, setIsActive] = useState(false);
-    const [searchTerm ,setSearchTerm] = useState('')
-
-    const changeDomain = (item:any)=>{
+    const [searchTerm, setSearchTerm] = useState('')
+    const [searching, setSearching] = useState(false)
+    const changeDomain = (item: any) => {
         setDefaultDomain(item.id)
         setIsActive(false);
     }
@@ -38,13 +64,13 @@ export default function SelectDomain() {
                 domainList.push({
                     id: item.id,
                     domainName: item.domain_name,
-                    secondDomain:item.second_domain,
+                    secondDomain: item.second_domain,
                     status: item.status,
                 })
             })
             setDomainListCurrent(domainList);
             setDefaultDomain(res.data[0]?.id);
-        }).catch((error)=>{
+        }).catch((error) => {
             message.error('未获取到数据，请检查网络')
         })
     }, [])
@@ -54,11 +80,12 @@ export default function SelectDomain() {
             <div className="popover_header">
                 <div className="popover_input">
                     <Input size="large" suffix={<SearchOutlined />}
-                        onChange={(e)=>{
+                        // 店铺搜索
+                        onChange={(e) => {
                             let term = e.target.value
                             setSearchTerm(term);
-                            if(!domainList)return;
-                            if(term==''){
+                            if (!domainList) return;
+                            if (term == '') {
                                 setDomainListCurrent([...domainList]);
                                 return;
                             };
@@ -68,51 +95,65 @@ export default function SelectDomain() {
                             //         return item;
                             //     }
                             // })
-                            let resultArray = domainList.filter(item=>item.id?.includes(term)||item.domainName?.includes(term)||item.secondName?.includes(term))
-                            setDomainListCurrent(resultArray)
+                            setSearching(true);
+                            getFilterResultArray(term)
+                                .then(resultArray => setDomainListCurrent(resultArray))
+                                .finally(() => setTimeout(() => { setSearching(false) }, 100)) // 可以优化速度
+
                         }}
                         placeholder="搜索店铺名称/子域名/主域名" />
                 </div>
             </div>
-            <div className="popover_content">
-            {
-                domainListCurrent?.map((item:any,index:any)=>{
-                    return (
-                        <div className="popover_item" key={index} onClick={()=>{
-                            changeDomain(item)
+            {/* 加载动画 */}
+            {searching && <div style={{
+                display: "flex",
+                justifyContent: "center",
+                alignContent: "center",
+                height: "290px"
+            }}
+            >
+                <Spin indicator={<LoadingOutlined style={{ fontSize: 80, height: 80, top: 50 }} spin />} />
+            </div>}
 
-                            }}>
-                        <img  src='/img/storeLogo.png' className="storeLogo" />
-                        <div className="storeInfo">
-                            <div className="storeName">
-                                <div className="shopTitle">
-                                   {item?.id}
+            {/* 店铺项 */}
+            {!searching && <div className="popover_content">{
+                domainListCurrent ? (domainListCurrent.map((item: any, index: any) => {
+                    return (
+                        <div className="popover_item" key={index} onClick={() => {
+                            changeDomain(item)
+                        }}>
+                            <img src='/img/storeLogo.png' className="storeLogo" />
+                            <div className="storeInfo">
+                                <div className="storeName">
+                                    <div className="shopTitle" dangerouslySetInnerHTML={{
+                                        __html: item?.id
+                                    }}>
+                                        
+                                    </div>
+                                    <Tag className="tag tag-success" style={{
+                                        display: 'flex',
+                                        alignContent: 'center'
+                                    }}>
+                                        <span className="tag-right">
+                                            <span className={"tag-dot " + ((item?.status == 1) ? 'tag-dot-success ' : 'tag-dot-error')} />
+                                        </span>
+                                        {(item?.status == 1) ? '营业中' : '已停用'}
+                                    </Tag>
+
                                 </div>
-                                <Tag className="tag tag-success" style={{
-                                    display: 'flex',
-                                    alignContent: 'center'
-                                }}>
-                                    <span className="tag-right">
-                                        <span className={"tag-dot "+ ((item?.status==1)?'tag-dot-success ':'tag-dot-error') }/>
-                                    </span>
-                                    {(item?.status==1)?'营业中':'已停用'}
-                                </Tag>
-        
-                            </div>
-                            <div className="shopInfo">
-                                {item?.domainName}
-                            </div>
-                            <div className="email">
-                                {item?.secondDomain}
+                                <div className="shopInfo">
+                                    {item?.domainName}
+                                </div>
+                                <div className="email">
+                                    {item?.secondDomain}
+                                </div>
                             </div>
                         </div>
-        
-                        
-                    </div>
                     )
-                })
+                })): '暂无符合条件的店铺'
             }
-            </div>
+            
+            </div>}
 
 
 
@@ -173,7 +214,7 @@ const Scoped = styled.div`
 `
 const ContentWrap = styled.div`
     width: 420px;
-    height:418px;
+    max-height:418px;
     padding:0;
     .popover_header{
         padding: 5px 10px 18px 10px;
@@ -275,4 +316,8 @@ const ContentWrap = styled.div`
         padding: 18px 10px 5px 10px;
     }
 
+    .mark{
+        color: #008db1;
+        font-weight: 600;
+    }
 `
