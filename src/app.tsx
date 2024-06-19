@@ -1,5 +1,5 @@
 import { Footer, Question, SelectLang, AvatarDropdown, AvatarName } from '@/components';
-import { LinkOutlined } from '@ant-design/icons';
+import { LinkOutlined, SettingOutlined } from '@ant-design/icons';
 import type { Settings as LayoutSettings } from '@ant-design/pro-components';
 import { SettingDrawer } from '@ant-design/pro-components';
 import type { RunTimeLayoutConfig } from '@umijs/max';
@@ -133,14 +133,16 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
         width: '331px',
       },
     ],
-    links: isDev
-      ? [
-        <Link key="openapi" to="/umi/plugin/openapi" target="_blank">
-          <LinkOutlined />
-          <span>OpenAPI 文档</span>
-        </Link>,
-      ]
-      : [],
+    links: [
+      // <Link key="openapi" to="/settings" target="_blank">
+      //   <SettingOutlined />
+      //   <span>设置</span>
+      // </Link>,
+      <Link key="openapi" to="/stores-subscriptions/list/paid" target="_blank">
+        <SettingOutlined />
+        <span>设置</span>
+      </Link>,
+    ],
     menuHeaderRender: undefined,
     // 自定义 403 页面
     // unAccessible: <div>unAccessible</div>,

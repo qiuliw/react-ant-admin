@@ -84,6 +84,21 @@ export default [
       }
     ]
   },
+  {
+    path: '/stores-subscriptions',
+    routes:[
+      {
+        path: 'list',
+        routes:[
+          {
+            path: 'paid',
+            component: './stores-subscriptions/list/Paid' ,
+            layout:false
+          }
+        ]
+      }
+    ]
+  },
   // 404
   {
     path: '*',
