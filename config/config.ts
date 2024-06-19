@@ -156,4 +156,7 @@ export default defineConfig({
   },
   esbuildMinifyIIFE: true,
   requestRecord: {},
+
+  // icon 集
+  icons: {autoInstall: {}},
 });
