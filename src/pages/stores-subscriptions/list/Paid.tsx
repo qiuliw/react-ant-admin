@@ -14,7 +14,8 @@ import { Icon } from 'umi'
 export default function Paid(){
     // swich num
     const [activeNum,setActiveNum] = useState(1);
-
+    // current active card ,default 2 
+    const [hover,setHoverNum] = useState(2);
     return (
         <Scoped>
             <div className="mc-layout">
@@ -30,8 +31,6 @@ export default function Paid(){
                     <div className="mc-page-header-title">
                         选择套餐
                     </div>
-
-
 
                 </div>
                 {/* 内容 */}
@@ -70,6 +69,56 @@ export default function Paid(){
                                         </li>
                                     </ul>
                                 </div>
+                                {/* Card */}
+                                <div className="introduction-items ">
+                                    <ul className={"introduction-packages "+(
+                                            hover==1 && 'hover'
+                                        )} 
+                                        onMouseOver={()=>{
+                                            setHoverNum(1);
+                                            console.log('focus');
+                                        }}
+                                        onMouseLeave={()=>{
+                                            setHoverNum(2);
+                                            console.log('leave');
+                                        }}
+                                    >
+                                        <li className="introduction-packages_item">
+                                            11111111111111111111111111111111111111
+                                        </li>
+                                    </ul>
+                                    <ul className={"introduction-packages "+(
+                                            hover==2 && 'hover'
+                                        )} 
+                                        onMouseOver={()=>{
+                                            setHoverNum(2);
+                                            console.log('focus');
+                                        }}
+                                    >
+                                        <li className="introduction-packages_item">
+                                            22222222222222222222222222222222222222
+                                        </li>
+                                    </ul>
+                                    <ul className={"introduction-packages "+(
+                                            hover==3 && 'hover'
+                                        )} 
+                                        onMouseOver={()=>{
+                                            setHoverNum(3);
+                                            console.log('focus');
+                                        }}
+                                        onMouseLeave={()=>{
+                                            setHoverNum(2);
+                                            console.log('leave');
+                                        }}
+                                    >
+                                        <li className="introduction-packages_item">
+                                            3333333333333333333333333333333333333333
+                                        </li>
+                                    </ul>
+                                </div>
+                                
+
+
                             </div>
                         </div>
                     </div>
@@ -163,49 +212,97 @@ justify-content: center;
                     display: flex;
                     margin-top: 7px;
                     margin-bottom: 10px;
-                }
-                .introduction-period{
-                    margin: 0;
-                    padding: 0;
-                    list-style: none;
-                    display: inline-flex;
-                    flex-direction: row;
-                    align-items: center;
-                    justify-content: center;
-                    margin: auto;
-                    padding: 4px;
-                    border-radius: 6px;
-                    background-color: #eaedf1;
-                    .introduction-period__item{
-                        color: #474f5e;
-                        font-size: 16px;
-                        font-style: normal;
-                        font-weight: 600;
-                        cursor: pointer;
-                        user-select: none;
-                        padding: 8px 16px;
-                        border-radius: 4px;
-                        line-height: 22px;
+                    .introduction-period{
+                        margin: 0;
+                        padding: 0;
+                        list-style: none;
+                        display: inline-flex;
+                        flex-direction: row;
+                        align-items: center;
+                        justify-content: center;
+                        margin: auto;
+                        padding: 4px;
+                        border-radius: 6px;
+                        background-color: #eaedf1;
+                        .introduction-period__item{
+                            color: #474f5e;
+                            font-size: 16px;
+                            font-style: normal;
+                            font-weight: 600;
+                            cursor: pointer;
+                            user-select: none;
+                            padding: 8px 16px;
+                            border-radius: 4px;
+                            line-height: 22px;
 
-                        &:hover{
-                            background-color: #f0f7ff;
-                            color: #356dff;
+                            &:hover{
+                                background-color: #f0f7ff;
+                                color: #356dff;
 
+                            }
+                            
                         }
-                        
-                    }
-                    .active{
+                        .active{
                             background-color: #ffffff;
                             color: #356dff;
+                        }
                     }
-
+                    
                 }
+                .introduction-items{
+                    display:flex;
+                    flex-wrap:wrap;
+                    .introduction-packages{
+                        background-color: green;
+                        flex:1;
+                        min-width: 300px;
+                        position: relative;
+                        top:0;
+                        transition: top 0.3s ease;
+                        &_item{
+                            display: flex;
+                            position: relative;
+                            flex-direction: column;
+                            align-items: center;
+                            width: 100%;
+                            padding: 30px 12px 0 12px;
+                            overflow: hidden;
+                            border-radius: 10px;
+                            /* &::before{
+                                content: '';
+                                position: absolute;
+                                z-index: 2;
+                                top: 0;
+                                right: 0;
+                                bottom: 0;
+                                left: 0;
+                                transition: border-color 0.3s;
+                                border: 1px solid #d7dbe7;
+                                border-radius: 10px;
+                                pointer-events: none;
+                            }
+                            &:hover {
+                                &::before{
+                                    border-width: 2px;
+                                    border-color: #356dff;
+                                    box-shadow: 0 14px 50px rgba(0, 0, 0, 0.1);
+                                } */
+
+                        }
+                    }
+                .hover{
+                    top: -16px;
+                } 
+                }
+
             }
+
+
         }
     }
+}
 
     
-}
 
 
 `
