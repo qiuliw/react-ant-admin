@@ -1,33 +1,105 @@
-import { ArrowLeftOutlined } from "@ant-design/icons";
+import { ArrowLeftOutlined, BackwardOutlined } from "@ant-design/icons";
 import { Button, Dropdown } from "antd";
 import { useState } from "react";
 import styled from "styled-components";
 import { Icon } from 'umi'
 import { wrap } from 'lodash';
 import Charges from "@/components/Card/Charges";
+import { Divider } from "antd";
+import { context } from './../../../.umi-production/core/helmetContext';
 
 
 
 
+const layerText = [
+    // 入门版
+    [
+        {
+            title: '费率',
+            desc:[
+                'SHOPLINE Payments费率：该版本不支持 SHOPLINE Payments',
+                '不使用SHOPLINE Payments时，第三方交易费率：2%',
+            ],
+        },{
+            title: '功能',
+            desc:[
+                '员工账号数 10',
+                'Facebook粉丝页数 5',
+                '库存地点数量：100',
+            ],
+        }
+    ],
+    // 基础版
+    [
+        {
+            title: '费率',
+            desc:[
+                'SHOPLINE Payments费率：该版本不支持 SHOPLINE Payments',
+                '不使用SHOPLINE Payments时，第三方交易费率：0.8%',
+            ],
+        },{
+            title: '功能',
+            desc:[
+                '员工账号数 10',
+                'Facebook粉丝页数 5',
+                '库存地点数量：100',
+                'SHOPLINE FLOW'
+            ]
+        }
+    ],
+    // 旗舰版
+    [
+        {
+            title: '费率',
+            desc:[
+                'SHOPLINE Payments费率：3.3%+0.3 USD',
+                '不使用SHOPLINE Payments时，第三方交易费率：0.4%',
+            ],
+        },{
+            title: '功能',
+            desc:[
+                '员工账号数 100',
+                'Facebook粉丝页数 5',
+                '库存地点数量：100',
+                'SHOPLINE FLOW'
+            ]
+        }
+    ]
+]
 
-
-
+const priceMonth = {
+    icon: '$',
+    start: 29,
+    base:79,
+    flagship:269,
+    text:'mo'
+}
+const priceYear = {
+    icon: '$',
+    start: 24.17,
+    base:65.83,
+    flagship:224.17,
+    text:'mo',
+}
 
 export default function Paid(){
     // swich num
     const [activeNum,setActiveNum] = useState(1);
+    const [layer,setLayer] = useState(layerText);
+    const [price,setPrice] = useState(priceMonth);
     // current active card ,default 2 
     const [hover,setHoverNum] = useState(2);
+    
     return (
         <Scoped>
             <div className="mc-layout">
                 {/* 头部 */}
                 <div className="mc-page-header">
                     {/* 回退 */}
-                    <Button className="mc-page-header-back-btn">
-                        <span className="mc-btn-icon">
-                            <Icon icon="fluent:arrow-left-28-filled" />
-                        </span>
+                    <Button className="mc-page-header-back-btn" icon={<ArrowLeftOutlined/>}>
+                        {/* <span className="mc-btn-icon"> */}
+                            {/* <Icon icon="fluent:arrow-left-28-filled" /> */}
+                        {/* </span> */}
                     </Button>
                     {/* 标题 */}
                     <div className="mc-page-header-title">
@@ -61,18 +133,26 @@ export default function Paid(){
                                     <ul className="introduction-period">
                                         <li className={"introduction-period__item "+(
                                             activeNum==1 &&'active'
-                                        )} onClick={()=>setActiveNum(1)}>
+                                        )} onClick={()=>{
+                                            setActiveNum(1)
+                                            setPrice(priceMonth)
+                                        }
+                                        }>
                                             月付
                                         </li>
                                         <li className={"introduction-period__item "+(
                                             activeNum==2 &&'active'
-                                        )} onClick={()=>setActiveNum(2)}>
+                                        )} onClick={()=>{
+                                            setActiveNum(2)
+                                            setPrice(priceYear)
+                                            }}>
                                             年付（节省17%）
                                         </li>
                                     </ul>
                                 </div>
                                 {/* Card */}
                                 <div className="introduction-items ">
+                                    {/* 边框1 */}
                                     <ul className={"introduction-packages "+(
                                             hover==1 && 'hover'
                                         )} 
@@ -85,8 +165,11 @@ export default function Paid(){
                                             console.log('leave');
                                         }}
                                     >
+
+                                        {/* 展示 */}
                                         <li className="introduction-packages_item">
-                                           <div className="introduction-packages_item-content">
+                                            {/* 内容 */}
+                                           <div className="introduction-packages_item-content onetop">
                                                 <div className="introduction-packages__item__section">
                                                     <div className="introduction-packages__item__title">
                                                         入门版
@@ -95,7 +178,27 @@ export default function Paid(){
                                                         低成本体验建站 多重礼包助力业务启动
                                                     </div>
                                                     <div className="introduction-packages__item__charges">
-                                                        <Charges/>
+                                                        <Charges icon={price.icon} price={price.start} text={price.text} origin={activeNum==2 ? priceMonth.start:undefined} desc={activeNum==2?'按年结算':undefined}/>
+                                                    </div>
+                                                    <a>
+                                                        <Button type="primary" style={{
+                                                            minWidth:"200px"
+                                                        }}>选择套餐</Button>
+                                                    </a>
+                                                </div>
+                                                <div className="introduction-packages__item__section_layer">
+                                                    <div >  
+                                                        {layer[0]?.map(({title,desc}) => (  
+                                                            <div className="introduction-packages__item__description">
+                                                                <Divider/>
+                                                                <div className="introduction-packages__item__description__title">{title}</div>
+                                                                {desc?.map((text)=> (
+                                                                        <li className="introduction-packages__item__description__item">
+                                                                            {text}
+                                                                        </li>
+                                                                ))}
+                                                            </div>
+                                                        ))}  
                                                     </div>
                                                 </div>
                                            </div>
@@ -104,13 +207,48 @@ export default function Paid(){
                                     <ul className={"introduction-packages "+(
                                             hover==2 && 'hover'
                                         )} 
-                                        onMouseOver={()=>{
-                                            setHoverNum(2);
-                                            console.log('focus');
-                                        }}
                                     >
+
+                                        {/* 展示 */}
                                         <li className="introduction-packages_item">
-                                            22222222222222222222222222222222222222
+                                            {/* 热门 */}
+                                            <div className="introduction-packages__item--popular">
+                                                热门
+                                            </div>
+                                            {/* 内容 */}
+                                           <div className="introduction-packages_item-content twotop">
+                                                <div className="introduction-packages__item__section">
+                                                    <div className="introduction-packages__item__title">
+                                                        基础版
+                                                    </div>
+                                                    <div className="introduction-packages__item__introduction">
+                                                        绝佳的启动方式 适合新手卖家快速上手
+                                                    </div>
+                                                    <div className="introduction-packages__item__charges">
+                                                        <Charges icon={price.icon} price={price.base} text={price.text} origin={activeNum==2 ? priceMonth.base:undefined} desc={activeNum==2?'按年结算':undefined}/>
+                                                    </div>
+                                                    <a>
+                                                        <Button type="primary" style={{
+                                                            minWidth:"200px"
+                                                        }}>选择套餐</Button>
+                                                    </a>
+                                                </div>
+                                                <div className="introduction-packages__item__section_layer">
+                                                    <div >  
+                                                        {layer[1]?.map(({title,desc}) => (  
+                                                            <div className="introduction-packages__item__description">
+                                                                <Divider/>
+                                                                <div className="introduction-packages__item__description__title">{title}</div>
+                                                                {desc?.map((text)=> (
+                                                                        <li className="introduction-packages__item__description__item">
+                                                                            {text}
+                                                                        </li>
+                                                                ))}
+                                                            </div>
+                                                        ))}  
+                                                    </div>
+                                                </div>
+                                           </div>
                                         </li>
                                     </ul>
                                     <ul className={"introduction-packages "+(
@@ -125,8 +263,44 @@ export default function Paid(){
                                             console.log('leave');
                                         }}
                                     >
+
+                                        {/* 展示 */}
                                         <li className="introduction-packages_item">
-                                            3333333333333333333333333333333333333333
+
+                                            {/* 内容 */}
+                                           <div className="introduction-packages_item-content treetop">
+                                                <div className="introduction-packages__item__section">
+                                                    <div className="introduction-packages__item__title">
+                                                        旗舰版
+                                                    </div>
+                                                    <div className="introduction-packages__item__introduction">
+                                                        玩转流量积聚品牌效应 长效赋能海外DTC业务
+                                                    </div>
+                                                    <div className="introduction-packages__item__charges">
+                                                        <Charges icon={price.icon} price={price.flagship} text={price.text} origin={activeNum==2 ? priceMonth.flagship:undefined} desc={activeNum==2?'按年结算':undefined}/>
+                                                    </div>
+                                                    <a>
+                                                        <Button type="primary" style={{
+                                                            minWidth:"200px"
+                                                        }}>选择套餐</Button>
+                                                    </a>
+                                                </div>
+                                                <div className="introduction-packages__item__section_layer">
+                                                    <div >  
+                                                        {layer[1]?.map(({title,desc}) => (  
+                                                            <div className="introduction-packages__item__description">
+                                                                <Divider/>
+                                                                <div className="introduction-packages__item__description__title">{title}</div>
+                                                                {desc?.map((text)=> (
+                                                                        <li className="introduction-packages__item__description__item">
+                                                                            {text}
+                                                                        </li>
+                                                                ))}
+                                                            </div>
+                                                        ))}  
+                                                    </div>
+                                                </div>
+                                           </div>
                                         </li>
                                     </ul>
                                 </div>
@@ -278,7 +452,7 @@ ul {
                         margin-top: 24px;
                         flex:1;
                         min-width:300px;
-                        max-width: 500px;
+                        max-width: 430px;
                         position: relative;
                         top:0;
                         transition: all 0.3s ease;
@@ -308,6 +482,7 @@ ul {
                                 &::before{
                                     border-width: 2px;
                                     border-color: #356dff;
+                                    -webkit-box-shadow: 0 14px 50px rgba(0, 0, 0, 0.1);
                                     box-shadow: 0 14px 50px rgba(0, 0, 0, 0.1);
                                 }
                             }
@@ -321,16 +496,7 @@ ul {
                                 padding: 30px 12px 0 12px;
                                 overflow: hidden;
                                 border-radius: 10px;
-                                &::before{
-                                    content: '';
-                                    position: absolute;
-                                    z-index: 1;
-                                    top: 0;
-                                    right: 0;
-                                    left: 0;
-                                    height: 10px;
-                                    background: linear-gradient(304.01deg, #5699e7 20.15%, #5cb1ff 79.85%);
-                                }
+
                                 
                                 .introduction-packages__item__section{
                                     display:flex;
@@ -367,21 +533,67 @@ ul {
 
                                 }
 
+                                .introduction-packages__item{
+                                    &__description{
+                                        &__title{
+                                            margin-bottom: 0;
+                                            padding-bottom: 8px;
+                                            line-height: 16px;
+                                            text-align: left;
+                                            color: #7a8499;
+                                            font-size: 12px;
+                                            font-style: normal;
+                                            font-weight: 500;
+                                        }
+                                        &__item{
+                                            position: relative;
+                                            margin-bottom: 10px;
+                                            padding-left: 17px;
+                                            line-height: 22px;
+                                            text-align: left;
+                                            word-wrap: break-word;
+                                            color: #474f5e;
+                                            font-size: 16px;
+                                            font-style: normal;
+                                            font-weight: 400;
+                                            &::before{
+                                                content: '';
+                                                position: absolute;
+                                                top: 11px;
+                                                left: 0;
+                                                width: 7px;
+                                                height: 7px;
+                                                -webkit-transform: translateY(-50%);
+                                                transform: translateY(-50%);
+                                                border-radius: 50%;
+                                                background-color: #70adf3;
+                                            }
+                                        }
+                                    }
 
+                                }
                             }
+
                         }
 
                     }
                     .hover{
+                        position:relative;
                         top: -16px;
                         .introduction-packages_item{
                             &::before{
                                 border-width: 2px;
                                 border-color: #356dff;
-                                box-shadow: 0 14px 50px rgba(0, 0, 0, 0.1);
                             }
                         }
-
+                        &::before{
+                            content:'';
+                            position:absolute;
+                            width:100%;
+                            height:100%;
+                            -webkit-box-shadow: 0 14px 50px rgba(0, 0, 0, 0.1);
+                            box-shadow: 0 14px 50px rgba(0, 0, 0, 0.1);
+                        }
                     } 
                 }
 
@@ -391,9 +603,70 @@ ul {
         }
     }
 }
-
+.introduction-packages__item--popular{
+    color: #fff;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    position: absolute;
+    z-index: 2;
+    top: 20px;
+    right: -30px;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    width: 120px;
+    width: 130px;
+    padding: 6px 0;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    background: #fcaf09;
+    line-height: 16px;
+    white-space: nowrap;
+}
     
+.onetop{
+    &::before{
+        content: '';
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        right: 0;
+        left: 0;
+        height: 10px;
+        background: linear-gradient(304.01deg, #5699e7 20.15%, #5cb1ff 79.85%);
+    }
+}
+.twotop{
+    &::before{
+        content: '';
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        right: 0;
+        left: 0;
+        height: 10px;
+        background: linear-gradient(304.01deg, #50b5ff 20.15%, #5bd8ff 79.85%);
+    }
+}
+.treetop{
+    &::before{
+        content: '';
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        right: 0;
+        left: 0;
+        height: 10px;
+        background: linear-gradient(304.01deg, #0027b0 20.15%, #0c4ff9 79.85%);    }
 
+}
 
 
 `
