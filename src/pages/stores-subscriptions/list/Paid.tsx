@@ -98,9 +98,7 @@ export default function Paid(){
                     {/* 回退 */}
                     <Button className="mc-page-header-back-btn" icon={<ArrowLeftOutlined/> }
                         onClick={()=>{
-                                window.history.back();  
-                                console.log("back");
-                                
+                                                            
                         }}
                     >
                         {/* <span className="mc-btn-icon"> */}
