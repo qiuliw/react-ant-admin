@@ -98,7 +98,7 @@ export default function Paid(){
                     {/* 回退 */}
                     <Button className="mc-page-header-back-btn" icon={<ArrowLeftOutlined/> }
                         onClick={()=>{
-                                                            
+                                window.history.back();  
                         }}
                     >
                         {/* <span className="mc-btn-icon"> */}
@@ -109,7 +109,6 @@ export default function Paid(){
                     <div className="mc-page-header-title">
                         选择套餐
                     </div>
-
                 </div>
                 {/* 内容 */}
                 <div className="mc-page-content">
@@ -311,12 +310,19 @@ export default function Paid(){
 
                             </div>
                         </div>
+                        {/* super */}
+                        <div className="enterpriseBanner">
+                            <img src='/icons/enterprise.svg'/>
+                            <div className="content">
+                                <div className="text1">专为具规模或高增长的企业而设</div>
+                                <div className="text2">SHOPLINE Enterprise 是一个可以帮助中大型企业以低成本投入，获取更高转化率、更高效安全管理方式的全球领先跨境电商解决方案</div>
+                                <Button className="mc-button" type='primary' >查看详情</Button>
+                            </div>
+                        </div>
                     </div>
-            </div>
-        </Scoped>
+                </div>
+            </Scoped>
     )
-
-
 }
 
 
@@ -669,6 +675,29 @@ ul {
         background: linear-gradient(304.01deg, #0027b0 20.15%, #0c4ff9 79.85%);    }
 
 }
-
+.enterpriseBanner{
+    padding: 24px;
+    border-radius: 6px;
+    background: linear-gradient(94deg, #00142d -17.85%, #010d76 91.13%);
+    .content{
+        margin-top: 20px;
+        color: #fff;
+        .text1{
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 1;
+        }
+        .text2{
+            margin-top: 10px;
+            opacity: 0.8;
+            font-weight: 400;
+        }
+        .mc-button{
+            margin-top: 20px;
+            padding: 7px 51px;
+            min-width: 200px;
+        }
+    }
+}
 
 `
