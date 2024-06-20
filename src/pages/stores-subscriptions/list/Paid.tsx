@@ -96,7 +96,13 @@ export default function Paid(){
                 {/* 头部 */}
                 <div className="mc-page-header">
                     {/* 回退 */}
-                    <Button className="mc-page-header-back-btn" icon={<ArrowLeftOutlined/>}>
+                    <Button className="mc-page-header-back-btn" icon={<ArrowLeftOutlined/> }
+                        onClick={()=>{
+                                window.history.back();  
+                                console.log("back");
+                                
+                        }}
+                    >
                         {/* <span className="mc-btn-icon"> */}
                             {/* <Icon icon="fluent:arrow-left-28-filled" /> */}
                         {/* </span> */}
@@ -158,11 +164,9 @@ export default function Paid(){
                                         )} 
                                         onMouseOver={()=>{
                                             setHoverNum(1);
-                                            console.log('focus');
                                         }}
                                         onMouseLeave={()=>{
                                             setHoverNum(2);
-                                            console.log('leave');
                                         }}
                                     >
 
