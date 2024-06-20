@@ -3,6 +3,8 @@ import { Button, Dropdown } from "antd";
 import { useState } from "react";
 import styled from "styled-components";
 import { Icon } from 'umi'
+import { wrap } from 'lodash';
+import Charges from "@/components/Card/Charges";
 
 
 
@@ -84,7 +86,19 @@ export default function Paid(){
                                         }}
                                     >
                                         <li className="introduction-packages_item">
-                                            11111111111111111111111111111111111111
+                                           <div className="introduction-packages_item-content">
+                                                <div className="introduction-packages__item__section">
+                                                    <div className="introduction-packages__item__title">
+                                                        入门版
+                                                    </div>
+                                                    <div className="introduction-packages__item__introduction">
+                                                        低成本体验建站 多重礼包助力业务启动
+                                                    </div>
+                                                    <div className="introduction-packages__item__charges">
+                                                        <Charges/>
+                                                    </div>
+                                                </div>
+                                           </div>
                                         </li>
                                     </ul>
                                     <ul className={"introduction-packages "+(
@@ -134,7 +148,11 @@ const Scoped =styled.div`
 display: flex;
 width: 100%;
 justify-content: center;
-
+ul {  
+    list-style-type: none; /* 移除项目符号 */  
+    padding: 0; /* 移除内边距 */  
+    margin: 0; /* 移除外边距 */  
+}  
 .mc-layout{
     min-width:510px;
     max-width: 1440px;
@@ -199,7 +217,6 @@ justify-content: center;
                 justify-content: center;
                 width: 100%;
                 padding: 12px 40px;
-                background: -webkit-gradient(linear, left top, left bottom, from(#e8eff7), color-stop(100%, #fafcff), to(rgba(233, 240, 248, 0)));
                 background: linear-gradient(180deg, #e8eff7 0%, #fafcff 100%, rgba(233, 240, 248, 0) 100%);
                 line-height: 150%;
             }
@@ -252,23 +269,29 @@ justify-content: center;
                 .introduction-items{
                     display:flex;
                     flex-wrap:wrap;
+                    justify-content: center; 
+                    gap:0 10px;
                     .introduction-packages{
-                        background-color: green;
+                        flex:1 0 300px;
+                        display: flex;
+                        justify-content: center;
+                        margin-top: 24px;
                         flex:1;
-                        min-width: 300px;
+                        min-width:300px;
+                        max-width: 500px;
                         position: relative;
                         top:0;
-                        transition: top 0.3s ease;
+                        transition: all 0.3s ease;
                         &_item{
                             display: flex;
                             position: relative;
                             flex-direction: column;
                             align-items: center;
                             width: 100%;
-                            padding: 30px 12px 0 12px;
+                            /* padding: 12px 10px; */
                             overflow: hidden;
                             border-radius: 10px;
-                            /* &::before{
+                            &::before{
                                 content: '';
                                 position: absolute;
                                 z-index: 2;
@@ -286,13 +309,80 @@ justify-content: center;
                                     border-width: 2px;
                                     border-color: #356dff;
                                     box-shadow: 0 14px 50px rgba(0, 0, 0, 0.1);
-                                } */
+                                }
+                            }
 
+                            &-content{
+                                display: flex;
+                                position: relative;
+                                flex-direction: column;
+                                align-items: center;
+                                width: 100%;
+                                padding: 30px 12px 0 12px;
+                                overflow: hidden;
+                                border-radius: 10px;
+                                &::before{
+                                    content: '';
+                                    position: absolute;
+                                    z-index: 1;
+                                    top: 0;
+                                    right: 0;
+                                    left: 0;
+                                    height: 10px;
+                                    background: linear-gradient(304.01deg, #5699e7 20.15%, #5cb1ff 79.85%);
+                                }
+                                
+                                .introduction-packages__item__section{
+                                    display:flex;
+                                    align-items: center;
+                                    padding-bottom: 20px;
+                                    flex-direction: column;
+                                    .introduction-packages__item{
+                                       &__title{
+                                            margin-bottom: 16px;
+                                            color: #458fe2;
+                                            font-size: 30px;
+                                            font-style: normal;
+                                            font-weight: 600;
+                                        }
+                                        &__introduction{
+                                            margin-bottom:16px;
+                                            max-width: 100%;
+                                            color: #474f5e;
+                                            font-size: 16px;
+                                            font-style: normal;
+                                            font-weight: 600;
+                                            line-height: 22px;
+                                            text-align: center;
+                                            word-wrap: break-word;
+                                        }
+                                        &__charges{
+                                            display: flex;
+                                            width:100%;
+                                            align-items: flex-start;
+                                            margin-bottom: 16px;
+                                        }
+
+                                    }
+
+                                }
+
+
+                            }
                         }
+
                     }
-                .hover{
-                    top: -16px;
-                } 
+                    .hover{
+                        top: -16px;
+                        .introduction-packages_item{
+                            &::before{
+                                border-width: 2px;
+                                border-color: #356dff;
+                                box-shadow: 0 14px 50px rgba(0, 0, 0, 0.1);
+                            }
+                        }
+
+                    } 
                 }
 
             }
@@ -303,6 +393,7 @@ justify-content: center;
 }
 
     
+
 
 
 `
