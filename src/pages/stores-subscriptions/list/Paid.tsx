@@ -18,7 +18,7 @@ const layerText = [
             title: '费率',
             desc:[
                 'SHOPLINE Payments费率：该版本不支持 SHOPLINE Payments',
-                '不使用SHOPLINE Payments时，第三方交易费率：2%',
+                '不使用SHOPLINE Payments时，第三方交易费率：0.8%',
             ],
         },{
             title: '功能',
@@ -40,7 +40,7 @@ const layerText = [
         },{
             title: '功能',
             desc:[
-                '员工账号数 10',
+                '员工账号数 100',
                 'Facebook粉丝页数 5',
                 '库存地点数量：100',
                 'SHOPLINE FLOW'
