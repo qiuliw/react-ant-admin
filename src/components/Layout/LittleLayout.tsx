@@ -23,6 +23,7 @@ export default function LittleLayout({back,title,children}:{
 const Scoped =  styled.div`
 max-width:1220px;
 margin:0 auto;
+overflow: hidden;
 .header{
     color: #242833;
     font-size: 38px;
