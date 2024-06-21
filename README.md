@@ -7,6 +7,9 @@
 1. yarn install
 2. yarn build
 
+> 测试账户 
+> admin 
+> admin
 
 # 技术栈
 

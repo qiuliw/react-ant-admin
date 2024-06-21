@@ -29,7 +29,7 @@ const settingArray = [
     }, {
         icon: 'icons/set/lang.svg',
         title: '语言',
-        desc: '',
+        desc: '管理客户可以在商店中使用的语言',
         more: '当前商店语言：简体中文',
     },{
         icon: 'icons/set/account.svg',
