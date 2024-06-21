@@ -86,31 +86,32 @@ export default [
   },
   {
     path: '/stores-subscriptions',
+    name: '订阅',
     routes:[
       {
-        path: 'list',
-        routes:[
-          {
-            path: 'paid',
+        path: 'list/paid',
+        name: '套餐',
+
             component: './stores-subscriptions/list/Paid' ,
             layout:false
-          }
-        ]
       }
     ]
   },
   // 设置
   {
     path: '/setting',
-    name: 'setting',
-    icon: 'crown',
     component: './Settings/index',
   },
-
+  // {
+  //   path: '/test',
+  //   name: 'test',
+  //   component: './Test/index',
+  // },
   // 404
   {
     path: '*',
     layout: false,
     component: './404',
   },
+
 ];

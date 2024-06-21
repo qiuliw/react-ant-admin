@@ -110,8 +110,8 @@ const layerText = [
         {
             title: '费率',
             desc: [
-                'SHOPLINE Payments费率：该版本不支持 SHOPLINE Payments',
-                '不使用SHOPLINE Payments时，第三方交易费率：0.8%',
+                'MataCart Payments费率：该版本不支持 MataCart Payments',
+                '不使用MataCart Payments时，第三方交易费率：0.8%',
             ],
         }, {
             title: '功能',
@@ -127,8 +127,8 @@ const layerText = [
         {
             title: '费率',
             desc: [
-                'SHOPLINE Payments费率：该版本不支持 SHOPLINE Payments',
-                '不使用SHOPLINE Payments时，第三方交易费率：0.8%',
+                'MataCart Payments费率：该版本不支持 MataCart Payments',
+                '不使用MataCart Payments时，第三方交易费率：0.8%',
             ],
         }, {
             title: '功能',
@@ -145,8 +145,8 @@ const layerText = [
         {
             title: '费率',
             desc: [
-                'SHOPLINE Payments费率：3.3%+0.3 USD',
-                '不使用SHOPLINE Payments时，第三方交易费率：0.4%',
+                'MataCart Payments费率：3.3%+0.3 USD',
+                '不使用MataCart Payments时，第三方交易费率：0.4%',
             ],
         }, {
             title: '功能',
@@ -400,10 +400,13 @@ export default function Paid() {
                             </div>
                             {/* super */}
                             <div className="enterpriseBanner">
-                                <img src='/icons/enterprise.svg' />
+                                {/* <img src='/icons/enterprise.svg' /> */}
+                                <h2 style={{
+                                    color: "white",
+                                }}>MataCart 企业版</h2>
                                 <div className="content">
                                     <div className="text1">专为具规模或高增长的企业而设</div>
-                                    <div className="text2">SHOPLINE Enterprise 是一个可以帮助中大型企业以低成本投入，获取更高转化率、更高效安全管理方式的全球领先跨境电商解决方案</div>
+                                    <div className="text2">MataCart Enterprise 是一个可以帮助中大型企业以低成本投入，获取更高转化率、更高效安全管理方式的全球领先跨境电商解决方案</div>
                                     <Button className="mc-button" type='primary' >查看详情</Button>
                                 </div>
                             </div>

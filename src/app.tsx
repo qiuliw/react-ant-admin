@@ -138,7 +138,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
       //   <SettingOutlined />
       //   <span>设置</span>
       // </Link>,
-      <Link key="openapi" to="/stores-subscriptions/list/paid">
+      <Link key="openapi" to="/setting">
         <SettingOutlined />
         <span>设置</span>
       </Link>,
