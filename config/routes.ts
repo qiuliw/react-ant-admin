@@ -99,6 +99,14 @@ export default [
       }
     ]
   },
+  // 设置
+  {
+    path: '/setting',
+    name: 'setting',
+    icon: 'crown',
+    component: './Settings/index',
+  },
+
   // 404
   {
     path: '*',
