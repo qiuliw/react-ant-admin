@@ -194,9 +194,6 @@ export default function Paid() {
                             window.history.back();
                         }}
                     >
-                        {/* <span className="mc-btn-icon"> */}
-                        {/* <Icon icon="fluent:arrow-left-28-filled" /> */}
-                        {/* </span> */}
                     </Button>
                     {/* 标题 */}
                     <div className="mc-page-header-title">

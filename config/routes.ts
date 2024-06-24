@@ -92,15 +92,24 @@ export default [
         path: 'list/paid',
         name: '套餐',
 
-            component: './stores-subscriptions/list/Paid' ,
-            layout:false
+        component: './stores-subscriptions/list/Paid' ,
+        layout:false
       }
     ]
   },
   // 设置
   {
     path: '/setting',
-    component: './Settings/index',
+    routes: [
+      {
+        path: 'index',
+        component: './Settings/index',
+      },
+      {
+        path: 'package',
+        component: './Settings/Package'
+      }
+    ]
   },
   // {
   //   path: '/test',
