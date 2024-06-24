@@ -1,17 +1,21 @@
 import BindCard from "@/components/Card/BindCard"
 import LittleLayout from "@/components/Layout/LittleLayout"
-import { CheckCircleOutlined, ExportOutlined, MinusCircleOutlined, QuestionCircleFilled, QuestionCircleOutlined } from "@ant-design/icons"
+import { CheckCircleOutlined, ExportOutlined, HistoryOutlined, MinusCircleOutlined, QuestionCircleFilled, QuestionCircleOutlined } from "@ant-design/icons"
 import { Link } from "@umijs/max"
 import { Button, Col, Row, Tag, Tooltip } from "antd"
 import styled from "styled-components"
-
+import { history } from 'umi'
 export default function Package() {
     return (
         <Scoped>
             <LittleLayout
                 back={true}
                 title="套餐"
-                more={<Button type="primary">查看账单</Button>}
+                more={<Button type="primary"
+                    onClick={()=>{
+                        history.push('/settings/bill');
+                    }}
+                >查看账单</Button>}
             >
                 {/* 支付方式 */}
                 <Row>
@@ -300,6 +304,7 @@ const Scoped = styled.div`
             border-radius: 6px;
             margin-bottom: 20px;
             background: #fff;
+            overflow: hidden;
             .sectionBox{
                 padding: 15px 24px;
                 background: #fafbfb;

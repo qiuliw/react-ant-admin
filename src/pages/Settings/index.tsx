@@ -60,7 +60,7 @@ const settingArray = [
         icon: '/icons/set/package.svg',
         title: '套餐',
         desc: '管理你的店铺套餐，并查看订单',
-        url: '/setting/package'
+        url: '/settings/package'
     },{
         icon: '/icons/set/rules.svg',
         title: '规则',

@@ -99,7 +99,7 @@ export default [
   },
   // 设置
   {
-    path: '/setting',
+    path: '/settings',
     routes: [
       {
         path: 'index',
@@ -108,6 +108,10 @@ export default [
       {
         path: 'package',
         component: './Settings/Package'
+      },
+      {
+        path: 'bill',
+        component: './Settings/Bill'
       }
     ]
   },
