@@ -238,8 +238,6 @@ const Scoped = styled.div`
   .ant-input-affix-wrapper-focused{
       border-color: #5e91ff;
       border-right-width: 1px!important;
-      -webkit-box-shadow: 0 0 import { styled } from 'styled-components';
-12px 0 rgba(53,109,255,0);
       box-shadow: 0 0 12px 0 rgba(53,109,255,0);
       outline: 0;
   }
