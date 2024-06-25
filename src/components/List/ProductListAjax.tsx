@@ -265,7 +265,7 @@ export default function ProductListAjax() {
   };
 
   return (
-    <>
+    <Scoped>
     {/* 商品列表 */}
       <Table
         columns={columns}
@@ -337,12 +337,16 @@ export default function ProductListAjax() {
           </Radio.Group>
         </Content>
       </Modal>
-    </>
+    </Scoped>
 
   );
 };
 
-
+const Scoped = styled.div`
+  .ant-table-tbody > tr > td {
+    padding: 10px; 
+  }
+`
 
 const ButtonIcon = styled.div`
 .wrap{
@@ -357,6 +361,7 @@ const ButtonIcon = styled.div`
         cursor:pointer;
     }
 }
+
 `
 
 const Content = styled.div`

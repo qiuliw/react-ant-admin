@@ -1,8 +1,8 @@
 import React, { ReactNode, useEffect, useState } from 'react';
-import { Avatar, Button, Checkbox, Flex, Input, message, Modal, Popover, Radio, Select, Switch, Table, Tooltip } from 'antd';
+import { Avatar, Button, Checkbox, Dropdown, Flex, Input, message, Modal, Popover, Radio, Select, Space, Switch, Table, Tooltip } from 'antd';
 import type { GetProp, MenuProps, RadioChangeEvent, SelectProps, TableColumnsType, TableProps } from 'antd';
 import qs from 'qs';
-import { CopyOutlined, EyeOutlined, QuestionCircleOutlined, SearchOutlined, UserOutlined } from '@ant-design/icons';
+import { CopyOutlined, DownOutlined, EyeOutlined, QuestionCircleOutlined, SearchOutlined, UserOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 import Product from './../../pages/Products/index';
 import ProductList from './ProductList';
@@ -170,6 +170,18 @@ export default function ProductListAjax() {
         <Input placeholder='搜索账单编号' suffix={<SearchOutlined />}
           style={{ width: 320 }}
         />
+        <Dropdown 
+        menu={menuProps}>
+          <Button style={{ width: 160,  height: 36 }}>
+            账单类型
+          </Button>
+        </Dropdown>
+        <Dropdown 
+        menu={menuProps}>
+          <Button style={{ width: 160,  height: 36 }}>
+            账单状态
+          </Button>
+        </Dropdown>
       </Flex>
 
       <div className='list'>
@@ -226,7 +238,8 @@ const Scoped = styled.div`
   .ant-input-affix-wrapper-focused{
       border-color: #5e91ff;
       border-right-width: 1px!important;
-      -webkit-box-shadow: 0 0 12px 0 rgba(53,109,255,0);
+      -webkit-box-shadow: 0 0 import { styled } from 'styled-components';
+12px 0 rgba(53,109,255,0);
       box-shadow: 0 0 12px 0 rgba(53,109,255,0);
       outline: 0;
   }
