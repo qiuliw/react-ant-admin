@@ -8,7 +8,7 @@ export default function MCTabs({defaultActiveKey,items,onChange}:{
 }){ 
     return(
         <Scoped>
-            <Tabs defaultActiveKey="1" items={items} onChange={onChange}/>;
+            <Tabs defaultActiveKey="1" items={items} onChange={onChange}/>
         </Scoped>
     )
 }

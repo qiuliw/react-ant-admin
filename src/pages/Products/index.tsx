@@ -86,7 +86,9 @@ export default function Product() {
 
 
   return (
-    <div className='create-warp-flex'>
+    <div className='create-warp-flex' style={{
+      width: "100%"
+    }}>
       <div className="create-warp">
         <div className='create-title'>
           <div className='create-title-left'>

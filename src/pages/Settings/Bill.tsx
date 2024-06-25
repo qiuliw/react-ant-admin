@@ -1,4 +1,5 @@
 import BackButton from "@/components/Button/BackButton";
+import BillList from "@/components/List/BillList";
 import MCTabs from "@/components/Tabs/MCTabs";
 import { DownOutlined, UploadOutlined } from "@ant-design/icons";
 import { Button, Dropdown, MenuProps, Space, Tabs, TabsProps } from "antd";
@@ -30,7 +31,7 @@ const onChange = (key: string) => {
     {
       key: '1',
       label: '账单列表',
-      children: 'Content of Tab Pane 1',
+      children: <BillList/>,
     },
     {
       key: '2',
@@ -47,30 +48,36 @@ export default function Bill() {
 
     return (
         <Scoped>
-            <div className="header">
-                <BackButton />
-                <span className="titleText">
-                    我的账单
-                </span>
-                <span className="exportBtn">
-                    <Dropdown menu={{ items:exportBtnItems }} trigger={['click']}>
-                        <Space size={4}>
-                            <UploadOutlined style={{ fontSize: '20px' }} />
-                            导出账单
-                            <DownOutlined />
-                        </Space>
-                    </Dropdown>
-                </span>
-            </div>
-            <div className="body">
-            <MCTabs defaultActiveKey="1" items={PageItems} onChange={onChange} />;
+            <div className="bill-wrap">
+                <div className="header">
+                    <BackButton />
+                    <span className="titleText">
+                        我的账单
+                    </span>
+                    <span className="exportBtn">
+                        <Dropdown menu={{ items:exportBtnItems }} trigger={['click']}>
+                            <Space size={4}>
+                                <UploadOutlined style={{ fontSize: '20px' }} />
+                                导出账单
+                                <DownOutlined />
+                            </Space>
+                        </Dropdown>
+                    </span>
+                </div>
+                <div className="body">
+                <MCTabs defaultActiveKey="1" items={PageItems} onChange={onChange} />
+                </div>
             </div>
         </Scoped>
     )
 }
 
 const Scoped = styled.div`
-max-width: 1220px;
+.bill-wrap{
+    margin:auto;
+    width: 90vw;
+    max-width: 1220px;
+}
 .header{
     display: flex;
     align-content: center;
@@ -103,12 +110,6 @@ max-width: 1220px;
         cursor: pointer;
         font-size: 16px;
         line-height:22px;
-        .ant-tabs-tab-btn{
-        color: #7a8499;
-        }
-
     }
-
-
 }
 `

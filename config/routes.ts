@@ -111,8 +111,10 @@ export default [
       },
       {
         path: 'bill',
+        layout: false,
         component: './Settings/Bill'
-      }
+      },
+      
     ]
   },
   // {
