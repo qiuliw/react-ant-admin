@@ -47,34 +47,38 @@ const handleMenuClick: MenuProps['onClick'] = (e) => {
   console.log('click', e);
 };
 
-const items: MenuProps['items'] = [
+const billGeneratedItems: MenuProps['items'] = [
   {
-    label: '1st menu item',
+    label: '订阅菜单',
     key: '1',
-    icon: <UserOutlined />,
   },
   {
-    label: '2nd menu item',
+    label: '佣金',
     key: '2',
-    icon: <UserOutlined />,
   },
   {
-    label: '3rd menu item',
-    key: '3',
-    icon: <UserOutlined />,
-    danger: true,
+    label: '短信',
+    key: '3'
   },
   {
-    label: '4rd menu item',
+    label: '渠道服务',
     key: '4',
-    icon: <UserOutlined />,
-    danger: true,
-    disabled: true,
+    // icon: <UserOutlined />,
+    // danger: true,
+    // disabled: true,
   },
+  {
+    label: '增值功能',
+    key: '5',
+  },
+  {
+    label: '应用',
+    key: '5',
+  }
 ];
 
 const menuProps = {
-  items,
+  items:billGeneratedItems,
   onClick: handleMenuClick,
 };
 
