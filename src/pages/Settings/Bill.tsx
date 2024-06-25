@@ -1,5 +1,6 @@
 import BackButton from "@/components/Button/BackButton";
 import BillList from "@/components/List/BillList";
+import CommissionFlowList from "@/components/List/CommissionFlowList";
 import MCTabs from "@/components/Tabs/MCTabs";
 import { DownOutlined, UploadOutlined } from "@ant-design/icons";
 import { Button, Dropdown, MenuProps, Space, Tabs, TabsProps } from "antd";
@@ -36,7 +37,7 @@ const onChange = (key: string) => {
     {
       key: '2',
       label: '佣金流水',
-      children: 'Content of Tab Pane 2',
+      children: <CommissionFlowList/>,
     },
     {
       key: '3',

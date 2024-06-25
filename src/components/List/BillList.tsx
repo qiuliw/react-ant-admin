@@ -1,5 +1,5 @@
 import React, { ReactNode, useEffect, useState } from 'react';
-import { Avatar, Button, Checkbox, Dropdown, Flex, Input, message, Modal, Popover, Radio, Select, Space, Switch, Table, Tooltip } from 'antd';
+import { Avatar, Button, Checkbox, DatePicker, Dropdown, Flex, Input, message, Modal, Popover, Radio, Select, Space, Switch, Table, Tooltip } from 'antd';
 import type { GetProp, MenuProps, RadioChangeEvent, SelectProps, TableColumnsType, TableProps } from 'antd';
 import qs from 'qs';
 import { CopyOutlined, DownOutlined, EyeOutlined, QuestionCircleOutlined, SearchOutlined, UserOutlined } from '@ant-design/icons';
@@ -163,7 +163,7 @@ export default function ProductListAjax() {
       setData([]);
     }
   };
-
+  const { RangePicker } = DatePicker;
   return (
     <Scoped>
       <Flex gap={20} style={{ marginBottom: "20px", marginTop: "10px" }}>
@@ -182,6 +182,7 @@ export default function ProductListAjax() {
             账单状态
           </Button>
         </Dropdown>
+        <RangePicker />
       </Flex>
 
       <div className='list'>
@@ -202,11 +203,8 @@ export default function ProductListAjax() {
             },
           }}
         />
-
       </div>
     </Scoped>
-
-
   );
 };
 
